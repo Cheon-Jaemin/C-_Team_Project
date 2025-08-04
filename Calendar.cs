@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,7 +19,7 @@ namespace C_TeamProject
         bool isWeekView = false; //
         DateTime currentWeekStart = DateTime.Today; //
         Panel selectedDay = null;
-
+        DateTime cursorDatetime;
         public Calendar()
         {
             InitializeComponent();
@@ -45,6 +46,9 @@ namespace C_TeamProject
                     }
                 }
             }
+            cursorDatetime = DateTime.Now;
+            ShowEventList();
+
         }
 
         public void Day_Click(object sender, EventArgs e)
@@ -77,6 +81,15 @@ namespace C_TeamProject
             clickPanel.BackColor = Color.LightBlue;
             selectedDay = clickPanel;
 
+            Label selectedLabel = clickPanel.Controls[0] as Label;                          //소현섭 코드
+            if (selectedLabel != null && int.TryParse(selectedLabel.Text, out int day))
+            {
+                cursorDatetime = new DateTime(currentYear, currentMonth, day);
+                //tbEventStart.Text = cursorDatetime.ToString();                        //tbEventStart는 임의로 표시간 이벤트 시작일 표시 텍스트박스
+                //tbEventEnd.Text = cursorDatetime.ToString();                          // 오나지
+
+            }
+            
         }
 
         public void Fill(int year, int month)
@@ -181,6 +194,7 @@ namespace C_TeamProject
             }
 
             int today = DateTime.Now.Day;
+            cursorDatetime = new DateTime(currentYear, currentMonth, today); //소현섭 코드
             foreach (Control ctrl in CalendarTable.Controls)
             {
                 if (ctrl is Panel panel && panel.Controls.Count > 0)
@@ -268,5 +282,214 @@ namespace C_TeamProject
             CalendarWeekTable.Visible = false;
             tableLayoutPanel3.Visible = false;
         }
+
+        //소현섭 코드
+        private void ShowEventList()
+        {
+            List<CalendarEvent> events = selectDb(cursorDatetime);
+            Dictionary<string, int> eventRowMap = new Dictionary<string, int>(); // 이벤트별 고정 행
+            Dictionary<Panel, HashSet<int>> usedRows = new Dictionary<Panel, HashSet<int>>(); // 날짜별 사용한 행
+
+            foreach (CalendarEvent e in events)
+            {
+                DateTime start = e.EventStart;
+                DateTime end = e.EventEnd;
+
+                // 이벤트마다 고정된 행 결정 (최대 3행까지 가능)
+                int assignedRow = -1;
+                if (!eventRowMap.ContainsKey(e.Title))
+                {
+                    // 각 날짜 패널을 스캔하면서 가능한 행을 찾음
+                    for (int row = 0; row < 3; row++)
+                    {
+                        bool canAssign = true;
+                        for (DateTime d = start; d <= end; d = d.AddDays(1))
+                        {
+                            if (d.Month != cursorDatetime.Month || d.Year != cursorDatetime.Year)
+                                continue;
+
+                            Panel targetPanel = GetPanelByDate(d.Day);
+                            if (targetPanel == null) continue;
+
+                            if (!usedRows.ContainsKey(targetPanel))
+                                usedRows[targetPanel] = new HashSet<int>();
+
+                            if (usedRows[targetPanel].Contains(row))
+                            {
+                                canAssign = false;
+                                break;
+                            }
+                        }
+
+                        if (canAssign)
+                        {
+                            assignedRow = row;
+                            eventRowMap[e.Title] = row;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    assignedRow = eventRowMap[e.Title];
+                }
+
+                // 각 날짜에 라벨 생성
+                for (DateTime d = start; d <= end; d = d.AddDays(1))
+                {
+                    if (d.Month != cursorDatetime.Month || d.Year != cursorDatetime.Year)
+                        continue;
+
+                    Panel panel = GetPanelByDate(d.Day);
+                    if (panel == null) continue;
+
+                    if (!usedRows.ContainsKey(panel))
+                        usedRows[panel] = new HashSet<int>();
+
+                    // row가 3 이상이면 "+N개 더 있음"만 표시
+                    if (usedRows[panel].Count >= 3)
+                        continue;
+
+                    if (assignedRow >= 0 && !usedRows[panel].Contains(assignedRow))
+                    {
+                        Label label = new Label();
+                        label.Text = e.Title;
+                        label.AutoSize = false;
+                        label.Height = 15;
+                        label.Width = panel.Width - 4;
+                        label.Font = new Font("맑은 고딕", 7);
+                        label.ForeColor = Color.DarkGreen;
+                        label.BackColor = Color.Transparent;
+                        label.TextAlign = ContentAlignment.MiddleLeft;
+                        label.Padding = new Padding(2, 0, 0, 0);
+                        label.Top = 15 + (assignedRow * 15);
+                        label.Left = 2;
+                        label.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+
+                        panel.Controls.Add(label);
+                        usedRows[panel].Add(assignedRow);
+                    }
+                }
+            }
+
+            // 초과 이벤트 "+n개" 표시
+            foreach (Control ctrl in CalendarTable.Controls)
+            {
+                if (ctrl is Panel panel)
+                {
+                    int labelCount = panel.Controls.OfType<Label>().Count(l => l != panel.Controls[0]); // 첫 Label은 날짜
+                    if (labelCount > 3)
+                    {
+                        int hiddenCount = labelCount - 3;
+
+                        Label moreLabel = new Label();
+                        moreLabel.Text = $"+{hiddenCount}개 더 있음";
+                        moreLabel.AutoSize = false;
+                        moreLabel.Height = 15;
+                        moreLabel.Width = panel.Width - 4;
+                        moreLabel.Font = new Font("맑은 고딕", 7, FontStyle.Italic);
+                        moreLabel.ForeColor = Color.Gray;
+                        moreLabel.TextAlign = ContentAlignment.MiddleLeft;
+                        moreLabel.Top = 15 + (2 * 15);
+                        moreLabel.Left = 2;
+
+                        // 기존 초과 Label 제거
+                        foreach (var old in panel.Controls.OfType<Label>().Where(l => l.Text.StartsWith("+")).ToList())
+                            panel.Controls.Remove(old);
+
+                        panel.Controls.Add(moreLabel);
+                    }
+                }
+            }
+        }
+        private Panel GetPanelByDate(int day)
+        {
+            foreach (Control ctrl in CalendarTable.Controls)
+            {
+                if (ctrl is Panel panel && panel.Controls.Count > 0)
+                {
+                    if (panel.Controls[0] is Label label && int.TryParse(label.Text, out int labelDay))
+                    {
+                        if (labelDay == day)
+                            return panel;
+                    }
+                }
+            }
+            return null;
+        }
+
+        private void insertDb(string startdate, string enddate, string title, string content)
+        {
+            MySqlConnection connection = new MySqlConnection("Server=localhost;Port=3306;Database=calendar;Uid=root;Pwd=1234");
+            string insertQuery = $"INSERT INTO eventlist(eventStart,eventEnd,title,content) VALUES(@vntStart, @vntEnd, @titleq, @contentq )";
+
+            try
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(insertQuery, connection);
+                command.Parameters.AddWithValue("@vntStart", startdate);
+                command.Parameters.AddWithValue("@vntEnd", enddate);
+                command.Parameters.AddWithValue("@titleq", title);
+                command.Parameters.AddWithValue("@contentq", content);
+                if (command.ExecuteNonQuery() == 1)
+                    MessageBox.Show("인서트 성공");
+                else
+                    MessageBox.Show("인서트 실패");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("실패 : " + ex.ToString());
+            }
+        }
+
+        private List<CalendarEvent> selectDb(DateTime cursorDatetimedate)
+        {
+            List<CalendarEvent> events = new List<CalendarEvent>();
+
+            string connStr = "Server=localhost;Port=3306;Database=calendar;Uid=root;Pwd=1234";
+            using (MySqlConnection connection = new MySqlConnection(connStr))
+            {
+                connection.Open();
+
+                DateTime monthStart = new DateTime(cursorDatetimedate.Year, cursorDatetimedate.Month, 1);
+                DateTime monthEnd = new DateTime(cursorDatetimedate.Year, cursorDatetimedate.Month, DateTime.DaysInMonth(cursorDatetimedate.Year, cursorDatetimedate.Month));
+
+                string query = "SELECT * FROM eventlist WHERE eventStart>= @start AND eventEnd <= @end ORDER BY eventStart ASC";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@start", monthStart);
+                    cmd.Parameters.AddWithValue("@end", monthEnd);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            events.Add(new CalendarEvent
+                            {
+                                Title = reader.GetString("title"),
+                                Content = reader.GetString("content"),
+                                EventStart = reader.GetDateTime("eventStart"),
+                                EventEnd = reader.GetDateTime("eventEnd")
+                            });
+                        }
+                    }
+                }
+            }
+
+            return events;
+        }
+        public class CalendarEvent
+        {
+            public string Title { get; set; }
+            public string Content { get; set; }
+            public DateTime EventStart { get; set; }
+            public DateTime EventEnd { get; set; }
+        }
+
+
     }
+
+
+
 }

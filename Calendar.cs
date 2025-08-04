@@ -208,6 +208,7 @@ namespace C_TeamProject
         public void ShowWeek(DateTime selectDay)
         {
             DateTime startWeek = selectDay.AddDays(-(int)selectDay.DayOfWeek);
+            currentWeekStart = startWeek;
             isWeekView = true;
 
             lbYearMonth.Text = $"{startWeek.Year}년 {startWeek.Month}월";
@@ -239,13 +240,27 @@ namespace C_TeamProject
             }
             else
             {
-                ShowWeek(DateTime.Now);
+                // 현재 월의 첫째 날 기준으로 주간 표시
+                DateTime firstDayOfMonth = new DateTime(currentYear, currentMonth, 1);
+                DateTime startOfWeek = firstDayOfMonth.AddDays(-(int)firstDayOfMonth.DayOfWeek);
+
+                if (startOfWeek.Month != currentMonth)
+                {
+                    startOfWeek = startOfWeek.AddDays(7);
+                }
+
+                ShowWeek(firstDayOfMonth);
             }
         }
 
         private void btnMonth_Click(object sender, EventArgs e)
         {
             isWeekView = false;
+
+            currentYear = currentWeekStart.Year;
+            currentMonth = currentWeekStart.Month;
+
+            Fill(currentYear, currentMonth);
 
             CalendarTable.Visible = true;
             tableLayoutPanel1.Visible = true;

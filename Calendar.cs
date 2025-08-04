@@ -15,7 +15,7 @@ namespace C_TeamProject
     {
         public int currentYear;
         public int currentMonth;
-        bool isWeekView = false; //
+        bool isWeekView = false; 
         DateTime currentWeekStart = DateTime.Today; //
         Panel selectedDay = null;
 

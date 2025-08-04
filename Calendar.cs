@@ -45,6 +45,22 @@ namespace C_TeamProject
                     }
                 }
             }
+
+            foreach (Control ctrl in CalendarWeekTable.Controls)
+            {
+                if(ctrl is Panel panel)
+                {
+                    panel.Click += WeekDay_Click;
+                    panel.Tag = panel;
+
+                    Label label = panel.Controls.OfType<Label>().FirstOrDefault();
+                    if (label != null)
+                    {
+                        label.Click += WeekDay_Click;
+                        label.Tag = panel;
+                    }
+                }
+            }
         }
 
         public void Day_Click(object sender, EventArgs e)
@@ -77,6 +93,40 @@ namespace C_TeamProject
             clickPanel.BackColor = Color.LightBlue;
             selectedDay = clickPanel;
 
+        }
+
+        public void WeekDay_Click(object sender, EventArgs e)
+        {
+            Panel clickPanel = null;
+
+            if(sender is Panel p)
+            {
+                clickPanel = p;
+            }
+            else if (sender is Label label && label.Tag is Panel taggedPanel)
+            {
+                clickPanel = taggedPanel;
+            }
+
+            if(clickPanel == null || clickPanel.Controls.Count == 0)
+            {
+                return;
+            }
+
+            Label dateLabel = clickPanel.Controls[0] as Label;
+
+            if(string.IsNullOrEmpty(dateLabel?.Text))
+            {
+                return;
+            }
+
+            if(selectedDay != null)
+            {
+                selectedDay.BackColor = Color.White;
+            }
+
+            clickPanel.BackColor = Color.LightBlue;
+            selectedDay = clickPanel;
         }
 
         public void Fill(int year, int month)

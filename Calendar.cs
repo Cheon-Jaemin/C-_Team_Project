@@ -15,6 +15,8 @@ namespace C_TeamProject
     {
         public int currentYear;
         public int currentMonth;
+        bool isWeekView = false; //
+        DateTime currentWeekStart = DateTime.Today; //
         Panel selectedDay = null;
 
         public Calendar()
@@ -129,24 +131,40 @@ namespace C_TeamProject
 
         private void btnPrev_Click(object sender, EventArgs e)
         {
-            currentMonth--;
-            if (currentMonth == 0)
+            if (isWeekView)
             {
-                currentMonth = 12;
-                currentYear--;
+                currentWeekStart = currentWeekStart.AddDays(-7);
+                ShowWeek(currentWeekStart);
             }
-            Fill(currentYear, currentMonth);
+            else//
+            {
+                currentMonth--;
+                if (currentMonth == 0)
+                {
+                    currentMonth = 12;
+                    currentYear--;
+                }
+                Fill(currentYear, currentMonth);
+            }
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            currentMonth++;
-            if (currentMonth == 13)
+            if (isWeekView)
             {
-                currentMonth = 1;
-                currentYear++;
+                currentWeekStart = currentWeekStart.AddDays(7);
+                ShowWeek(currentWeekStart);
             }
-            Fill(currentYear, currentMonth);
+            else//
+            {
+                currentMonth++;
+                if (currentMonth == 13)
+                {
+                    currentMonth = 1;
+                    currentYear++;
+                }
+                Fill(currentYear, currentMonth);
+            }
         }
 
         private void btnToday_Click(object sender, EventArgs e)
@@ -154,6 +172,13 @@ namespace C_TeamProject
             currentYear = DateTime.Now.Year;
             currentMonth = DateTime.Now.Month;
             Fill(currentYear, currentMonth);
+
+            if (isWeekView)
+            {
+                currentWeekStart = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
+                ShowWeek(currentWeekStart);
+                return;
+            }
 
             int today = DateTime.Now.Day;
             foreach (Control ctrl in CalendarTable.Controls)
@@ -183,6 +208,9 @@ namespace C_TeamProject
         public void ShowWeek(DateTime selectDay)
         {
             DateTime startWeek = selectDay.AddDays(-(int)selectDay.DayOfWeek);
+            isWeekView = true;
+
+            lbYearMonth.Text = $"{startWeek.Year}년 {startWeek.Month}월";
 
             for (int i = 0; i < 7; i++)
             {
@@ -217,11 +245,13 @@ namespace C_TeamProject
 
         private void btnMonth_Click(object sender, EventArgs e)
         {
+            isWeekView = false;
+
             CalendarTable.Visible = true;
             tableLayoutPanel1.Visible = true;
 
             CalendarWeekTable.Visible = false;
             tableLayoutPanel3.Visible = false;
-        }///////
+        }
     }
 }

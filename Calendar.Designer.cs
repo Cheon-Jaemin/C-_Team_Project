@@ -1902,6 +1902,7 @@
             Controls.Add(tableLayoutPanel1);
             Controls.Add(CalendarTable);
             Name = "Calendar";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
             Load += Form1_Load;
             CalendarTable.ResumeLayout(false);

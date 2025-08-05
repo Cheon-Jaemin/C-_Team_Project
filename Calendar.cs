@@ -203,7 +203,7 @@ namespace C_TeamProject
                         if (holidays.ContainsKey(thisDate))
                         {
                             label.ForeColor = Color.Red;
-                            label.Text += Environment.NewLine + holidays[thisDate]; // 줄 바꿈 후 공휴일 이름 추가
+                            label.Text += "\n" + holidays[thisDate]; // 줄 바꿈 후 공휴일 이름 추가
                         }
                         else
                         {
@@ -294,21 +294,25 @@ namespace C_TeamProject
                 {
                     Label label = panel.Controls[0] as Label;
 
-                    // 날짜 부분만 정확히 비교하기 위해 텍스트를 파싱
-                    if (label != null && int.TryParse(label.Text.Split(new[] { '\n', ' ' }, StringSplitOptions.RemoveEmptyEntries)[0], out int labelDay) && labelDay == today)
+                    if (label != null && !string.IsNullOrWhiteSpace(label.Text))
                     {
-                        if (selectedDay != null)
+                        // 날짜 숫자 부분만 안전하게 추출
+                        string[] split = label.Text.Split(new[] { '\n', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        if (split.Length > 0 && int.TryParse(split[0], out int labelDay) && labelDay == today)
                         {
-                            Label oldLabel = selectedDay.Controls[0] as Label;
-                            if (oldLabel != null && !string.IsNullOrEmpty(oldLabel.Text))
+                            if (selectedDay != null)
                             {
-                                selectedDay.BackColor = Color.White;
+                                Label oldLabel = selectedDay.Controls[0] as Label;
+                                if (oldLabel != null && !string.IsNullOrEmpty(oldLabel.Text))
+                                {
+                                    selectedDay.BackColor = Color.White;
+                                }
                             }
-                        }
 
-                        panel.BackColor = Color.LightBlue;
-                        selectedDay = panel;
-                        break;
+                            panel.BackColor = Color.LightBlue;
+                            selectedDay = panel;
+                            break;
+                        }
                     }
                 }
             }
@@ -339,7 +343,7 @@ namespace C_TeamProject
                     // 공휴일인 경우, 날짜 뒤에 줄 바꿈 후 공휴일 이름을 추가
                     if (holidays.ContainsKey(day.Date))
                     {
-                        label.Text += Environment.NewLine + holidays[day.Date];
+                        label.Text += "\n" + holidays[day.Date];
                         label.ForeColor = Color.Red;
                     }
                     else // 공휴일이 아닌 경우, 요일에 따라 색상 지정

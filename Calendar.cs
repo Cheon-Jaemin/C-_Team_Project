@@ -8,11 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace C_TeamProject
 {
 
     public partial class Calendar : Form
     {
+        private bool isDragging = false;
+        private Panel dragStartPanel = null;
+        private Panel dragEndPanel = null;
+        private List<Panel> selectedPanels = new List<Panel>();
+        private DateTime? startDate = null;
+        private DateTime? endDate = null;
         public int currentYear;
         public int currentMonth;
         bool isWeekView = false; //
@@ -32,10 +39,14 @@ namespace C_TeamProject
 
             foreach (Control ctrl in CalendarTable.Controls)
             {
+
                 if (ctrl is Panel panel)
                 {
                     panel.Click += Day_Click;
                     panel.Tag = panel;
+                    panel.MouseDown += Panel_MouseDown;
+                    panel.MouseMove += Panel_MouseMove;
+                    panel.MouseUp += Panel_MouseUp;
 
                     Label label = panel.Controls.OfType<Label>().FirstOrDefault();
                     if (label != null)
@@ -44,12 +55,17 @@ namespace C_TeamProject
                         label.Tag = panel;
                     }
                 }
+
             }
 
             foreach (Control ctrl in CalendarWeekTable.Controls)
             {
                 if(ctrl is Panel panel)
                 {
+                    panel.MouseDown += Panel_MouseDown;
+                    panel.MouseMove += Panel_MouseMove;
+                    panel.MouseUp += Panel_MouseUp;
+
                     panel.Click += WeekDay_Click;
                     panel.Tag = panel;
 
@@ -299,7 +315,7 @@ namespace C_TeamProject
                     startOfWeek = startOfWeek.AddDays(7);
                 }
 
-                ShowWeek(firstDayOfMonth);
+                ShowWeek(startOfWeek);
             }
         }
 
@@ -318,5 +334,129 @@ namespace C_TeamProject
             CalendarWeekTable.Visible = false;
             tableLayoutPanel3.Visible = false;
         }
+        private void Panel_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (sender is Panel panel)
+            {
+                isDragging = true;
+                dragStartPanel = panel;
+
+                panel.Capture = true;
+
+                if (selectedDay != null)
+                {
+                    selectedDay.BackColor = Color.White;
+                    selectedDay = null;
+                }
+
+                ClearSelectedPanels();
+
+                selectedPanels.Add(panel);
+                panel.BackColor = Color.LightBlue;
+
+                // 날짜 저장
+                Label label = panel.Controls[0] as Label;
+                if (label != null && int.TryParse(label.Text, out int day))
+                {
+                    startDate = new DateTime(currentYear, currentMonth, day);                   
+                }
+            }
+        }
+
+        private void Panel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDragging)
+            {
+                Panel currentPanel = null;
+
+                if (sender is Panel panel)
+                {
+                    currentPanel = panel;
+                }
+                else if (sender is Label label && label.Tag is Panel taggedPanel)
+                {
+                    currentPanel = taggedPanel;
+                }
+
+                if (currentPanel != null)
+                {
+                    SelectPanelsInRange(dragStartPanel, currentPanel);
+                }
+            }
+        }
+
+        private void Panel_MouseUp(object sender, MouseEventArgs e)
+        {
+            isDragging = false;
+
+            Panel panel = null;
+
+            if (sender is Panel p)
+                panel = p;
+            else if (sender is Label label && label.Tag is Panel taggedPanel)
+                panel = taggedPanel;
+
+            if (panel != null)
+            {
+                dragEndPanel = panel;
+
+                Label label = panel.Controls[0] as Label;
+                if (label != null && int.TryParse(label.Text, out int day))
+                {
+                    endDate = new DateTime(currentYear, currentMonth, day);
+                }
+            }
+            if (dragStartPanel != null)
+                dragStartPanel.Capture = false;
+
+            MessageBox.Show($"드래그 범위: {startDate} ~ {endDate}");
+            dragStartPanel = null;
+        }
+        private void SelectPanelsInRange(Panel startPanel, Panel endPanel)
+        {
+            // 먼저 이전 선택 해제
+            ClearSelectedPanels();
+
+            // CalendarTable.Controls는 42개(6주 * 7일) 패널로 가정
+
+            int startIndex = CalendarTable.Controls.IndexOf(startPanel);
+            int endIndex = CalendarTable.Controls.IndexOf(endPanel);
+
+            if (startIndex < 0 || endIndex < 0)
+                return;
+
+            int min = Math.Min(startIndex, endIndex);
+            int max = Math.Max(startIndex, endIndex);
+
+            for (int i = min; i <= max; i++)
+            {
+                Panel panel = CalendarTable.Controls[i] as Panel;
+                if (panel != null && panel.Controls.Count > 0)
+                {
+                    Label label = panel.Controls[0] as Label;
+                    if (label != null && !string.IsNullOrEmpty(label.Text))
+                    {
+                        panel.BackColor = Color.LightBlue;
+                        selectedPanels.Add(panel);
+                    }
+                }
+            }
+        }
+        private void ClearSelectedPanels()
+        {
+            foreach (var panel in selectedPanels)
+            {
+                if (panel.Controls.Count > 0)
+                {
+                    Label label = panel.Controls[0] as Label;
+                    if (label != null && !string.IsNullOrEmpty(label.Text))
+                    {
+                        panel.BackColor = Color.White;
+                    }
+                }
+            }
+            selectedPanels.Clear();
+        }
+
     }
 }

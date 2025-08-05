@@ -315,7 +315,7 @@
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
             label1.Padding = new Padding(5);
-            label1.Size = new Size(96, 23);
+            label1.Size = new Size(96, 40);
             label1.TabIndex = 0;
             label1.Text = "label1";
             label1.TextAlign = ContentAlignment.TopRight;
@@ -338,7 +338,7 @@
             label2.Location = new Point(0, 0);
             label2.Name = "label2";
             label2.Padding = new Padding(5);
-            label2.Size = new Size(97, 23);
+            label2.Size = new Size(97, 40);
             label2.TabIndex = 1;
             label2.Text = "label2";
             label2.TextAlign = ContentAlignment.TopRight;
@@ -361,7 +361,7 @@
             label3.Location = new Point(0, 0);
             label3.Name = "label3";
             label3.Padding = new Padding(5);
-            label3.Size = new Size(97, 23);
+            label3.Size = new Size(97, 40);
             label3.TabIndex = 1;
             label3.Text = "label3";
             label3.TextAlign = ContentAlignment.TopRight;
@@ -384,7 +384,7 @@
             label4.Location = new Point(0, 0);
             label4.Name = "label4";
             label4.Padding = new Padding(5);
-            label4.Size = new Size(97, 23);
+            label4.Size = new Size(97, 40);
             label4.TabIndex = 1;
             label4.Text = "label4";
             label4.TextAlign = ContentAlignment.TopRight;
@@ -407,7 +407,7 @@
             label5.Location = new Point(0, 0);
             label5.Name = "label5";
             label5.Padding = new Padding(5);
-            label5.Size = new Size(97, 23);
+            label5.Size = new Size(97, 40);
             label5.TabIndex = 1;
             label5.Text = "label5";
             label5.TextAlign = ContentAlignment.TopRight;
@@ -430,7 +430,7 @@
             label6.Location = new Point(0, 0);
             label6.Name = "label6";
             label6.Padding = new Padding(5);
-            label6.Size = new Size(97, 23);
+            label6.Size = new Size(97, 40);
             label6.TabIndex = 1;
             label6.Text = "label6";
             label6.TextAlign = ContentAlignment.TopRight;
@@ -453,7 +453,7 @@
             label7.Location = new Point(0, 0);
             label7.Name = "label7";
             label7.Padding = new Padding(5);
-            label7.Size = new Size(98, 23);
+            label7.Size = new Size(98, 40);
             label7.TabIndex = 1;
             label7.Text = "label7";
             label7.TextAlign = ContentAlignment.TopRight;
@@ -476,7 +476,7 @@
             label8.Location = new Point(0, 0);
             label8.Name = "label8";
             label8.Padding = new Padding(5);
-            label8.Size = new Size(96, 23);
+            label8.Size = new Size(96, 40);
             label8.TabIndex = 1;
             label8.Text = "label8";
             label8.TextAlign = ContentAlignment.TopRight;
@@ -499,7 +499,7 @@
             label9.Location = new Point(0, 0);
             label9.Name = "label9";
             label9.Padding = new Padding(5);
-            label9.Size = new Size(97, 23);
+            label9.Size = new Size(97, 40);
             label9.TabIndex = 1;
             label9.Text = "label9";
             label9.TextAlign = ContentAlignment.TopRight;
@@ -522,7 +522,7 @@
             label10.Location = new Point(0, 0);
             label10.Name = "label10";
             label10.Padding = new Padding(5);
-            label10.Size = new Size(97, 23);
+            label10.Size = new Size(97, 40);
             label10.TabIndex = 1;
             label10.Text = "label10";
             label10.TextAlign = ContentAlignment.TopRight;
@@ -545,7 +545,7 @@
             label11.Location = new Point(0, 0);
             label11.Name = "label11";
             label11.Padding = new Padding(5);
-            label11.Size = new Size(97, 23);
+            label11.Size = new Size(97, 40);
             label11.TabIndex = 1;
             label11.Text = "label11";
             label11.TextAlign = ContentAlignment.TopRight;
@@ -568,7 +568,7 @@
             label12.Location = new Point(0, 0);
             label12.Name = "label12";
             label12.Padding = new Padding(5);
-            label12.Size = new Size(97, 23);
+            label12.Size = new Size(97, 40);
             label12.TabIndex = 1;
             label12.Text = "label12";
             label12.TextAlign = ContentAlignment.TopRight;
@@ -591,7 +591,7 @@
             label13.Location = new Point(0, 0);
             label13.Name = "label13";
             label13.Padding = new Padding(5);
-            label13.Size = new Size(97, 23);
+            label13.Size = new Size(97, 40);
             label13.TabIndex = 1;
             label13.Text = "label13";
             label13.TextAlign = ContentAlignment.TopRight;
@@ -614,7 +614,7 @@
             label14.Location = new Point(0, 0);
             label14.Name = "label14";
             label14.Padding = new Padding(5);
-            label14.Size = new Size(98, 23);
+            label14.Size = new Size(98, 40);
             label14.TabIndex = 1;
             label14.Text = "label14";
             label14.TextAlign = ContentAlignment.TopRight;
@@ -637,7 +637,7 @@
             label15.Location = new Point(0, 0);
             label15.Name = "label15";
             label15.Padding = new Padding(5);
-            label15.Size = new Size(96, 23);
+            label15.Size = new Size(96, 40);
             label15.TabIndex = 1;
             label15.Text = "label15";
             label15.TextAlign = ContentAlignment.TopRight;
@@ -660,7 +660,7 @@
             label16.Location = new Point(0, 0);
             label16.Name = "label16";
             label16.Padding = new Padding(5);
-            label16.Size = new Size(97, 23);
+            label16.Size = new Size(97, 40);
             label16.TabIndex = 1;
             label16.Text = "label16";
             label16.TextAlign = ContentAlignment.TopRight;
@@ -683,7 +683,7 @@
             label17.Location = new Point(0, 0);
             label17.Name = "label17";
             label17.Padding = new Padding(5);
-            label17.Size = new Size(97, 23);
+            label17.Size = new Size(97, 40);
             label17.TabIndex = 1;
             label17.Text = "label17";
             label17.TextAlign = ContentAlignment.TopRight;
@@ -706,7 +706,7 @@
             label18.Location = new Point(0, 0);
             label18.Name = "label18";
             label18.Padding = new Padding(5);
-            label18.Size = new Size(97, 23);
+            label18.Size = new Size(97, 40);
             label18.TabIndex = 1;
             label18.Text = "label18";
             label18.TextAlign = ContentAlignment.TopRight;
@@ -729,7 +729,7 @@
             label19.Location = new Point(0, 0);
             label19.Name = "label19";
             label19.Padding = new Padding(5);
-            label19.Size = new Size(97, 23);
+            label19.Size = new Size(97, 40);
             label19.TabIndex = 1;
             label19.Text = "label19";
             label19.TextAlign = ContentAlignment.TopRight;
@@ -752,7 +752,7 @@
             label20.Location = new Point(0, 0);
             label20.Name = "label20";
             label20.Padding = new Padding(5);
-            label20.Size = new Size(97, 23);
+            label20.Size = new Size(97, 40);
             label20.TabIndex = 1;
             label20.Text = "label20";
             label20.TextAlign = ContentAlignment.TopRight;
@@ -775,7 +775,7 @@
             label21.Location = new Point(0, 0);
             label21.Name = "label21";
             label21.Padding = new Padding(5);
-            label21.Size = new Size(98, 23);
+            label21.Size = new Size(98, 40);
             label21.TabIndex = 1;
             label21.Text = "label21";
             label21.TextAlign = ContentAlignment.TopRight;
@@ -798,7 +798,7 @@
             label22.Location = new Point(0, 0);
             label22.Name = "label22";
             label22.Padding = new Padding(5);
-            label22.Size = new Size(96, 23);
+            label22.Size = new Size(96, 40);
             label22.TabIndex = 1;
             label22.Text = "label22";
             label22.TextAlign = ContentAlignment.TopRight;
@@ -821,7 +821,7 @@
             label23.Location = new Point(0, 0);
             label23.Name = "label23";
             label23.Padding = new Padding(5);
-            label23.Size = new Size(97, 23);
+            label23.Size = new Size(97, 40);
             label23.TabIndex = 1;
             label23.Text = "label23";
             label23.TextAlign = ContentAlignment.TopRight;
@@ -844,7 +844,7 @@
             label24.Location = new Point(0, 0);
             label24.Name = "label24";
             label24.Padding = new Padding(5);
-            label24.Size = new Size(97, 23);
+            label24.Size = new Size(97, 40);
             label24.TabIndex = 1;
             label24.Text = "label24";
             label24.TextAlign = ContentAlignment.TopRight;
@@ -867,7 +867,7 @@
             label25.Location = new Point(0, 0);
             label25.Name = "label25";
             label25.Padding = new Padding(5);
-            label25.Size = new Size(97, 23);
+            label25.Size = new Size(97, 40);
             label25.TabIndex = 1;
             label25.Text = "label25";
             label25.TextAlign = ContentAlignment.TopRight;
@@ -890,7 +890,7 @@
             label26.Location = new Point(0, 0);
             label26.Name = "label26";
             label26.Padding = new Padding(5);
-            label26.Size = new Size(97, 23);
+            label26.Size = new Size(97, 40);
             label26.TabIndex = 1;
             label26.Text = "label26";
             label26.TextAlign = ContentAlignment.TopRight;
@@ -913,7 +913,7 @@
             label27.Location = new Point(0, 0);
             label27.Name = "label27";
             label27.Padding = new Padding(5);
-            label27.Size = new Size(97, 23);
+            label27.Size = new Size(97, 40);
             label27.TabIndex = 1;
             label27.Text = "label27";
             label27.TextAlign = ContentAlignment.TopRight;
@@ -936,7 +936,7 @@
             label28.Location = new Point(0, 0);
             label28.Name = "label28";
             label28.Padding = new Padding(5);
-            label28.Size = new Size(98, 23);
+            label28.Size = new Size(98, 40);
             label28.TabIndex = 1;
             label28.Text = "label28";
             label28.TextAlign = ContentAlignment.TopRight;
@@ -959,7 +959,7 @@
             label29.Location = new Point(0, 0);
             label29.Name = "label29";
             label29.Padding = new Padding(5);
-            label29.Size = new Size(96, 23);
+            label29.Size = new Size(96, 40);
             label29.TabIndex = 1;
             label29.Text = "label29";
             label29.TextAlign = ContentAlignment.TopRight;
@@ -982,7 +982,7 @@
             label30.Location = new Point(0, 0);
             label30.Name = "label30";
             label30.Padding = new Padding(5);
-            label30.Size = new Size(97, 23);
+            label30.Size = new Size(97, 40);
             label30.TabIndex = 1;
             label30.Text = "label30";
             label30.TextAlign = ContentAlignment.TopRight;
@@ -1005,7 +1005,7 @@
             label31.Location = new Point(0, 0);
             label31.Name = "label31";
             label31.Padding = new Padding(5);
-            label31.Size = new Size(97, 23);
+            label31.Size = new Size(97, 40);
             label31.TabIndex = 1;
             label31.Text = "label31";
             label31.TextAlign = ContentAlignment.TopRight;
@@ -1028,7 +1028,7 @@
             label32.Location = new Point(0, 0);
             label32.Name = "label32";
             label32.Padding = new Padding(5);
-            label32.Size = new Size(97, 23);
+            label32.Size = new Size(97, 40);
             label32.TabIndex = 1;
             label32.Text = "label32";
             label32.TextAlign = ContentAlignment.TopRight;
@@ -1051,7 +1051,7 @@
             label33.Location = new Point(0, 0);
             label33.Name = "label33";
             label33.Padding = new Padding(5);
-            label33.Size = new Size(97, 23);
+            label33.Size = new Size(97, 40);
             label33.TabIndex = 1;
             label33.Text = "label33";
             label33.TextAlign = ContentAlignment.TopRight;
@@ -1074,7 +1074,7 @@
             label34.Location = new Point(0, 0);
             label34.Name = "label34";
             label34.Padding = new Padding(5);
-            label34.Size = new Size(97, 23);
+            label34.Size = new Size(97, 40);
             label34.TabIndex = 1;
             label34.Text = "label34";
             label34.TextAlign = ContentAlignment.TopRight;
@@ -1097,7 +1097,7 @@
             label35.Location = new Point(0, 0);
             label35.Name = "label35";
             label35.Padding = new Padding(5);
-            label35.Size = new Size(98, 23);
+            label35.Size = new Size(98, 40);
             label35.TabIndex = 1;
             label35.Text = "label35";
             label35.TextAlign = ContentAlignment.TopRight;
@@ -1120,7 +1120,7 @@
             label36.Location = new Point(0, 0);
             label36.Name = "label36";
             label36.Padding = new Padding(5);
-            label36.Size = new Size(96, 23);
+            label36.Size = new Size(96, 40);
             label36.TabIndex = 1;
             label36.Text = "label36";
             label36.TextAlign = ContentAlignment.TopRight;
@@ -1143,7 +1143,7 @@
             label37.Location = new Point(0, 0);
             label37.Name = "label37";
             label37.Padding = new Padding(5);
-            label37.Size = new Size(97, 23);
+            label37.Size = new Size(97, 40);
             label37.TabIndex = 1;
             label37.Text = "label37";
             label37.TextAlign = ContentAlignment.TopRight;
@@ -1166,7 +1166,7 @@
             label38.Location = new Point(0, 0);
             label38.Name = "label38";
             label38.Padding = new Padding(5);
-            label38.Size = new Size(97, 23);
+            label38.Size = new Size(97, 40);
             label38.TabIndex = 1;
             label38.Text = "label38";
             label38.TextAlign = ContentAlignment.TopRight;
@@ -1189,7 +1189,7 @@
             label39.Location = new Point(0, 0);
             label39.Name = "label39";
             label39.Padding = new Padding(5);
-            label39.Size = new Size(97, 23);
+            label39.Size = new Size(97, 40);
             label39.TabIndex = 1;
             label39.Text = "label39";
             label39.TextAlign = ContentAlignment.TopRight;
@@ -1212,7 +1212,7 @@
             label40.Location = new Point(0, 0);
             label40.Name = "label40";
             label40.Padding = new Padding(5);
-            label40.Size = new Size(97, 23);
+            label40.Size = new Size(97, 40);
             label40.TabIndex = 1;
             label40.Text = "label40";
             label40.TextAlign = ContentAlignment.TopRight;
@@ -1235,7 +1235,7 @@
             label41.Location = new Point(0, 0);
             label41.Name = "label41";
             label41.Padding = new Padding(5);
-            label41.Size = new Size(97, 23);
+            label41.Size = new Size(97, 40);
             label41.TabIndex = 1;
             label41.Text = "label41";
             label41.TextAlign = ContentAlignment.TopRight;
@@ -1258,7 +1258,7 @@
             label42.Location = new Point(0, 0);
             label42.Name = "label42";
             label42.Padding = new Padding(5);
-            label42.Size = new Size(98, 23);
+            label42.Size = new Size(98, 40);
             label42.TabIndex = 1;
             label42.Text = "label42";
             label42.TextAlign = ContentAlignment.TopRight;
@@ -1534,7 +1534,7 @@
             label63.Location = new Point(0, 0);
             label63.Name = "label63";
             label63.Padding = new Padding(5);
-            label63.Size = new Size(98, 23);
+            label63.Size = new Size(98, 40);
             label63.TabIndex = 0;
             label63.Text = "label63";
             label63.TextAlign = ContentAlignment.TopRight;
@@ -1557,7 +1557,7 @@
             label62.Location = new Point(0, 0);
             label62.Name = "label62";
             label62.Padding = new Padding(5);
-            label62.Size = new Size(97, 23);
+            label62.Size = new Size(97, 40);
             label62.TabIndex = 0;
             label62.Text = "label62";
             label62.TextAlign = ContentAlignment.TopRight;
@@ -1580,7 +1580,7 @@
             label61.Location = new Point(0, 0);
             label61.Name = "label61";
             label61.Padding = new Padding(5);
-            label61.Size = new Size(97, 23);
+            label61.Size = new Size(97, 40);
             label61.TabIndex = 0;
             label61.Text = "label61";
             label61.TextAlign = ContentAlignment.TopRight;
@@ -1603,7 +1603,7 @@
             label60.Location = new Point(0, 0);
             label60.Name = "label60";
             label60.Padding = new Padding(5);
-            label60.Size = new Size(97, 23);
+            label60.Size = new Size(97, 40);
             label60.TabIndex = 0;
             label60.Text = "label60";
             label60.TextAlign = ContentAlignment.TopRight;
@@ -1626,7 +1626,7 @@
             label59.Location = new Point(0, 0);
             label59.Name = "label59";
             label59.Padding = new Padding(5);
-            label59.Size = new Size(97, 23);
+            label59.Size = new Size(97, 40);
             label59.TabIndex = 0;
             label59.Text = "label59";
             label59.TextAlign = ContentAlignment.TopRight;
@@ -1649,7 +1649,7 @@
             label58.Location = new Point(0, 0);
             label58.Name = "label58";
             label58.Padding = new Padding(5);
-            label58.Size = new Size(97, 23);
+            label58.Size = new Size(97, 40);
             label58.TabIndex = 0;
             label58.Text = "label58";
             label58.TextAlign = ContentAlignment.TopRight;
@@ -1672,7 +1672,7 @@
             label57.Location = new Point(0, 0);
             label57.Name = "label57";
             label57.Padding = new Padding(5);
-            label57.Size = new Size(96, 23);
+            label57.Size = new Size(96, 40);
             label57.TabIndex = 0;
             label57.Text = "label57";
             label57.TextAlign = ContentAlignment.TopRight;
@@ -1891,8 +1891,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1194, 709);
-            Controls.Add(tableLayoutPanel3);
-            Controls.Add(CalendarWeekTable);
             Controls.Add(btnPrev);
             Controls.Add(btnMonth);
             Controls.Add(btnWeek);
@@ -1901,6 +1899,8 @@
             Controls.Add(lbYearMonth);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(CalendarTable);
+            Controls.Add(CalendarWeekTable);
+            Controls.Add(tableLayoutPanel3);
             Name = "Calendar";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";

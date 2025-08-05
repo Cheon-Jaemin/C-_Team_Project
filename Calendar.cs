@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace C_TeamProject
 {
@@ -18,6 +19,49 @@ namespace C_TeamProject
         bool isWeekView = false; //
         DateTime currentWeekStart = DateTime.Today; //
         Panel selectedDay = null;
+
+        Dictionary<DateTime, string> holidays = new Dictionary<DateTime, string>();
+
+        public void AddHolidays(int year) // 공휴일 추가 메소드
+        {
+            holidays.Clear();
+
+            // 양력 공휴일 (공휴일 이름 끝의 공백 제거)
+            holidays[new DateTime(year, 1, 1)] = "신정";
+            holidays[new DateTime(year, 3, 1)] = "삼일절";
+            holidays[new DateTime(year, 5, 5)] = "어린이날";
+            holidays[new DateTime(year, 6, 6)] = "현충일";
+            holidays[new DateTime(year, 8, 15)] = "광복절";
+            holidays[new DateTime(year, 10, 3)] = "개천절";
+            holidays[new DateTime(year, 10, 9)] = "한글날";
+            holidays[new DateTime(year, 12, 25)] = "성탄절";
+
+            KoreanLunisolarCalendar klc = new KoreanLunisolarCalendar();
+
+            // 설날 (음력 1월 1일)
+            DateTime Seol = klc.ToDateTime(year, 1, 1, 0, 0, 0, 0, KoreanLunisolarCalendar.CurrentEra);
+            holidays[Seol.Date] = "설날";
+            holidays[Seol.AddDays(-1).Date] = "설날 연휴";
+            holidays[Seol.AddDays(1).Date] = "설날 연휴";
+
+            // 추석 (음력 8월 15일)
+            DateTime Chuseok;
+            if (year == 2025)
+            {
+                Chuseok = new DateTime(2025, 10, 6);
+            }
+            else
+            {
+                Chuseok = klc.ToDateTime(year, 8, 15, 0, 0, 0, 0, KoreanLunisolarCalendar.CurrentEra);
+            }
+            holidays[Chuseok.Date] = "추석";
+            holidays[Chuseok.AddDays(-1).Date] = "추석 연휴";
+            holidays[Chuseok.AddDays(1).Date] = "추석 연휴";
+
+            // 부처님오신날 (음력 4월 8일)
+            DateTime Buddha = klc.ToDateTime(year, 4, 8, 0, 0, 0, 0, KoreanLunisolarCalendar.CurrentEra);
+            holidays[Buddha.Date] = "부처님오신날";
+        }
 
         public Calendar()
         {
@@ -42,13 +86,14 @@ namespace C_TeamProject
                     {
                         label.Click += Day_Click;
                         label.Tag = panel;
+                       
                     }
                 }
             }
 
             foreach (Control ctrl in CalendarWeekTable.Controls)
             {
-                if(ctrl is Panel panel)
+                if (ctrl is Panel panel)
                 {
                     panel.Click += WeekDay_Click;
                     panel.Tag = panel;
@@ -58,6 +103,7 @@ namespace C_TeamProject
                     {
                         label.Click += WeekDay_Click;
                         label.Tag = panel;
+                       
                     }
                 }
             }
@@ -99,7 +145,7 @@ namespace C_TeamProject
         {
             Panel clickPanel = null;
 
-            if(sender is Panel p)
+            if (sender is Panel p)
             {
                 clickPanel = p;
             }
@@ -108,19 +154,19 @@ namespace C_TeamProject
                 clickPanel = taggedPanel;
             }
 
-            if(clickPanel == null || clickPanel.Controls.Count == 0)
+            if (clickPanel == null || clickPanel.Controls.Count == 0)
             {
                 return;
             }
 
             Label dateLabel = clickPanel.Controls[0] as Label;
 
-            if(string.IsNullOrEmpty(dateLabel?.Text))
+            if (string.IsNullOrEmpty(dateLabel?.Text))
             {
                 return;
             }
 
-            if(selectedDay != null)
+            if (selectedDay != null)
             {
                 selectedDay.BackColor = Color.White;
             }
@@ -131,6 +177,8 @@ namespace C_TeamProject
 
         public void Fill(int year, int month)
         {
+            AddHolidays(year); // 공휴일 추가 메소드
+
             lbYearMonth.Text = $"{year}년 {month}월";
 
             DateTime firstDay = new DateTime(year, month, 1);
@@ -149,21 +197,30 @@ namespace C_TeamProject
 
                     if (i >= index && day <= DaysInMonth)
                     {
-                        label.Text = day.ToString();
+                        DateTime thisDate = new DateTime(year, month, day).Date;
+                        label.Text = day.ToString(); // 날짜 먼저 설정
 
-                        int dayOfWeek = (i % 7);
-
-                        if (dayOfWeek == 0)
+                        if (holidays.ContainsKey(thisDate))
                         {
                             label.ForeColor = Color.Red;
-                        }
-                        else if (dayOfWeek == 6)
-                        {
-                            label.ForeColor = Color.Blue;
+                            label.Text += Environment.NewLine + holidays[thisDate]; // 줄 바꿈 후 공휴일 이름 추가
                         }
                         else
                         {
-                            label.ForeColor = Color.Black;
+                            int dayOfWeek = (i % 7);
+
+                            if (dayOfWeek == 0)
+                            {
+                                label.ForeColor = Color.Red;
+                            }
+                            else if (dayOfWeek == 6)
+                            {
+                                label.ForeColor = Color.Blue;
+                            }
+                            else
+                            {
+                                label.ForeColor = Color.Black;
+                            }
                         }
 
                         panel.Visible = true;
@@ -186,7 +243,7 @@ namespace C_TeamProject
                 currentWeekStart = currentWeekStart.AddDays(-7);
                 ShowWeek(currentWeekStart);
             }
-            else//
+            else
             {
                 currentMonth--;
                 if (currentMonth == 0)
@@ -205,7 +262,7 @@ namespace C_TeamProject
                 currentWeekStart = currentWeekStart.AddDays(7);
                 ShowWeek(currentWeekStart);
             }
-            else//
+            else
             {
                 currentMonth++;
                 if (currentMonth == 13)
@@ -237,7 +294,8 @@ namespace C_TeamProject
                 {
                     Label label = panel.Controls[0] as Label;
 
-                    if (label != null && label.Text == today.ToString())
+                    // 날짜 부분만 정확히 비교하기 위해 텍스트를 파싱
+                    if (label != null && int.TryParse(label.Text.Split(new[] { '\n', ' ' }, StringSplitOptions.RemoveEmptyEntries)[0], out int labelDay) && labelDay == today)
                     {
                         if (selectedDay != null)
                         {
@@ -261,16 +319,33 @@ namespace C_TeamProject
             currentWeekStart = startWeek;
             isWeekView = true;
 
+            // 해당 연도의 공휴일 정보를 미리 로드
+            AddHolidays(startWeek.Year);
+
+            // 주간 달력의 상단 헤더 텍스트를 "YYYY년 MM월" 형식으로 표시
             lbYearMonth.Text = $"{startWeek.Year}년 {startWeek.Month}월";
 
             for (int i = 0; i < 7; i++)
             {
                 DateTime day = startWeek.AddDays(i);
-                Panel panel = CalendarWeekTable.Controls[CalendarWeekTable.Controls.Count - 1 - i] as Panel;
+                // Controls[i] 대신 Controls[6 - i]를 사용하여 올바른 요일 패널에 매핑
+                Panel panel = CalendarWeekTable.Controls[6 - i] as Panel;
+
                 if (panel != null && panel.Controls.Count > 0 && panel.Controls[0] is Label label)
                 {
+                    // 날짜만 표시 (MM/dd 형식)
                     label.Text = $"{day:MM/dd}";
-                    label.ForeColor = (i == 0) ? Color.Red : (i == 6) ? Color.Blue : Color.Black;
+
+                    // 공휴일인 경우, 날짜 뒤에 줄 바꿈 후 공휴일 이름을 추가
+                    if (holidays.ContainsKey(day.Date))
+                    {
+                        label.Text += Environment.NewLine + holidays[day.Date];
+                        label.ForeColor = Color.Red;
+                    }
+                    else // 공휴일이 아닌 경우, 요일에 따라 색상 지정
+                    {
+                        label.ForeColor = (i == 0) ? Color.Red : (i == 6) ? Color.Blue : Color.Black;
+                    }
                 }
             }
 
@@ -283,10 +358,15 @@ namespace C_TeamProject
 
         private void btnWeek_Click(object sender, EventArgs e)
         {
-            if (selectedDay != null && selectedDay.Controls[0] is Label label && int.TryParse(label.Text, out int day))
+            if (selectedDay != null && selectedDay.Controls[0] is Label label)
             {
-                DateTime selectedDate = new DateTime(currentYear, currentMonth, day);
-                ShowWeek(selectedDate);
+                // 공휴일 텍스트가 포함될 수 있으므로 첫 번째 줄 또는 첫 번째 공백까지의 숫자만 파싱
+                string datePart = label.Text.Split(new[] { '\n', ' ' }, StringSplitOptions.RemoveEmptyEntries)[0];
+                if (int.TryParse(datePart, out int day))
+                {
+                    DateTime selectedDate = new DateTime(currentYear, currentMonth, day);
+                    ShowWeek(selectedDate);
+                }
             }
             else
             {

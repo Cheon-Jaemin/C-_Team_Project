@@ -295,11 +295,10 @@ namespace C_TeamProject
                 DateTime start = e.EventStart;
                 DateTime end = e.EventEnd;
 
-                // 이벤트마다 고정된 행 결정 (최대 3행까지 가능)
                 int assignedRow = -1;
+
                 if (!eventRowMap.ContainsKey(e.Title))
                 {
-                    // 각 날짜 패널을 스캔하면서 가능한 행을 찾음
                     for (int row = 0; row < 3; row++)
                     {
                         bool canAssign = true;
@@ -334,7 +333,6 @@ namespace C_TeamProject
                     assignedRow = eventRowMap[e.Title];
                 }
 
-                // 각 날짜에 라벨 생성
                 for (DateTime d = start; d <= end; d = d.AddDays(1))
                 {
                     if (d.Month != cursorDatetime.Month || d.Year != cursorDatetime.Year)
@@ -346,12 +344,16 @@ namespace C_TeamProject
                     if (!usedRows.ContainsKey(panel))
                         usedRows[panel] = new HashSet<int>();
 
-                    // row가 3 이상이면 "+N개 더 있음"만 표시
                     if (usedRows[panel].Count >= 3)
                         continue;
 
                     if (assignedRow >= 0 && !usedRows[panel].Contains(assignedRow))
                     {
+                        // 날짜 라벨의 높이 확보
+                        int baseTop = 0;
+                        if (panel.Controls.Count > 0 && panel.Controls[0] is Label dayLabel)
+                            baseTop = dayLabel.Height;
+
                         Label label = new Label();
                         label.Text = e.Title;
                         label.AutoSize = false;
@@ -362,25 +364,35 @@ namespace C_TeamProject
                         label.BackColor = Color.Transparent;
                         label.TextAlign = ContentAlignment.MiddleLeft;
                         label.Padding = new Padding(2, 0, 0, 0);
-                        label.Top = 15 + (assignedRow * 15);
+                        label.Top = baseTop + (assignedRow * 15);
                         label.Left = 2;
                         label.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-
+                        label.BringToFront();
                         panel.Controls.Add(label);
                         usedRows[panel].Add(assignedRow);
                     }
                 }
             }
 
-            // 초과 이벤트 "+n개" 표시
+            // "+n개 더 있음" 표시
             foreach (Control ctrl in CalendarTable.Controls)
             {
                 if (ctrl is Panel panel)
                 {
-                    int labelCount = panel.Controls.OfType<Label>().Count(l => l != panel.Controls[0]); // 첫 Label은 날짜
+                    // 날짜 라벨 높이 확인
+                    int baseTop = 15;
+                    if (panel.Controls.Count > 0 && panel.Controls[0] is Label dayLabel)
+                        baseTop = dayLabel.Height;
+
+                    int labelCount = panel.Controls.OfType<Label>().Count(l => l != panel.Controls[0]);
+
                     if (labelCount > 3)
                     {
                         int hiddenCount = labelCount - 3;
+
+                        // 기존 "+n개" 라벨 제거
+                        foreach (var old in panel.Controls.OfType<Label>().Where(l => l.Text.StartsWith("+")).ToList())
+                            panel.Controls.Remove(old);
 
                         Label moreLabel = new Label();
                         moreLabel.Text = $"+{hiddenCount}개 더 있음";
@@ -390,13 +402,9 @@ namespace C_TeamProject
                         moreLabel.Font = new Font("맑은 고딕", 7, FontStyle.Italic);
                         moreLabel.ForeColor = Color.Gray;
                         moreLabel.TextAlign = ContentAlignment.MiddleLeft;
-                        moreLabel.Top = 15 + (2 * 15);
+                        moreLabel.Top = baseTop + (2 * 15);
                         moreLabel.Left = 2;
-
-                        // 기존 초과 Label 제거
-                        foreach (var old in panel.Controls.OfType<Label>().Where(l => l.Text.StartsWith("+")).ToList())
-                            panel.Controls.Remove(old);
-
+                        moreLabel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
                         panel.Controls.Add(moreLabel);
                     }
                 }
@@ -420,7 +428,8 @@ namespace C_TeamProject
 
         private void insertDb(string startdate, string enddate, string title, string content)
         {
-            MySqlConnection connection = new MySqlConnection("Server=localhost;Port=3306;Database=calendar;Uid=root;Pwd=1234");
+            //MySqlConnection connection = new MySqlConnection("Server=localhost;Port=3306;Database=calendar;Uid=root;Pwd=1234");
+            MySqlConnection connection = new MySqlConnection("Server='teamproj-calendar.cxgqa06ootsh.ap-northeast-2.rds.amazonaws.com';Port=3306;Database=calSchema;Uid=admin;Pwd=12345678");
             string insertQuery = $"INSERT INTO eventlist(eventStart,eventEnd,title,content) VALUES(@vntStart, @vntEnd, @titleq, @contentq )";
 
             try
@@ -446,7 +455,8 @@ namespace C_TeamProject
         {
             List<CalendarEvent> events = new List<CalendarEvent>();
 
-            string connStr = "Server=localhost;Port=3306;Database=calendar;Uid=root;Pwd=1234";
+            //string connStr = "Server=localhost;Port=3306;Database=calendar;Uid=root;Pwd=1234";
+            string connStr= "Server='teamproj-calendar.cxgqa06ootsh.ap-northeast-2.rds.amazonaws.com';Port=3306;Database=calSchema;Uid=admin;Pwd=12345678";
             using (MySqlConnection connection = new MySqlConnection(connStr))
             {
                 connection.Open();
@@ -481,8 +491,8 @@ namespace C_TeamProject
         }
         public class CalendarEvent
         {
-            public string Title { get; set; }
-            public string Content { get; set; }
+            public string? Title { get; set; }
+            public string? Content { get; set; }
             public DateTime EventStart { get; set; }
             public DateTime EventEnd { get; set; }
         }

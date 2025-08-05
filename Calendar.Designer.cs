@@ -167,6 +167,7 @@
             btnMonth = new Button();
             label64 = new Label();
             timer1 = new System.Windows.Forms.Timer(components);
+            button1 = new Button();
             CalendarTable.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -1901,12 +1902,23 @@
             // 
             timer1.Tick += timer1_Tick;
             // 
+            // button1
+            // 
+            button1.Location = new Point(1268, 239);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 7;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // Calendar
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1681, 880);
+            Controls.Add(button1);
             Controls.Add(label64);
             Controls.Add(btnPrev);
             Controls.Add(btnMonth);
@@ -1921,7 +1933,7 @@
             Name = "Calendar";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
-            Load += Form1_Load;
+            Load += Calendar_Load;
             KeyDown += Calendar_KeyDown;
             CalendarTable.ResumeLayout(false);
             panel1.ResumeLayout(false);
@@ -2134,5 +2146,6 @@
         private Button btnMonth;
         private Label label64;
         private System.Windows.Forms.Timer timer1;
+        private Button button1;
     }
 }

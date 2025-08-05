@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Calendar;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,7 +22,8 @@ namespace C_TeamProject
         bool isWeekView = false; //
         DateTime currentWeekStart = DateTime.Today; //
         Panel selectedDay = null;
-        DateTime cursorDatetime;
+        static public DateTime cursorDatetime;
+        EventMaker eventMaker = new EventMaker();
 
         Dictionary<DateTime, string> holidays = new Dictionary<DateTime, string>();
 
@@ -71,7 +73,7 @@ namespace C_TeamProject
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Calendar_Load(object sender, EventArgs e)
         {
             timer1.Start();
             this.KeyPreview = true;
@@ -119,7 +121,7 @@ namespace C_TeamProject
         private void draw_blue(int currentDay, int currentMonth)
         {
             Fill(currentYear, currentMonth); // 월간 보기 초기화
-
+            ShowWeek(cursorDatetime);
             currentDay = cursorDatetime.Day;
             currentMonth = cursorDatetime.Month;
 
@@ -161,9 +163,20 @@ namespace C_TeamProject
             }
 
         }
-
+        
         public void Day_Click(object sender, EventArgs e)
         {
+            // eventMaker 폼이 이미 생성되었는지 확인합니다.
+            if (eventMaker == null || eventMaker.IsDisposed)
+            {
+                // 폼이 생성되지 않았거나 이미 닫혔다면 새로 생성합니다.
+                eventMaker = new EventMaker();
+            }
+
+    
+                
+            
+
             //Panel clickPanel = null;
 
             //if (sender is Panel p)
@@ -244,6 +257,7 @@ namespace C_TeamProject
                 if (int.TryParse(text, out int day))
                 {
                     cursorDatetime = new DateTime(currentYear, currentMonth, day);
+                    
                 }
                 else if (text.Contains("-"))
                 {
@@ -253,6 +267,7 @@ namespace C_TeamProject
                         int.TryParse(parts[1], out int day2))
                     {
                         cursorDatetime = new DateTime(currentYear, month, day2);
+                        
                     }
                 }
                 else
@@ -260,17 +275,30 @@ namespace C_TeamProject
                     string datePart = selectedLabel.Text.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
                     if (datePart != null && int.TryParse(datePart, out int day2))
                     {
+                       
+                       
                         cursorDatetime = new DateTime(currentYear, currentMonth, day2);
                         //tbEventStart.Text = cursorDatetime.ToString();                        //tbEventStart는 임의로 표시간 이벤트 시작일 표시 텍스트박스
                         //tbEventEnd.Text = cursorDatetime.ToString();                          // 오나지
                         currentDay = day2;
-
+                        
 
                     }
                 }
+                if (cursorDatetime != null)
+                {
+                    eventMaker.Show();
+                }
+                else
+                {
+                    MessageBox.Show("");
+                }
+
+                    // 폼을 보이게 합니다.
+                    
             }
             draw_blue(currentDay, currentMonth);
-
+            
         }
 
         public void WeekDay_Click(object sender, EventArgs e)
@@ -322,36 +350,73 @@ namespace C_TeamProject
             //{
             //    cursorDatetime = currentWeekStart.AddDays(dayIndex);
             //}
-            Panel clickPanel = null;
-
-            if (sender is Panel p)
             {
-                clickPanel = p;
+                Panel clickPanel = null;
+
+                if (sender is Panel p)
+                {
+                    clickPanel = p;
+                }
+                else if (sender is Label label && label.Tag is Panel taggedPanel)
+                {
+                    clickPanel = taggedPanel;
+                }
+
+                if (clickPanel == null || clickPanel.Controls.Count == 0)
+                {
+                    return;
+                }
+
+                Label dateLabel = clickPanel.Controls[0] as Label;
+
+                if (string.IsNullOrEmpty(dateLabel?.Text))
+                {
+                    return;
+                }
+
+                if (selectedDay != null)
+                {
+                    selectedDay.BackColor = Color.White;
+                }
+
+                clickPanel.BackColor = Color.LightBlue;
+                selectedDay = clickPanel;
+
+                int dayIndex = -1;
+                for (int i = 0; i < CalendarWeekTable.Controls.Count; i++)
+                {
+                    // CalendarWeekTable.Controls는 역순으로 채워져 있으므로 인덱스를 조정합니다.
+                    if (CalendarWeekTable.Controls[6 - i] == clickPanel)
+                    {
+                        dayIndex = i;
+                        break;
+                    }
+                }
+
+                // 인덱스를 찾았을 경우, currentWeekStart를 기준으로 날짜를 계산하여 cursorDatetime을 업데이트합니다.
+                if (dayIndex != -1)
+                {
+                    cursorDatetime = currentWeekStart.AddDays(dayIndex);
+                    currentMonth = cursorDatetime.Month;
+                    currentDay= cursorDatetime.Day;
+                }
             }
-            else if (sender is Label label && label.Tag is Panel taggedPanel)
+            // eventMaker 폼이 이미 생성되었는지 확인합니다.
+            if (eventMaker == null || eventMaker.IsDisposed)
             {
-                clickPanel = taggedPanel;
+                // 폼이 생성되지 않았거나 이미 닫혔다면 새로 생성합니다.
+                eventMaker = new EventMaker();
             }
-
-            if (clickPanel == null || clickPanel.Controls.Count == 0)
+            if (cursorDatetime != null)
             {
-                return;
+                eventMaker.Show();
             }
-
-            Label dateLabel = clickPanel.Controls[0] as Label;
-
-            if (string.IsNullOrEmpty(dateLabel?.Text))
+            else
             {
-                return;
+                MessageBox.Show("");
             }
+            draw_blue(currentDay,currentMonth);
 
-            if (selectedDay != null)
-            {
-                selectedDay.BackColor = Color.White;
-            }
-
-            clickPanel.BackColor = Color.LightBlue;
-            selectedDay = clickPanel;
         }
 
         public void Fill(int year, int month)
@@ -924,12 +989,19 @@ namespace C_TeamProject
 
                 OMMa();                                        //원하는 날짜로 이동
                 return true;
-                if (keyData == Keys.Enter)
+            }
+            if (keyData == Keys.Enter)
+            {
+
+                // OMMa()로 생성된 텍스트 박스가 존재할 때만 실행
+                if (lastTextBox != null && this.Controls.Contains(lastTextBox))
                 {
                     selectOMma();
+                    // Enter 키를 눌렀을 때 텍스트 박스를 닫는 로직을 추가할 수 있습니다.
+                    ESC(); // 예를 들어, ESC()를 호출하여 텍스트 박스를 닫습니다.
                 }
-
             }
+
             if (keyData == Keys.Escape)                         //ESC
             {
                 ESC();                                          //최근에 연 탭 닫기
@@ -1093,6 +1165,12 @@ namespace C_TeamProject
                 shortcutKey = null;
 
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            EventMaker eventMaker = new EventMaker();
+            eventMaker.Show();
         }
     }
 

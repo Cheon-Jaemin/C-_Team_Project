@@ -17,6 +17,7 @@ namespace C_TeamProject
     {
         public int currentYear;
         public int currentMonth;
+        public int currentDay;
         bool isWeekView = false; //
         DateTime currentWeekStart = DateTime.Today; //
         Panel selectedDay = null;
@@ -115,9 +116,98 @@ namespace C_TeamProject
             cursorDatetime = DateTime.Now;
             ShowEventList();
         }
+        private void draw_blue(int currentDay, int currentMonth)
+        {
+            Fill(currentYear, currentMonth); // 월간 보기 초기화
+
+            currentDay = cursorDatetime.Day;
+            currentMonth = cursorDatetime.Month;
+
+            TableLayoutPanel targetTable = isWeekView ? CalendarWeekTable : CalendarTable;
+
+            foreach (Control ctrl in targetTable.Controls)
+            {
+                if (ctrl is Panel panel && panel.Controls.Count > 0)
+                {
+                    Label lbl = panel.Controls[0] as Label;
+                    if (lbl == null || string.IsNullOrWhiteSpace(lbl.Text))
+                        continue;
+
+                    // 라벨 텍스트에서 날짜 숫자만 추출합니다.
+                    string datePart = lbl.Text.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
+
+                    if (datePart != null && int.TryParse(datePart, out int dayOnly) && dayOnly == currentDay)
+                    {
+                        panel.BackColor = Color.LightBlue;
+                        return;
+                    }
+
+                    // 이 부분은 주간 보기용 코드입니다.
+                    if (lbl.Text.Contains("-"))
+                    {
+                        string[] parts = lbl.Text.Split('-');
+                        if (parts.Length == 2 &&
+                            int.TryParse(parts[0], out int parsedMonth) &&
+                            int.TryParse(parts[1], out int parsedDay))
+                        {
+                            if (parsedMonth == currentMonth && parsedDay == currentDay)
+                            {
+                                panel.BackColor = Color.LightBlue;
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
 
         public void Day_Click(object sender, EventArgs e)
         {
+            //Panel clickPanel = null;
+
+            //if (sender is Panel p)
+            //{
+            //    clickPanel = p;
+            //}
+            //else if (sender is Label label && label.Tag is Panel taggedPanel)
+            //{
+            //    clickPanel = taggedPanel;
+            //}
+
+            //if (clickPanel == null || (clickPanel.Controls.Count == 0 || string.IsNullOrEmpty((clickPanel.Controls[0] as Label)?.Text)))
+            //{
+            //    return;
+            //}
+
+            //Label selectedLabel = clickPanel.Controls[0] as Label;
+            //if (selectedLabel == null || string.IsNullOrEmpty(selectedLabel.Text))
+            //{
+            //    return;
+            //}
+
+            //if (selectedDay != null)
+            //{
+            //    Label oldLabel = selectedDay.Controls[0] as Label;
+            //    if (oldLabel != null && !string.IsNullOrEmpty(oldLabel.Text))
+            //    {
+            //        selectedDay.BackColor = Color.White;
+            //    }
+            //}
+
+            //clickPanel.BackColor = Color.LightBlue;
+            //selectedDay = clickPanel;
+
+            //string datePart = selectedLabel.Text.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
+
+            ////소현섭 코드
+            //if (datePart != null && int.TryParse(datePart, out int day))
+            //{
+            //    cursorDatetime = new DateTime(currentYear, currentMonth, day);
+            //    //tbEventStart.Text = cursorDatetime.ToString();                        //tbEventStart는 임의로 표시간 이벤트 시작일 표시 텍스트박스
+            //    //tbEventEnd.Text = cursorDatetime.ToString();                          // 오나지
+
+            //}
             Panel clickPanel = null;
 
             if (sender is Panel p)
@@ -134,31 +224,104 @@ namespace C_TeamProject
                 return;
             }
 
-            if (selectedDay != null)
-            {
-                Label oldLabel = selectedDay.Controls[0] as Label;
-                if (oldLabel != null && !string.IsNullOrEmpty(oldLabel.Text))
-                {
-                    selectedDay.BackColor = Color.White;
-                }
-            }
+            //if (selectedDay != null)
+            //{
+            //    Label oldLabel = selectedDay.Controls[0] as Label;
+            //    if (oldLabel != null && !string.IsNullOrEmpty(oldLabel.Text))
+            //    {
+            //        selectedDay.BackColor = Color.White;
+            //    }
+            //}
 
-            clickPanel.BackColor = Color.LightBlue;
+            //clickPanel.BackColor = Color.LightBlue;
             selectedDay = clickPanel;
 
-            Label selectedLabel = clickPanel.Controls[0] as Label;                          //소현섭 코드
-            if (selectedLabel != null && int.TryParse(selectedLabel.Text, out int day))
+            Label selectedLabel = clickPanel.Controls[0] as Label;
+            if (selectedLabel != null)
             {
-                cursorDatetime = new DateTime(currentYear, currentMonth, day);
-                //tbEventStart.Text = cursorDatetime.ToString();                        //tbEventStart는 임의로 표시간 이벤트 시작일 표시 텍스트박스
-                //tbEventEnd.Text = cursorDatetime.ToString();                          // 오나지
+                string text = selectedLabel.Text;
 
+                if (int.TryParse(text, out int day))
+                {
+                    cursorDatetime = new DateTime(currentYear, currentMonth, day);
+                }
+                else if (text.Contains("-"))
+                {
+                    string[] parts = text.Split('-');
+                    if (parts.Length == 2 &&
+                        int.TryParse(parts[0], out int month) &&
+                        int.TryParse(parts[1], out int day2))
+                    {
+                        cursorDatetime = new DateTime(currentYear, month, day2);
+                    }
+                }
+                else
+                {
+                    string datePart = selectedLabel.Text.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
+                    if (datePart != null && int.TryParse(datePart, out int day2))
+                    {
+                        cursorDatetime = new DateTime(currentYear, currentMonth, day2);
+                        //tbEventStart.Text = cursorDatetime.ToString();                        //tbEventStart는 임의로 표시간 이벤트 시작일 표시 텍스트박스
+                        //tbEventEnd.Text = cursorDatetime.ToString();                          // 오나지
+                        currentDay = day2;
+
+
+                    }
+                }
             }
+            draw_blue(currentDay, currentMonth);
 
         }
 
         public void WeekDay_Click(object sender, EventArgs e)
         {
+            //Panel clickPanel = null;
+
+            //if (sender is Panel p)
+            //{
+            //    clickPanel = p;
+            //}
+            //else if (sender is Label label && label.Tag is Panel taggedPanel)
+            //{
+            //    clickPanel = taggedPanel;
+            //}
+
+            //if (clickPanel == null || clickPanel.Controls.Count == 0)
+            //{
+            //    return;
+            //}
+
+            //Label dateLabel = clickPanel.Controls[0] as Label;
+
+            //if (string.IsNullOrEmpty(dateLabel?.Text))
+            //{
+            //    return;
+            //}
+
+            //if (selectedDay != null)
+            //{
+            //    selectedDay.BackColor = Color.White;
+            //}
+
+            //clickPanel.BackColor = Color.LightBlue;
+            //selectedDay = clickPanel;
+
+            //int dayIndex = -1;
+            //for (int i = 0; i < CalendarWeekTable.Controls.Count; i++)
+            //{
+            //    // CalendarWeekTable.Controls는 역순으로 채워져 있으므로 인덱스를 조정합니다.
+            //    if (CalendarWeekTable.Controls[6 - i] == clickPanel)
+            //    {
+            //        dayIndex = i;
+            //        break;
+            //    }
+            //}
+
+            //// 인덱스를 찾았을 경우, currentWeekStart를 기준으로 날짜를 계산하여 cursorDatetime을 업데이트합니다.
+            //if (dayIndex != -1)
+            //{
+            //    cursorDatetime = currentWeekStart.AddDays(dayIndex);
+            //}
             Panel clickPanel = null;
 
             if (sender is Panel p)
@@ -189,42 +352,84 @@ namespace C_TeamProject
 
             clickPanel.BackColor = Color.LightBlue;
             selectedDay = clickPanel;
-
-            int dayIndex = -1;
-            for (int i = 0; i < CalendarWeekTable.Controls.Count; i++)
-            {
-                // CalendarWeekTable.Controls는 역순으로 채워져 있으므로 인덱스를 조정합니다.
-                if (CalendarWeekTable.Controls[6 - i] == clickPanel)
-                {
-                    dayIndex = i;
-                    break;
-                }
-            }
-
-            // 인덱스를 찾았을 경우, currentWeekStart를 기준으로 날짜를 계산하여 cursorDatetime을 업데이트합니다.
-            if (dayIndex != -1)
-            {
-                cursorDatetime = currentWeekStart.AddDays(dayIndex);
-            }
         }
 
         public void Fill(int year, int month)
         {
-            // 1. 기존에 표시된 일정(이벤트) 라벨들을 모두 삭제합니다.
-            foreach (Control ctrl in CalendarTable.Controls)
-            {
-                if (ctrl is Panel panel)
-                {
-                    // Panel의 모든 컨트롤을 역순으로 순회하며 삭제
-                    // 첫 번째 컨트롤(날짜 라벨)은 제외
-                    for (int i = panel.Controls.Count - 1; i > 0; i--)
-                    {
-                        panel.Controls.RemoveAt(i);
-                    }
-                }
-            }
+            //// 1. 기존에 표시된 일정(이벤트) 라벨들을 모두 삭제합니다.
+            //foreach (Control ctrl in CalendarTable.Controls)
+            //{
+            //    if (ctrl is Panel panel)
+            //    {
+            //        // Panel의 모든 컨트롤을 역순으로 순회하며 삭제
+            //        // 첫 번째 컨트롤(날짜 라벨)은 제외
+            //        for (int i = panel.Controls.Count - 1; i > 0; i--)
+            //        {
+            //            panel.Controls.RemoveAt(i);
+            //        }
+            //    }
+            //}
 
-            AddHolidays(year);
+            //AddHolidays(year);
+            //lbYearMonth.Text = $"{year}년 {month}월";
+
+            //DateTime firstDay = new DateTime(year, month, 1);
+            //int DaysInMonth = DateTime.DaysInMonth(year, month);
+            //int index = (int)firstDay.DayOfWeek;
+
+            //int day = 1;
+
+            //for (int i = 0; i < CalendarTable.Controls.Count; i++)
+            //{
+            //    Panel panel = CalendarTable.Controls[i] as Panel;
+
+            //    if (panel != null && panel.Controls.Count > 0)
+            //    {
+            //        Label label = panel.Controls[0] as Label;
+
+            //        if (i >= index && day <= DaysInMonth)
+            //        {
+            //            DateTime thisDate = new DateTime(year, month, day).Date;
+            //            label.Text = day.ToString();
+
+            //            if (holidays.ContainsKey(thisDate))
+            //            {
+            //                label.ForeColor = Color.Red;
+            //                label.Text += "\n" + holidays[thisDate];
+            //            }
+            //            else
+            //            {
+            //                int dayOfWeek = (i % 7);
+            //                if (dayOfWeek == 0)
+            //                {
+            //                    label.ForeColor = Color.Red;
+            //                }
+            //                else if (dayOfWeek == 6)
+            //                {
+            //                    label.ForeColor = Color.Blue;
+            //                }
+            //                else
+            //                {
+            //                    label.ForeColor = Color.Black;
+            //                }
+            //            }
+            //            panel.Visible = true;
+            //            panel.BackColor = Color.White;
+            //            day++;
+            //        }
+            //        else
+            //        {
+            //            label.Text = "";
+            //            panel.BackColor = Color.Gainsboro;
+            //        }
+            //    }
+            //}
+
+            //// 2. 새로운 달의 일정을 다시 로드합니다.
+            //cursorDatetime = new DateTime(year, month, 1);
+            //ShowEventList();
+            AddHolidays(year); // 공휴일 추가 메소드
+
             lbYearMonth.Text = $"{year}년 {month}월";
 
             DateTime firstDay = new DateTime(year, month, 1);
@@ -244,16 +449,17 @@ namespace C_TeamProject
                     if (i >= index && day <= DaysInMonth)
                     {
                         DateTime thisDate = new DateTime(year, month, day).Date;
-                        label.Text = day.ToString();
+                        label.Text = day.ToString(); // 날짜 먼저 설정
 
                         if (holidays.ContainsKey(thisDate))
                         {
                             label.ForeColor = Color.Red;
-                            label.Text += "\n" + holidays[thisDate];
+                            label.Text += "\n" + holidays[thisDate]; // 줄 바꿈 후 공휴일 이름 추가
                         }
                         else
                         {
                             int dayOfWeek = (i % 7);
+
                             if (dayOfWeek == 0)
                             {
                                 label.ForeColor = Color.Red;
@@ -267,6 +473,7 @@ namespace C_TeamProject
                                 label.ForeColor = Color.Black;
                             }
                         }
+
                         panel.Visible = true;
                         panel.BackColor = Color.White;
                         day++;
@@ -278,15 +485,11 @@ namespace C_TeamProject
                     }
                 }
             }
-
-            // 2. 새로운 달의 일정을 다시 로드합니다.
-            cursorDatetime = new DateTime(year, month, 1);
-            ShowEventList();
         }
 
         private void btnPrev_Click(object sender, EventArgs e)
         {
-            if (isWeekView)
+            if (isWeekView)//
             {
                 currentWeekStart = currentWeekStart.AddDays(-7);
                 ShowWeek(currentWeekStart);
@@ -324,46 +527,6 @@ namespace C_TeamProject
 
         private void btnToday_Click(object sender, EventArgs e)
         {
-            //currentYear = DateTime.Now.Year;
-            //currentMonth = DateTime.Now.Month;
-            //Fill(currentYear, currentMonth);
-
-            //if (isWeekView)
-            //{
-            //    currentWeekStart = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
-            //    ShowWeek(currentWeekStart);
-            //    return;
-            //}
-
-            //int today = DateTime.Now.Day;
-            //foreach (Control ctrl in CalendarTable.Controls)
-            //{
-            //    if (ctrl is Panel panel && panel.Controls.Count > 0)
-            //    {
-            //        Label label = panel.Controls[0] as Label;
-
-            //        if (label != null && !string.IsNullOrWhiteSpace(label.Text))
-            //        {
-            //            // 날짜 숫자 부분만 안전하게 추출
-            //            string[] split = label.Text.Split(new[] { '\n', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            //            if (split.Length > 0 && int.TryParse(split[0], out int labelDay) && labelDay == today)
-            //            {
-            //                if (selectedDay != null)
-            //                {
-            //                    Label oldLabel = selectedDay.Controls[0] as Label;
-            //                    if (oldLabel != null && !string.IsNullOrEmpty(oldLabel.Text))
-            //                    {
-            //                        selectedDay.BackColor = Color.White;
-            //                    }
-            //                }
-
-            //                panel.BackColor = Color.LightBlue;
-            //                selectedDay = panel;
-            //                break;
-            //            }
-            //        }
-            //    }
-            //}
             DateTime today = DateTime.Today;
             cursorDatetime = today;
 
@@ -738,35 +901,200 @@ namespace C_TeamProject
         {
             label64.Text = cursorDatetime.ToString();
         }
+        // 단축키
 
-        private void Calendar_KeyDown(object sender, KeyEventArgs e)
+
+
+        private System.Windows.Forms.TextBox lastTextBox = null;
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            shotrcutKey shortcutKey = new shotrcutKey();
-            shortcutKey.Text = "명령어 도움말";
-            shortcutKey.Size = new Size(300, 919); // 폼 크기 설정
-            shortcutKey.StartPosition = FormStartPosition.Manual;
-            shortcutKey.Location = new Point(1047, 0); // 폼 위치 지정 (Form1에 맞춤)
-
-
-            if (e.Shift && e.KeyCode == Keys.Oem2)  // ? 키 입력받음
+            if (keyData == Keys.Tab)                           //탭
             {
-
-                shortcutKey.Show();                 // 도움말 폼 열기
+                TAB();                                         //날짜이동 +
+                return true;
             }
 
-            if (e.Control && e.Shift && e.KeyCode == Keys.L) // Ctrl + Shift + L
+            if (keyData == (Keys.Shift | Keys.Tab))              //쉬프트탭
             {
-                if (this.BackColor == SystemColors.Control)//테마를 밝음 어두움으로 설정(미완성)
+                SHIFTTAB();                                    //날짜이동 -
+                return true;
+            }
+            if (keyData == Keys.OemPeriod)                     // "."
+            {
+
+                OMMa();                                        //원하는 날짜로 이동
+                return true;
+                if (keyData == Keys.Enter)
                 {
-                    this.BackColor = Color.FromArgb(45, 45, 60);
-                    //dayPanel.BackColor = Color.FromArgb(60, 63, 80);
+                    selectOMma();
                 }
-                else if (this.BackColor == Color.FromArgb(45, 45, 60))
+
+            }
+            if (keyData == Keys.Escape)                         //ESC
+            {
+                ESC();                                          //최근에 연 탭 닫기
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+        private Form shortcutKey = null;
+        private void Calendar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Shift && e.KeyCode == Keys.Oem2)              // ? 키 입력받음
+            {
+                Question();                                      //도움말 창 열기
+            }
+
+            if (e.Control && e.Shift && e.KeyCode == Keys.L)     // Ctrl + Shift + L
+            {
+                CtnlShiftL();                                    // 테마 어두움밝음 변경
+
+            }
+
+        }
+        // 단축키 코드
+        private void TAB()
+        {
+            DateTime previousDate = cursorDatetime;
+
+            // 날짜 하루 증가
+            cursorDatetime = cursorDatetime.AddDays(1);
+
+            // 연도 또는 월이 바뀌면 currentYear/Month 갱신하고 Fill
+            if (cursorDatetime.Year != previousDate.Year || cursorDatetime.Month != previousDate.Month)
+            {
+                currentYear = cursorDatetime.Year;
+                currentMonth = cursorDatetime.Month;
+                Fill(currentYear, currentMonth);
+            }
+
+            currentDay = cursorDatetime.Day;
+
+            draw_blue(currentDay, currentMonth);
+
+
+        }
+        private void SHIFTTAB()
+        {
+            DateTime previousDate = cursorDatetime;
+
+            // 날짜 하루 증가
+            cursorDatetime = cursorDatetime.AddDays(-1);
+
+            // 연도 또는 월이 바뀌면 currentYear/Month 갱신하고 Fill
+            if (cursorDatetime.Year != previousDate.Year || cursorDatetime.Month != previousDate.Month)
+            {
+                currentYear = cursorDatetime.Year;
+                currentMonth = cursorDatetime.Month;
+                Fill(currentYear, currentMonth);
+            }
+
+            currentDay = cursorDatetime.Day;
+
+            draw_blue(currentDay, currentMonth);
+
+        }
+        private void OMMa()
+        {
+
+
+            System.Windows.Forms.TextBox textBox = new System.Windows.Forms.TextBox();
+            textBox.Text = "예) (2025년10월7일)";
+            textBox.Location = new Point(984, 8);
+            textBox.Size = new Size(250, 80);
+            textBox.Font = new Font("맑은 고딕", 15F);
+            textBox.ForeColor = Color.Gray;
+            this.Controls.Add(textBox);
+            textBox.BringToFront();
+
+            textBox.GotFocus += (s, e) =>
+            {
+                if (textBox.Text == "예) (2025년10월7일)")
                 {
-                    this.BackColor = SystemColors.Control;
+                    textBox.Text = "";
+                    textBox.ForeColor = Color.Black;
                 }
+            };
+
+            textBox.LostFocus += (s, e) =>
+            {
+                if (string.IsNullOrWhiteSpace(textBox.Text))
+                {
+                    textBox.Text = "예) (2025년10월7일)";
+                    textBox.ForeColor = Color.Gray;
+                }
+            };
+
+            lastTextBox = textBox;
+
+        }
+        private void selectOMma()
+        {
+            try
+            {
+                string strDate = lastTextBox.Text;
+                string[] parts = strDate.Split(new[] { "년", "월", "일", " ", "(", ")" }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (parts.Length < 3)
+                {
+                    MessageBox.Show("날짜를 (YYYY년MM월DD일) 형식으로 입력하세요.");
+                    return;
+                }
+
+                currentYear = int.Parse(parts[0]);
+                currentMonth = int.Parse(parts[1]);
+                currentDay = int.Parse(parts[2]);
+
+                Fill(currentYear, currentMonth);
+                draw_blue(currentDay, currentMonth);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("날짜 형식이 올바르지 않습니다.\n예: 2025년10월7일\n\n오류: " + ex.Message);
+            }
+        }
+        private void CtnlShiftL()
+        {
+            if (this.BackColor == Color.White)//테마를 밝음 어두움으로 설정(미완성)
+            {
+                this.BackColor = Color.FromArgb(45, 45, 60);
+                //dayPanel.BackColor = Color.FromArgb(60, 63, 80);
+            }
+            else if (this.BackColor == Color.FromArgb(45, 45, 60))
+            {
+                this.BackColor = Color.White;
+            }
+        }
+        private void Question()
+        {
+            shortcutKey = new shotrcutKey();
+            shortcutKey.Text = "명령어 도움말";
+            shortcutKey.Size = new Size(300, 919);
+            shortcutKey.StartPosition = FormStartPosition.Manual;
+            shortcutKey.Location = new Point(1507, 60);
+            shortcutKey.Show();                 // 도움말 폼 열기
+        }
+        private void ESC()
+        {
+            // 가장 최근에 만든 텍스트박스가 존재하면 제거
+            if (lastTextBox != null && this.Controls.Contains(lastTextBox))
+            {
+                this.Controls.Remove(lastTextBox);
+                lastTextBox.Dispose();
+                lastTextBox = null;
+
+            }
+
+            // 도움말 폼이 열려 있으면 닫기 (안됌)
+            if (shortcutKey != null && !shortcutKey.IsDisposed && shortcutKey.Visible)
+            {
+                shortcutKey.Close();
+                shortcutKey = null;
 
             }
         }
     }
-}
+
+}   
+

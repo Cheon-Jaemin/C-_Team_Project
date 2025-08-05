@@ -193,8 +193,21 @@ namespace C_TeamProject
 
         public void Fill(int year, int month)
         {
-            AddHolidays(year); // 공휴일 추가 메소드
+            // 1. 기존에 표시된 일정(이벤트) 라벨들을 모두 삭제합니다.
+            foreach (Control ctrl in CalendarTable.Controls)
+            {
+                if (ctrl is Panel panel)
+                {
+                    // Panel의 모든 컨트롤을 역순으로 순회하며 삭제
+                    // 첫 번째 컨트롤(날짜 라벨)은 제외
+                    for (int i = panel.Controls.Count - 1; i > 0; i--)
+                    {
+                        panel.Controls.RemoveAt(i);
+                    }
+                }
+            }
 
+            AddHolidays(year);
             lbYearMonth.Text = $"{year}년 {month}월";
 
             DateTime firstDay = new DateTime(year, month, 1);
@@ -214,17 +227,16 @@ namespace C_TeamProject
                     if (i >= index && day <= DaysInMonth)
                     {
                         DateTime thisDate = new DateTime(year, month, day).Date;
-                        label.Text = day.ToString(); // 날짜 먼저 설정
+                        label.Text = day.ToString();
 
                         if (holidays.ContainsKey(thisDate))
                         {
                             label.ForeColor = Color.Red;
-                            label.Text += "\n" + holidays[thisDate]; // 줄 바꿈 후 공휴일 이름 추가
+                            label.Text += "\n" + holidays[thisDate];
                         }
                         else
                         {
                             int dayOfWeek = (i % 7);
-
                             if (dayOfWeek == 0)
                             {
                                 label.ForeColor = Color.Red;
@@ -238,7 +250,6 @@ namespace C_TeamProject
                                 label.ForeColor = Color.Black;
                             }
                         }
-
                         panel.Visible = true;
                         panel.BackColor = Color.White;
                         day++;
@@ -250,6 +261,10 @@ namespace C_TeamProject
                     }
                 }
             }
+
+            // 2. 새로운 달의 일정을 다시 로드합니다.
+            cursorDatetime = new DateTime(year, month, 1);
+            ShowEventList();
         }
 
         private void btnPrev_Click(object sender, EventArgs e)

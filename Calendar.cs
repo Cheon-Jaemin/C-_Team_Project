@@ -1,13 +1,14 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Globalization;
 
 namespace C_TeamProject
 {
@@ -19,6 +20,7 @@ namespace C_TeamProject
         bool isWeekView = false; //
         DateTime currentWeekStart = DateTime.Today; //
         Panel selectedDay = null;
+        DateTime cursorDatetime;
 
         Dictionary<DateTime, string> holidays = new Dictionary<DateTime, string>();
 
@@ -70,9 +72,12 @@ namespace C_TeamProject
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            timer1.Start();
+            this.KeyPreview = true;
             currentYear = DateTime.Now.Year;
             currentMonth = DateTime.Now.Month;
             Fill(currentYear, currentMonth);
+
 
             foreach (Control ctrl in CalendarTable.Controls)
             {
@@ -86,7 +91,7 @@ namespace C_TeamProject
                     {
                         label.Click += Day_Click;
                         label.Tag = panel;
-                       
+
                     }
                 }
             }
@@ -103,10 +108,12 @@ namespace C_TeamProject
                     {
                         label.Click += WeekDay_Click;
                         label.Tag = panel;
-                       
+
                     }
                 }
             }
+            cursorDatetime = DateTime.Now;
+            ShowEventList();
         }
 
         public void Day_Click(object sender, EventArgs e)
@@ -138,6 +145,15 @@ namespace C_TeamProject
 
             clickPanel.BackColor = Color.LightBlue;
             selectedDay = clickPanel;
+
+            Label selectedLabel = clickPanel.Controls[0] as Label;                          //소현섭 코드
+            if (selectedLabel != null && int.TryParse(selectedLabel.Text, out int day))
+            {
+                cursorDatetime = new DateTime(currentYear, currentMonth, day);
+                //tbEventStart.Text = cursorDatetime.ToString();                        //tbEventStart는 임의로 표시간 이벤트 시작일 표시 텍스트박스
+                //tbEventEnd.Text = cursorDatetime.ToString();                          // 오나지
+
+            }
 
         }
 
@@ -401,6 +417,255 @@ namespace C_TeamProject
 
             CalendarWeekTable.Visible = false;
             tableLayoutPanel3.Visible = false;
+        }
+
+        //소현섭 코드
+        private void ShowEventList()
+        {
+            List<CalendarEvent> events = selectDb(cursorDatetime);
+            Dictionary<string, int> eventRowMap = new Dictionary<string, int>(); // 이벤트별 고정 행
+            Dictionary<Panel, HashSet<int>> usedRows = new Dictionary<Panel, HashSet<int>>(); // 날짜별 사용한 행
+
+            foreach (CalendarEvent e in events)
+            {
+                DateTime start = e.EventStart;
+                DateTime end = e.EventEnd;
+
+                int assignedRow = -1;
+
+                if (!eventRowMap.ContainsKey(e.Title))
+                {
+                    for (int row = 0; row < 3; row++)
+                    {
+                        bool canAssign = true;
+                        for (DateTime d = start; d <= end; d = d.AddDays(1))
+                        {
+                            if (d.Month != cursorDatetime.Month || d.Year != cursorDatetime.Year)
+                                continue;
+
+                            Panel targetPanel = GetPanelByDate(d.Day);
+                            if (targetPanel == null) continue;
+
+                            if (!usedRows.ContainsKey(targetPanel))
+                                usedRows[targetPanel] = new HashSet<int>();
+
+                            if (usedRows[targetPanel].Contains(row))
+                            {
+                                canAssign = false;
+                                break;
+                            }
+                        }
+
+                        if (canAssign)
+                        {
+                            assignedRow = row;
+                            eventRowMap[e.Title] = row;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    assignedRow = eventRowMap[e.Title];
+                }
+
+                for (DateTime d = start; d <= end; d = d.AddDays(1))
+                {
+                    if (d.Month != cursorDatetime.Month || d.Year != cursorDatetime.Year)
+                        continue;
+
+                    Panel panel = GetPanelByDate(d.Day);
+                    if (panel == null) continue;
+
+                    if (!usedRows.ContainsKey(panel))
+                        usedRows[panel] = new HashSet<int>();
+
+                    if (usedRows[panel].Count >= 3)
+                        continue;
+
+                    if (assignedRow >= 0 && !usedRows[panel].Contains(assignedRow))
+                    {
+                        // 날짜 라벨의 높이 확보
+                        int baseTop = 0;
+                        if (panel.Controls.Count > 0 && panel.Controls[0] is Label dayLabel)
+                            baseTop = dayLabel.Height;
+
+                        Label label = new Label();
+                        label.Text = e.Title;
+                        label.AutoSize = false;
+                        label.Height = 15;
+                        label.Width = panel.Width - 4;
+                        label.Font = new Font("맑은 고딕", 7);
+                        label.ForeColor = Color.DarkGreen;
+                        label.BackColor = Color.Transparent;
+                        label.TextAlign = ContentAlignment.MiddleLeft;
+                        label.Padding = new Padding(2, 0, 0, 0);
+                        label.Top = baseTop + (assignedRow * 15);
+                        label.Left = 2;
+                        label.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                        label.BringToFront();
+                        panel.Controls.Add(label);
+                        usedRows[panel].Add(assignedRow);
+                    }
+                }
+            }
+
+            // "+n개 더 있음" 표시
+            foreach (Control ctrl in CalendarTable.Controls)
+            {
+                if (ctrl is Panel panel)
+                {
+                    // 날짜 라벨 높이 확인
+                    int baseTop = 15;
+                    if (panel.Controls.Count > 0 && panel.Controls[0] is Label dayLabel)
+                        baseTop = dayLabel.Height;
+
+                    int labelCount = panel.Controls.OfType<Label>().Count(l => l != panel.Controls[0]);
+
+                    if (labelCount > 3)
+                    {
+                        int hiddenCount = labelCount - 3;
+
+                        // 기존 "+n개" 라벨 제거
+                        foreach (var old in panel.Controls.OfType<Label>().Where(l => l.Text.StartsWith("+")).ToList())
+                            panel.Controls.Remove(old);
+
+                        Label moreLabel = new Label();
+                        moreLabel.Text = $"+{hiddenCount}개 더 있음";
+                        moreLabel.AutoSize = false;
+                        moreLabel.Height = 15;
+                        moreLabel.Width = panel.Width - 4;
+                        moreLabel.Font = new Font("맑은 고딕", 7, FontStyle.Italic);
+                        moreLabel.ForeColor = Color.Gray;
+                        moreLabel.TextAlign = ContentAlignment.MiddleLeft;
+                        moreLabel.Top = baseTop + (2 * 15);
+                        moreLabel.Left = 2;
+                        moreLabel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                        panel.Controls.Add(moreLabel);
+                    }
+                }
+            }
+        }
+        private Panel GetPanelByDate(int day)
+        {
+            foreach (Control ctrl in CalendarTable.Controls)
+            {
+                if (ctrl is Panel panel && panel.Controls.Count > 0)
+                {
+                    if (panel.Controls[0] is Label label && int.TryParse(label.Text, out int labelDay))
+                    {
+                        if (labelDay == day)
+                            return panel;
+                    }
+                }
+            }
+            return null;
+        }
+
+        private void insertDb(string startdate, string enddate, string title, string content)
+        {
+            //MySqlConnection connection = new MySqlConnection("Server=localhost;Port=3306;Database=calendar;Uid=root;Pwd=1234");
+            MySqlConnection connection = new MySqlConnection("Server='teamproj-calendar.cxgqa06ootsh.ap-northeast-2.rds.amazonaws.com';Port=3306;Database=calSchema;Uid=admin;Pwd=12345678");
+            string insertQuery = $"INSERT INTO eventlist(eventStart,eventEnd,title,content) VALUES(@vntStart, @vntEnd, @titleq, @contentq )";
+
+            try
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(insertQuery, connection);
+                command.Parameters.AddWithValue("@vntStart", startdate);
+                command.Parameters.AddWithValue("@vntEnd", enddate);
+                command.Parameters.AddWithValue("@titleq", title);
+                command.Parameters.AddWithValue("@contentq", content);
+                if (command.ExecuteNonQuery() == 1)
+                    MessageBox.Show("인서트 성공");
+                else
+                    MessageBox.Show("인서트 실패");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("실패 : " + ex.ToString());
+            }
+        }
+
+        private List<CalendarEvent> selectDb(DateTime cursorDatetimedate)
+        {
+            List<CalendarEvent> events = new List<CalendarEvent>();
+
+            //string connStr = "Server=localhost;Port=3306;Database=calendar;Uid=root;Pwd=1234";
+            string connStr = "Server='teamproj-calendar.cxgqa06ootsh.ap-northeast-2.rds.amazonaws.com';Port=3306;Database=calSchema;Uid=admin;Pwd=12345678";
+            using (MySqlConnection connection = new MySqlConnection(connStr))
+            {
+                connection.Open();
+
+                DateTime monthStart = new DateTime(cursorDatetimedate.Year, cursorDatetimedate.Month, 1);
+                DateTime monthEnd = new DateTime(cursorDatetimedate.Year, cursorDatetimedate.Month, DateTime.DaysInMonth(cursorDatetimedate.Year, cursorDatetimedate.Month));
+
+                string query = "SELECT * FROM eventlist WHERE eventStart>= @start AND eventEnd <= @end ORDER BY eventStart ASC";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@start", monthStart);
+                    cmd.Parameters.AddWithValue("@end", monthEnd);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            events.Add(new CalendarEvent
+                            {
+                                Title = reader.GetString("title"),
+                                Content = reader.GetString("content"),
+                                EventStart = reader.GetDateTime("eventStart"),
+                                EventEnd = reader.GetDateTime("eventEnd")
+                            });
+                        }
+                    }
+                }
+            }
+
+            return events;
+        }
+        public class CalendarEvent
+        {
+            public string? Title { get; set; }
+            public string? Content { get; set; }
+            public DateTime EventStart { get; set; }
+            public DateTime EventEnd { get; set; }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            label64.Text = cursorDatetime.ToString();
+        }
+
+        private void Calendar_KeyDown(object sender, KeyEventArgs e)
+        {
+            shotrcutKey shortcutKey = new shotrcutKey();
+            shortcutKey.Text = "명령어 도움말";
+            shortcutKey.Size = new Size(300, 919); // 폼 크기 설정
+            shortcutKey.StartPosition = FormStartPosition.Manual;
+            shortcutKey.Location = new Point(1047, 0); // 폼 위치 지정 (Form1에 맞춤)
+
+
+            if (e.Shift && e.KeyCode == Keys.Oem2)  // ? 키 입력받음
+            {
+
+                shortcutKey.Show();                 // 도움말 폼 열기
+            }
+
+            if (e.Control && e.Shift && e.KeyCode == Keys.L) // Ctrl + Shift + L
+            {
+                if (this.BackColor == SystemColors.Control)//테마를 밝음 어두움으로 설정(미완성)
+                {
+                    this.BackColor = Color.FromArgb(45, 45, 60);
+                    //dayPanel.BackColor = Color.FromArgb(60, 63, 80);
+                }
+                else if (this.BackColor == Color.FromArgb(45, 45, 60))
+                {
+                    this.BackColor = SystemColors.Control;
+                }
+
+            }
         }
     }
 }

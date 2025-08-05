@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             CalendarTable = new TableLayoutPanel();
             panel1 = new Panel();
             label1 = new Label();
@@ -164,6 +165,8 @@
             label50 = new Label();
             btnWeek = new Button();
             btnMonth = new Button();
+            label64 = new Label();
+            timer1 = new System.Windows.Forms.Timer(components);
             CalendarTable.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -294,7 +297,7 @@
             CalendarTable.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
             CalendarTable.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
             CalendarTable.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
-            CalendarTable.Size = new Size(707, 535);
+            CalendarTable.Size = new Size(997, 738);
             CalendarTable.TabIndex = 0;
             // 
             // panel1
@@ -306,7 +309,7 @@
             panel1.Location = new Point(1, 1);
             panel1.Margin = new Padding(1);
             panel1.Name = "panel1";
-            panel1.Size = new Size(98, 87);
+            panel1.Size = new Size(140, 121);
             panel1.TabIndex = 1;
             // 
             // label1
@@ -315,7 +318,7 @@
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
             label1.Padding = new Padding(5);
-            label1.Size = new Size(96, 40);
+            label1.Size = new Size(138, 40);
             label1.TabIndex = 0;
             label1.Text = "label1";
             label1.TextAlign = ContentAlignment.TopRight;
@@ -326,10 +329,10 @@
             panel2.BorderStyle = BorderStyle.FixedSingle;
             panel2.Controls.Add(label2);
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(101, 1);
+            panel2.Location = new Point(143, 1);
             panel2.Margin = new Padding(1);
             panel2.Name = "panel2";
-            panel2.Size = new Size(99, 87);
+            panel2.Size = new Size(140, 121);
             panel2.TabIndex = 1;
             // 
             // label2
@@ -338,7 +341,7 @@
             label2.Location = new Point(0, 0);
             label2.Name = "label2";
             label2.Padding = new Padding(5);
-            label2.Size = new Size(97, 40);
+            label2.Size = new Size(138, 40);
             label2.TabIndex = 1;
             label2.Text = "label2";
             label2.TextAlign = ContentAlignment.TopRight;
@@ -349,10 +352,10 @@
             panel3.BorderStyle = BorderStyle.FixedSingle;
             panel3.Controls.Add(label3);
             panel3.Dock = DockStyle.Fill;
-            panel3.Location = new Point(202, 1);
+            panel3.Location = new Point(285, 1);
             panel3.Margin = new Padding(1);
             panel3.Name = "panel3";
-            panel3.Size = new Size(99, 87);
+            panel3.Size = new Size(140, 121);
             panel3.TabIndex = 1;
             // 
             // label3
@@ -361,7 +364,7 @@
             label3.Location = new Point(0, 0);
             label3.Name = "label3";
             label3.Padding = new Padding(5);
-            label3.Size = new Size(97, 40);
+            label3.Size = new Size(138, 40);
             label3.TabIndex = 1;
             label3.Text = "label3";
             label3.TextAlign = ContentAlignment.TopRight;
@@ -372,10 +375,10 @@
             panel4.BorderStyle = BorderStyle.FixedSingle;
             panel4.Controls.Add(label4);
             panel4.Dock = DockStyle.Fill;
-            panel4.Location = new Point(303, 1);
+            panel4.Location = new Point(427, 1);
             panel4.Margin = new Padding(1);
             panel4.Name = "panel4";
-            panel4.Size = new Size(99, 87);
+            panel4.Size = new Size(140, 121);
             panel4.TabIndex = 1;
             // 
             // label4
@@ -384,7 +387,7 @@
             label4.Location = new Point(0, 0);
             label4.Name = "label4";
             label4.Padding = new Padding(5);
-            label4.Size = new Size(97, 40);
+            label4.Size = new Size(138, 40);
             label4.TabIndex = 1;
             label4.Text = "label4";
             label4.TextAlign = ContentAlignment.TopRight;
@@ -395,10 +398,10 @@
             panel5.BorderStyle = BorderStyle.FixedSingle;
             panel5.Controls.Add(label5);
             panel5.Dock = DockStyle.Fill;
-            panel5.Location = new Point(404, 1);
+            panel5.Location = new Point(569, 1);
             panel5.Margin = new Padding(1);
             panel5.Name = "panel5";
-            panel5.Size = new Size(99, 87);
+            panel5.Size = new Size(140, 121);
             panel5.TabIndex = 1;
             // 
             // label5
@@ -407,7 +410,7 @@
             label5.Location = new Point(0, 0);
             label5.Name = "label5";
             label5.Padding = new Padding(5);
-            label5.Size = new Size(97, 40);
+            label5.Size = new Size(138, 40);
             label5.TabIndex = 1;
             label5.Text = "label5";
             label5.TextAlign = ContentAlignment.TopRight;
@@ -418,10 +421,10 @@
             panel6.BorderStyle = BorderStyle.FixedSingle;
             panel6.Controls.Add(label6);
             panel6.Dock = DockStyle.Fill;
-            panel6.Location = new Point(505, 1);
+            panel6.Location = new Point(711, 1);
             panel6.Margin = new Padding(1);
             panel6.Name = "panel6";
-            panel6.Size = new Size(99, 87);
+            panel6.Size = new Size(140, 121);
             panel6.TabIndex = 1;
             // 
             // label6
@@ -430,7 +433,7 @@
             label6.Location = new Point(0, 0);
             label6.Name = "label6";
             label6.Padding = new Padding(5);
-            label6.Size = new Size(97, 40);
+            label6.Size = new Size(138, 40);
             label6.TabIndex = 1;
             label6.Text = "label6";
             label6.TextAlign = ContentAlignment.TopRight;
@@ -441,10 +444,10 @@
             panel7.BorderStyle = BorderStyle.FixedSingle;
             panel7.Controls.Add(label7);
             panel7.Dock = DockStyle.Fill;
-            panel7.Location = new Point(606, 1);
+            panel7.Location = new Point(853, 1);
             panel7.Margin = new Padding(1);
             panel7.Name = "panel7";
-            panel7.Size = new Size(100, 87);
+            panel7.Size = new Size(143, 121);
             panel7.TabIndex = 1;
             // 
             // label7
@@ -453,7 +456,7 @@
             label7.Location = new Point(0, 0);
             label7.Name = "label7";
             label7.Padding = new Padding(5);
-            label7.Size = new Size(98, 40);
+            label7.Size = new Size(141, 40);
             label7.TabIndex = 1;
             label7.Text = "label7";
             label7.TextAlign = ContentAlignment.TopRight;
@@ -464,10 +467,10 @@
             panel8.BorderStyle = BorderStyle.FixedSingle;
             panel8.Controls.Add(label8);
             panel8.Dock = DockStyle.Fill;
-            panel8.Location = new Point(1, 90);
+            panel8.Location = new Point(1, 124);
             panel8.Margin = new Padding(1);
             panel8.Name = "panel8";
-            panel8.Size = new Size(98, 87);
+            panel8.Size = new Size(140, 121);
             panel8.TabIndex = 1;
             // 
             // label8
@@ -476,7 +479,7 @@
             label8.Location = new Point(0, 0);
             label8.Name = "label8";
             label8.Padding = new Padding(5);
-            label8.Size = new Size(96, 40);
+            label8.Size = new Size(138, 40);
             label8.TabIndex = 1;
             label8.Text = "label8";
             label8.TextAlign = ContentAlignment.TopRight;
@@ -487,10 +490,10 @@
             panel9.BorderStyle = BorderStyle.FixedSingle;
             panel9.Controls.Add(label9);
             panel9.Dock = DockStyle.Fill;
-            panel9.Location = new Point(101, 90);
+            panel9.Location = new Point(143, 124);
             panel9.Margin = new Padding(1);
             panel9.Name = "panel9";
-            panel9.Size = new Size(99, 87);
+            panel9.Size = new Size(140, 121);
             panel9.TabIndex = 1;
             // 
             // label9
@@ -499,7 +502,7 @@
             label9.Location = new Point(0, 0);
             label9.Name = "label9";
             label9.Padding = new Padding(5);
-            label9.Size = new Size(97, 40);
+            label9.Size = new Size(138, 40);
             label9.TabIndex = 1;
             label9.Text = "label9";
             label9.TextAlign = ContentAlignment.TopRight;
@@ -510,10 +513,10 @@
             panel10.BorderStyle = BorderStyle.FixedSingle;
             panel10.Controls.Add(label10);
             panel10.Dock = DockStyle.Fill;
-            panel10.Location = new Point(202, 90);
+            panel10.Location = new Point(285, 124);
             panel10.Margin = new Padding(1);
             panel10.Name = "panel10";
-            panel10.Size = new Size(99, 87);
+            panel10.Size = new Size(140, 121);
             panel10.TabIndex = 1;
             // 
             // label10
@@ -522,7 +525,7 @@
             label10.Location = new Point(0, 0);
             label10.Name = "label10";
             label10.Padding = new Padding(5);
-            label10.Size = new Size(97, 40);
+            label10.Size = new Size(138, 40);
             label10.TabIndex = 1;
             label10.Text = "label10";
             label10.TextAlign = ContentAlignment.TopRight;
@@ -533,10 +536,10 @@
             panel11.BorderStyle = BorderStyle.FixedSingle;
             panel11.Controls.Add(label11);
             panel11.Dock = DockStyle.Fill;
-            panel11.Location = new Point(303, 90);
+            panel11.Location = new Point(427, 124);
             panel11.Margin = new Padding(1);
             panel11.Name = "panel11";
-            panel11.Size = new Size(99, 87);
+            panel11.Size = new Size(140, 121);
             panel11.TabIndex = 1;
             // 
             // label11
@@ -545,7 +548,7 @@
             label11.Location = new Point(0, 0);
             label11.Name = "label11";
             label11.Padding = new Padding(5);
-            label11.Size = new Size(97, 40);
+            label11.Size = new Size(138, 40);
             label11.TabIndex = 1;
             label11.Text = "label11";
             label11.TextAlign = ContentAlignment.TopRight;
@@ -556,10 +559,10 @@
             panel12.BorderStyle = BorderStyle.FixedSingle;
             panel12.Controls.Add(label12);
             panel12.Dock = DockStyle.Fill;
-            panel12.Location = new Point(404, 90);
+            panel12.Location = new Point(569, 124);
             panel12.Margin = new Padding(1);
             panel12.Name = "panel12";
-            panel12.Size = new Size(99, 87);
+            panel12.Size = new Size(140, 121);
             panel12.TabIndex = 1;
             // 
             // label12
@@ -568,7 +571,7 @@
             label12.Location = new Point(0, 0);
             label12.Name = "label12";
             label12.Padding = new Padding(5);
-            label12.Size = new Size(97, 40);
+            label12.Size = new Size(138, 40);
             label12.TabIndex = 1;
             label12.Text = "label12";
             label12.TextAlign = ContentAlignment.TopRight;
@@ -579,10 +582,10 @@
             panel13.BorderStyle = BorderStyle.FixedSingle;
             panel13.Controls.Add(label13);
             panel13.Dock = DockStyle.Fill;
-            panel13.Location = new Point(505, 90);
+            panel13.Location = new Point(711, 124);
             panel13.Margin = new Padding(1);
             panel13.Name = "panel13";
-            panel13.Size = new Size(99, 87);
+            panel13.Size = new Size(140, 121);
             panel13.TabIndex = 1;
             // 
             // label13
@@ -591,7 +594,7 @@
             label13.Location = new Point(0, 0);
             label13.Name = "label13";
             label13.Padding = new Padding(5);
-            label13.Size = new Size(97, 40);
+            label13.Size = new Size(138, 40);
             label13.TabIndex = 1;
             label13.Text = "label13";
             label13.TextAlign = ContentAlignment.TopRight;
@@ -602,10 +605,10 @@
             panel14.BorderStyle = BorderStyle.FixedSingle;
             panel14.Controls.Add(label14);
             panel14.Dock = DockStyle.Fill;
-            panel14.Location = new Point(606, 90);
+            panel14.Location = new Point(853, 124);
             panel14.Margin = new Padding(1);
             panel14.Name = "panel14";
-            panel14.Size = new Size(100, 87);
+            panel14.Size = new Size(143, 121);
             panel14.TabIndex = 1;
             // 
             // label14
@@ -614,7 +617,7 @@
             label14.Location = new Point(0, 0);
             label14.Name = "label14";
             label14.Padding = new Padding(5);
-            label14.Size = new Size(98, 40);
+            label14.Size = new Size(141, 40);
             label14.TabIndex = 1;
             label14.Text = "label14";
             label14.TextAlign = ContentAlignment.TopRight;
@@ -625,10 +628,10 @@
             panel15.BorderStyle = BorderStyle.FixedSingle;
             panel15.Controls.Add(label15);
             panel15.Dock = DockStyle.Fill;
-            panel15.Location = new Point(1, 179);
+            panel15.Location = new Point(1, 247);
             panel15.Margin = new Padding(1);
             panel15.Name = "panel15";
-            panel15.Size = new Size(98, 87);
+            panel15.Size = new Size(140, 121);
             panel15.TabIndex = 1;
             // 
             // label15
@@ -637,7 +640,7 @@
             label15.Location = new Point(0, 0);
             label15.Name = "label15";
             label15.Padding = new Padding(5);
-            label15.Size = new Size(96, 40);
+            label15.Size = new Size(138, 40);
             label15.TabIndex = 1;
             label15.Text = "label15";
             label15.TextAlign = ContentAlignment.TopRight;
@@ -648,10 +651,10 @@
             panel16.BorderStyle = BorderStyle.FixedSingle;
             panel16.Controls.Add(label16);
             panel16.Dock = DockStyle.Fill;
-            panel16.Location = new Point(101, 179);
+            panel16.Location = new Point(143, 247);
             panel16.Margin = new Padding(1);
             panel16.Name = "panel16";
-            panel16.Size = new Size(99, 87);
+            panel16.Size = new Size(140, 121);
             panel16.TabIndex = 1;
             // 
             // label16
@@ -660,7 +663,7 @@
             label16.Location = new Point(0, 0);
             label16.Name = "label16";
             label16.Padding = new Padding(5);
-            label16.Size = new Size(97, 40);
+            label16.Size = new Size(138, 40);
             label16.TabIndex = 1;
             label16.Text = "label16";
             label16.TextAlign = ContentAlignment.TopRight;
@@ -671,10 +674,10 @@
             panel17.BorderStyle = BorderStyle.FixedSingle;
             panel17.Controls.Add(label17);
             panel17.Dock = DockStyle.Fill;
-            panel17.Location = new Point(202, 179);
+            panel17.Location = new Point(285, 247);
             panel17.Margin = new Padding(1);
             panel17.Name = "panel17";
-            panel17.Size = new Size(99, 87);
+            panel17.Size = new Size(140, 121);
             panel17.TabIndex = 1;
             // 
             // label17
@@ -683,7 +686,7 @@
             label17.Location = new Point(0, 0);
             label17.Name = "label17";
             label17.Padding = new Padding(5);
-            label17.Size = new Size(97, 40);
+            label17.Size = new Size(138, 40);
             label17.TabIndex = 1;
             label17.Text = "label17";
             label17.TextAlign = ContentAlignment.TopRight;
@@ -694,10 +697,10 @@
             panel18.BorderStyle = BorderStyle.FixedSingle;
             panel18.Controls.Add(label18);
             panel18.Dock = DockStyle.Fill;
-            panel18.Location = new Point(303, 179);
+            panel18.Location = new Point(427, 247);
             panel18.Margin = new Padding(1);
             panel18.Name = "panel18";
-            panel18.Size = new Size(99, 87);
+            panel18.Size = new Size(140, 121);
             panel18.TabIndex = 1;
             // 
             // label18
@@ -706,7 +709,7 @@
             label18.Location = new Point(0, 0);
             label18.Name = "label18";
             label18.Padding = new Padding(5);
-            label18.Size = new Size(97, 40);
+            label18.Size = new Size(138, 40);
             label18.TabIndex = 1;
             label18.Text = "label18";
             label18.TextAlign = ContentAlignment.TopRight;
@@ -717,10 +720,10 @@
             panel19.BorderStyle = BorderStyle.FixedSingle;
             panel19.Controls.Add(label19);
             panel19.Dock = DockStyle.Fill;
-            panel19.Location = new Point(404, 179);
+            panel19.Location = new Point(569, 247);
             panel19.Margin = new Padding(1);
             panel19.Name = "panel19";
-            panel19.Size = new Size(99, 87);
+            panel19.Size = new Size(140, 121);
             panel19.TabIndex = 1;
             // 
             // label19
@@ -729,7 +732,7 @@
             label19.Location = new Point(0, 0);
             label19.Name = "label19";
             label19.Padding = new Padding(5);
-            label19.Size = new Size(97, 40);
+            label19.Size = new Size(138, 40);
             label19.TabIndex = 1;
             label19.Text = "label19";
             label19.TextAlign = ContentAlignment.TopRight;
@@ -740,10 +743,10 @@
             panel20.BorderStyle = BorderStyle.FixedSingle;
             panel20.Controls.Add(label20);
             panel20.Dock = DockStyle.Fill;
-            panel20.Location = new Point(505, 179);
+            panel20.Location = new Point(711, 247);
             panel20.Margin = new Padding(1);
             panel20.Name = "panel20";
-            panel20.Size = new Size(99, 87);
+            panel20.Size = new Size(140, 121);
             panel20.TabIndex = 1;
             // 
             // label20
@@ -752,7 +755,7 @@
             label20.Location = new Point(0, 0);
             label20.Name = "label20";
             label20.Padding = new Padding(5);
-            label20.Size = new Size(97, 40);
+            label20.Size = new Size(138, 40);
             label20.TabIndex = 1;
             label20.Text = "label20";
             label20.TextAlign = ContentAlignment.TopRight;
@@ -763,10 +766,10 @@
             panel21.BorderStyle = BorderStyle.FixedSingle;
             panel21.Controls.Add(label21);
             panel21.Dock = DockStyle.Fill;
-            panel21.Location = new Point(606, 179);
+            panel21.Location = new Point(853, 247);
             panel21.Margin = new Padding(1);
             panel21.Name = "panel21";
-            panel21.Size = new Size(100, 87);
+            panel21.Size = new Size(143, 121);
             panel21.TabIndex = 1;
             // 
             // label21
@@ -775,7 +778,7 @@
             label21.Location = new Point(0, 0);
             label21.Name = "label21";
             label21.Padding = new Padding(5);
-            label21.Size = new Size(98, 40);
+            label21.Size = new Size(141, 40);
             label21.TabIndex = 1;
             label21.Text = "label21";
             label21.TextAlign = ContentAlignment.TopRight;
@@ -786,10 +789,10 @@
             panel22.BorderStyle = BorderStyle.FixedSingle;
             panel22.Controls.Add(label22);
             panel22.Dock = DockStyle.Fill;
-            panel22.Location = new Point(1, 268);
+            panel22.Location = new Point(1, 370);
             panel22.Margin = new Padding(1);
             panel22.Name = "panel22";
-            panel22.Size = new Size(98, 87);
+            panel22.Size = new Size(140, 121);
             panel22.TabIndex = 1;
             // 
             // label22
@@ -798,7 +801,7 @@
             label22.Location = new Point(0, 0);
             label22.Name = "label22";
             label22.Padding = new Padding(5);
-            label22.Size = new Size(96, 40);
+            label22.Size = new Size(138, 40);
             label22.TabIndex = 1;
             label22.Text = "label22";
             label22.TextAlign = ContentAlignment.TopRight;
@@ -809,10 +812,10 @@
             panel23.BorderStyle = BorderStyle.FixedSingle;
             panel23.Controls.Add(label23);
             panel23.Dock = DockStyle.Fill;
-            panel23.Location = new Point(101, 268);
+            panel23.Location = new Point(143, 370);
             panel23.Margin = new Padding(1);
             panel23.Name = "panel23";
-            panel23.Size = new Size(99, 87);
+            panel23.Size = new Size(140, 121);
             panel23.TabIndex = 1;
             // 
             // label23
@@ -821,7 +824,7 @@
             label23.Location = new Point(0, 0);
             label23.Name = "label23";
             label23.Padding = new Padding(5);
-            label23.Size = new Size(97, 40);
+            label23.Size = new Size(138, 40);
             label23.TabIndex = 1;
             label23.Text = "label23";
             label23.TextAlign = ContentAlignment.TopRight;
@@ -832,10 +835,10 @@
             panel24.BorderStyle = BorderStyle.FixedSingle;
             panel24.Controls.Add(label24);
             panel24.Dock = DockStyle.Fill;
-            panel24.Location = new Point(202, 268);
+            panel24.Location = new Point(285, 370);
             panel24.Margin = new Padding(1);
             panel24.Name = "panel24";
-            panel24.Size = new Size(99, 87);
+            panel24.Size = new Size(140, 121);
             panel24.TabIndex = 1;
             // 
             // label24
@@ -844,7 +847,7 @@
             label24.Location = new Point(0, 0);
             label24.Name = "label24";
             label24.Padding = new Padding(5);
-            label24.Size = new Size(97, 40);
+            label24.Size = new Size(138, 40);
             label24.TabIndex = 1;
             label24.Text = "label24";
             label24.TextAlign = ContentAlignment.TopRight;
@@ -855,10 +858,10 @@
             panel25.BorderStyle = BorderStyle.FixedSingle;
             panel25.Controls.Add(label25);
             panel25.Dock = DockStyle.Fill;
-            panel25.Location = new Point(303, 268);
+            panel25.Location = new Point(427, 370);
             panel25.Margin = new Padding(1);
             panel25.Name = "panel25";
-            panel25.Size = new Size(99, 87);
+            panel25.Size = new Size(140, 121);
             panel25.TabIndex = 1;
             // 
             // label25
@@ -867,7 +870,7 @@
             label25.Location = new Point(0, 0);
             label25.Name = "label25";
             label25.Padding = new Padding(5);
-            label25.Size = new Size(97, 40);
+            label25.Size = new Size(138, 40);
             label25.TabIndex = 1;
             label25.Text = "label25";
             label25.TextAlign = ContentAlignment.TopRight;
@@ -878,10 +881,10 @@
             panel26.BorderStyle = BorderStyle.FixedSingle;
             panel26.Controls.Add(label26);
             panel26.Dock = DockStyle.Fill;
-            panel26.Location = new Point(404, 268);
+            panel26.Location = new Point(569, 370);
             panel26.Margin = new Padding(1);
             panel26.Name = "panel26";
-            panel26.Size = new Size(99, 87);
+            panel26.Size = new Size(140, 121);
             panel26.TabIndex = 1;
             // 
             // label26
@@ -890,7 +893,7 @@
             label26.Location = new Point(0, 0);
             label26.Name = "label26";
             label26.Padding = new Padding(5);
-            label26.Size = new Size(97, 40);
+            label26.Size = new Size(138, 40);
             label26.TabIndex = 1;
             label26.Text = "label26";
             label26.TextAlign = ContentAlignment.TopRight;
@@ -901,10 +904,10 @@
             panel27.BorderStyle = BorderStyle.FixedSingle;
             panel27.Controls.Add(label27);
             panel27.Dock = DockStyle.Fill;
-            panel27.Location = new Point(505, 268);
+            panel27.Location = new Point(711, 370);
             panel27.Margin = new Padding(1);
             panel27.Name = "panel27";
-            panel27.Size = new Size(99, 87);
+            panel27.Size = new Size(140, 121);
             panel27.TabIndex = 1;
             // 
             // label27
@@ -913,7 +916,7 @@
             label27.Location = new Point(0, 0);
             label27.Name = "label27";
             label27.Padding = new Padding(5);
-            label27.Size = new Size(97, 40);
+            label27.Size = new Size(138, 40);
             label27.TabIndex = 1;
             label27.Text = "label27";
             label27.TextAlign = ContentAlignment.TopRight;
@@ -924,10 +927,10 @@
             panel28.BorderStyle = BorderStyle.FixedSingle;
             panel28.Controls.Add(label28);
             panel28.Dock = DockStyle.Fill;
-            panel28.Location = new Point(606, 268);
+            panel28.Location = new Point(853, 370);
             panel28.Margin = new Padding(1);
             panel28.Name = "panel28";
-            panel28.Size = new Size(100, 87);
+            panel28.Size = new Size(143, 121);
             panel28.TabIndex = 1;
             // 
             // label28
@@ -936,7 +939,7 @@
             label28.Location = new Point(0, 0);
             label28.Name = "label28";
             label28.Padding = new Padding(5);
-            label28.Size = new Size(98, 40);
+            label28.Size = new Size(141, 40);
             label28.TabIndex = 1;
             label28.Text = "label28";
             label28.TextAlign = ContentAlignment.TopRight;
@@ -947,10 +950,10 @@
             panel29.BorderStyle = BorderStyle.FixedSingle;
             panel29.Controls.Add(label29);
             panel29.Dock = DockStyle.Fill;
-            panel29.Location = new Point(1, 357);
+            panel29.Location = new Point(1, 493);
             panel29.Margin = new Padding(1);
             panel29.Name = "panel29";
-            panel29.Size = new Size(98, 87);
+            panel29.Size = new Size(140, 121);
             panel29.TabIndex = 1;
             // 
             // label29
@@ -959,7 +962,7 @@
             label29.Location = new Point(0, 0);
             label29.Name = "label29";
             label29.Padding = new Padding(5);
-            label29.Size = new Size(96, 40);
+            label29.Size = new Size(138, 40);
             label29.TabIndex = 1;
             label29.Text = "label29";
             label29.TextAlign = ContentAlignment.TopRight;
@@ -970,10 +973,10 @@
             panel30.BorderStyle = BorderStyle.FixedSingle;
             panel30.Controls.Add(label30);
             panel30.Dock = DockStyle.Fill;
-            panel30.Location = new Point(101, 357);
+            panel30.Location = new Point(143, 493);
             panel30.Margin = new Padding(1);
             panel30.Name = "panel30";
-            panel30.Size = new Size(99, 87);
+            panel30.Size = new Size(140, 121);
             panel30.TabIndex = 1;
             // 
             // label30
@@ -982,7 +985,7 @@
             label30.Location = new Point(0, 0);
             label30.Name = "label30";
             label30.Padding = new Padding(5);
-            label30.Size = new Size(97, 40);
+            label30.Size = new Size(138, 40);
             label30.TabIndex = 1;
             label30.Text = "label30";
             label30.TextAlign = ContentAlignment.TopRight;
@@ -993,10 +996,10 @@
             panel31.BorderStyle = BorderStyle.FixedSingle;
             panel31.Controls.Add(label31);
             panel31.Dock = DockStyle.Fill;
-            panel31.Location = new Point(202, 357);
+            panel31.Location = new Point(285, 493);
             panel31.Margin = new Padding(1);
             panel31.Name = "panel31";
-            panel31.Size = new Size(99, 87);
+            panel31.Size = new Size(140, 121);
             panel31.TabIndex = 1;
             // 
             // label31
@@ -1005,7 +1008,7 @@
             label31.Location = new Point(0, 0);
             label31.Name = "label31";
             label31.Padding = new Padding(5);
-            label31.Size = new Size(97, 40);
+            label31.Size = new Size(138, 40);
             label31.TabIndex = 1;
             label31.Text = "label31";
             label31.TextAlign = ContentAlignment.TopRight;
@@ -1016,10 +1019,10 @@
             panel32.BorderStyle = BorderStyle.FixedSingle;
             panel32.Controls.Add(label32);
             panel32.Dock = DockStyle.Fill;
-            panel32.Location = new Point(303, 357);
+            panel32.Location = new Point(427, 493);
             panel32.Margin = new Padding(1);
             panel32.Name = "panel32";
-            panel32.Size = new Size(99, 87);
+            panel32.Size = new Size(140, 121);
             panel32.TabIndex = 1;
             // 
             // label32
@@ -1028,7 +1031,7 @@
             label32.Location = new Point(0, 0);
             label32.Name = "label32";
             label32.Padding = new Padding(5);
-            label32.Size = new Size(97, 40);
+            label32.Size = new Size(138, 40);
             label32.TabIndex = 1;
             label32.Text = "label32";
             label32.TextAlign = ContentAlignment.TopRight;
@@ -1039,10 +1042,10 @@
             panel33.BorderStyle = BorderStyle.FixedSingle;
             panel33.Controls.Add(label33);
             panel33.Dock = DockStyle.Fill;
-            panel33.Location = new Point(404, 357);
+            panel33.Location = new Point(569, 493);
             panel33.Margin = new Padding(1);
             panel33.Name = "panel33";
-            panel33.Size = new Size(99, 87);
+            panel33.Size = new Size(140, 121);
             panel33.TabIndex = 1;
             // 
             // label33
@@ -1051,7 +1054,7 @@
             label33.Location = new Point(0, 0);
             label33.Name = "label33";
             label33.Padding = new Padding(5);
-            label33.Size = new Size(97, 40);
+            label33.Size = new Size(138, 40);
             label33.TabIndex = 1;
             label33.Text = "label33";
             label33.TextAlign = ContentAlignment.TopRight;
@@ -1062,10 +1065,10 @@
             panel34.BorderStyle = BorderStyle.FixedSingle;
             panel34.Controls.Add(label34);
             panel34.Dock = DockStyle.Fill;
-            panel34.Location = new Point(505, 357);
+            panel34.Location = new Point(711, 493);
             panel34.Margin = new Padding(1);
             panel34.Name = "panel34";
-            panel34.Size = new Size(99, 87);
+            panel34.Size = new Size(140, 121);
             panel34.TabIndex = 1;
             // 
             // label34
@@ -1074,7 +1077,7 @@
             label34.Location = new Point(0, 0);
             label34.Name = "label34";
             label34.Padding = new Padding(5);
-            label34.Size = new Size(97, 40);
+            label34.Size = new Size(138, 40);
             label34.TabIndex = 1;
             label34.Text = "label34";
             label34.TextAlign = ContentAlignment.TopRight;
@@ -1085,10 +1088,10 @@
             panel35.BorderStyle = BorderStyle.FixedSingle;
             panel35.Controls.Add(label35);
             panel35.Dock = DockStyle.Fill;
-            panel35.Location = new Point(606, 357);
+            panel35.Location = new Point(853, 493);
             panel35.Margin = new Padding(1);
             panel35.Name = "panel35";
-            panel35.Size = new Size(100, 87);
+            panel35.Size = new Size(143, 121);
             panel35.TabIndex = 1;
             // 
             // label35
@@ -1097,7 +1100,7 @@
             label35.Location = new Point(0, 0);
             label35.Name = "label35";
             label35.Padding = new Padding(5);
-            label35.Size = new Size(98, 40);
+            label35.Size = new Size(141, 40);
             label35.TabIndex = 1;
             label35.Text = "label35";
             label35.TextAlign = ContentAlignment.TopRight;
@@ -1108,10 +1111,10 @@
             panel36.BorderStyle = BorderStyle.FixedSingle;
             panel36.Controls.Add(label36);
             panel36.Dock = DockStyle.Fill;
-            panel36.Location = new Point(1, 446);
+            panel36.Location = new Point(1, 616);
             panel36.Margin = new Padding(1);
             panel36.Name = "panel36";
-            panel36.Size = new Size(98, 88);
+            panel36.Size = new Size(140, 121);
             panel36.TabIndex = 1;
             // 
             // label36
@@ -1120,7 +1123,7 @@
             label36.Location = new Point(0, 0);
             label36.Name = "label36";
             label36.Padding = new Padding(5);
-            label36.Size = new Size(96, 40);
+            label36.Size = new Size(138, 40);
             label36.TabIndex = 1;
             label36.Text = "label36";
             label36.TextAlign = ContentAlignment.TopRight;
@@ -1131,10 +1134,10 @@
             panel37.BorderStyle = BorderStyle.FixedSingle;
             panel37.Controls.Add(label37);
             panel37.Dock = DockStyle.Fill;
-            panel37.Location = new Point(101, 446);
+            panel37.Location = new Point(143, 616);
             panel37.Margin = new Padding(1);
             panel37.Name = "panel37";
-            panel37.Size = new Size(99, 88);
+            panel37.Size = new Size(140, 121);
             panel37.TabIndex = 1;
             // 
             // label37
@@ -1143,7 +1146,7 @@
             label37.Location = new Point(0, 0);
             label37.Name = "label37";
             label37.Padding = new Padding(5);
-            label37.Size = new Size(97, 40);
+            label37.Size = new Size(138, 40);
             label37.TabIndex = 1;
             label37.Text = "label37";
             label37.TextAlign = ContentAlignment.TopRight;
@@ -1154,10 +1157,10 @@
             panel38.BorderStyle = BorderStyle.FixedSingle;
             panel38.Controls.Add(label38);
             panel38.Dock = DockStyle.Fill;
-            panel38.Location = new Point(202, 446);
+            panel38.Location = new Point(285, 616);
             panel38.Margin = new Padding(1);
             panel38.Name = "panel38";
-            panel38.Size = new Size(99, 88);
+            panel38.Size = new Size(140, 121);
             panel38.TabIndex = 1;
             // 
             // label38
@@ -1166,7 +1169,7 @@
             label38.Location = new Point(0, 0);
             label38.Name = "label38";
             label38.Padding = new Padding(5);
-            label38.Size = new Size(97, 40);
+            label38.Size = new Size(138, 40);
             label38.TabIndex = 1;
             label38.Text = "label38";
             label38.TextAlign = ContentAlignment.TopRight;
@@ -1177,10 +1180,10 @@
             panel39.BorderStyle = BorderStyle.FixedSingle;
             panel39.Controls.Add(label39);
             panel39.Dock = DockStyle.Fill;
-            panel39.Location = new Point(303, 446);
+            panel39.Location = new Point(427, 616);
             panel39.Margin = new Padding(1);
             panel39.Name = "panel39";
-            panel39.Size = new Size(99, 88);
+            panel39.Size = new Size(140, 121);
             panel39.TabIndex = 1;
             // 
             // label39
@@ -1189,7 +1192,7 @@
             label39.Location = new Point(0, 0);
             label39.Name = "label39";
             label39.Padding = new Padding(5);
-            label39.Size = new Size(97, 40);
+            label39.Size = new Size(138, 40);
             label39.TabIndex = 1;
             label39.Text = "label39";
             label39.TextAlign = ContentAlignment.TopRight;
@@ -1200,10 +1203,10 @@
             panel40.BorderStyle = BorderStyle.FixedSingle;
             panel40.Controls.Add(label40);
             panel40.Dock = DockStyle.Fill;
-            panel40.Location = new Point(404, 446);
+            panel40.Location = new Point(569, 616);
             panel40.Margin = new Padding(1);
             panel40.Name = "panel40";
-            panel40.Size = new Size(99, 88);
+            panel40.Size = new Size(140, 121);
             panel40.TabIndex = 1;
             // 
             // label40
@@ -1212,7 +1215,7 @@
             label40.Location = new Point(0, 0);
             label40.Name = "label40";
             label40.Padding = new Padding(5);
-            label40.Size = new Size(97, 40);
+            label40.Size = new Size(138, 40);
             label40.TabIndex = 1;
             label40.Text = "label40";
             label40.TextAlign = ContentAlignment.TopRight;
@@ -1223,10 +1226,10 @@
             panel41.BorderStyle = BorderStyle.FixedSingle;
             panel41.Controls.Add(label41);
             panel41.Dock = DockStyle.Fill;
-            panel41.Location = new Point(505, 446);
+            panel41.Location = new Point(711, 616);
             panel41.Margin = new Padding(1);
             panel41.Name = "panel41";
-            panel41.Size = new Size(99, 88);
+            panel41.Size = new Size(140, 121);
             panel41.TabIndex = 1;
             // 
             // label41
@@ -1235,7 +1238,7 @@
             label41.Location = new Point(0, 0);
             label41.Name = "label41";
             label41.Padding = new Padding(5);
-            label41.Size = new Size(97, 40);
+            label41.Size = new Size(138, 40);
             label41.TabIndex = 1;
             label41.Text = "label41";
             label41.TextAlign = ContentAlignment.TopRight;
@@ -1246,10 +1249,10 @@
             panel42.BorderStyle = BorderStyle.FixedSingle;
             panel42.Controls.Add(label42);
             panel42.Dock = DockStyle.Fill;
-            panel42.Location = new Point(606, 446);
+            panel42.Location = new Point(853, 616);
             panel42.Margin = new Padding(1);
             panel42.Name = "panel42";
-            panel42.Size = new Size(100, 88);
+            panel42.Size = new Size(143, 121);
             panel42.TabIndex = 1;
             // 
             // label42
@@ -1258,7 +1261,7 @@
             label42.Location = new Point(0, 0);
             label42.Name = "label42";
             label42.Padding = new Padding(5);
-            label42.Size = new Size(98, 40);
+            label42.Size = new Size(141, 40);
             label42.TabIndex = 1;
             label42.Text = "label42";
             label42.TextAlign = ContentAlignment.TopRight;
@@ -1266,13 +1269,13 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.ColumnCount = 7;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.1442719F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857141F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857141F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857141F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857141F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857141F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.4271574F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2427282F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2427282F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2427282F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2427282F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2427282F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.1424274F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.44333F));
             tableLayoutPanel1.Controls.Add(panel49, 6, 0);
             tableLayoutPanel1.Controls.Add(panel48, 5, 0);
             tableLayoutPanel1.Controls.Add(panel47, 4, 0);
@@ -1284,7 +1287,7 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(707, 38);
+            tableLayoutPanel1.Size = new Size(997, 38);
             tableLayoutPanel1.TabIndex = 1;
             // 
             // panel49
@@ -1293,10 +1296,10 @@
             panel49.BorderStyle = BorderStyle.FixedSingle;
             panel49.Controls.Add(label49);
             panel49.Dock = DockStyle.Fill;
-            panel49.Location = new Point(606, 1);
+            panel49.Location = new Point(852, 1);
             panel49.Margin = new Padding(1);
             panel49.Name = "panel49";
-            panel49.Size = new Size(100, 36);
+            panel49.Size = new Size(144, 36);
             panel49.TabIndex = 8;
             // 
             // label49
@@ -1306,7 +1309,7 @@
             label49.Location = new Point(0, 0);
             label49.Name = "label49";
             label49.Padding = new Padding(5);
-            label49.Size = new Size(98, 34);
+            label49.Size = new Size(142, 34);
             label49.TabIndex = 0;
             label49.Text = "토";
             label49.TextAlign = ContentAlignment.MiddleCenter;
@@ -1317,10 +1320,10 @@
             panel48.BorderStyle = BorderStyle.FixedSingle;
             panel48.Controls.Add(label48);
             panel48.Dock = DockStyle.Fill;
-            panel48.Location = new Point(505, 1);
+            panel48.Location = new Point(711, 1);
             panel48.Margin = new Padding(1);
             panel48.Name = "panel48";
-            panel48.Size = new Size(99, 36);
+            panel48.Size = new Size(139, 36);
             panel48.TabIndex = 7;
             // 
             // label48
@@ -1329,7 +1332,7 @@
             label48.Location = new Point(0, 0);
             label48.Name = "label48";
             label48.Padding = new Padding(5);
-            label48.Size = new Size(97, 34);
+            label48.Size = new Size(137, 34);
             label48.TabIndex = 0;
             label48.Text = "금";
             label48.TextAlign = ContentAlignment.MiddleCenter;
@@ -1340,10 +1343,10 @@
             panel47.BorderStyle = BorderStyle.FixedSingle;
             panel47.Controls.Add(label47);
             panel47.Dock = DockStyle.Fill;
-            panel47.Location = new Point(404, 1);
+            panel47.Location = new Point(569, 1);
             panel47.Margin = new Padding(1);
             panel47.Name = "panel47";
-            panel47.Size = new Size(99, 36);
+            panel47.Size = new Size(140, 36);
             panel47.TabIndex = 6;
             // 
             // label47
@@ -1352,7 +1355,7 @@
             label47.Location = new Point(0, 0);
             label47.Name = "label47";
             label47.Padding = new Padding(5);
-            label47.Size = new Size(97, 34);
+            label47.Size = new Size(138, 34);
             label47.TabIndex = 0;
             label47.Text = "목";
             label47.TextAlign = ContentAlignment.MiddleCenter;
@@ -1363,10 +1366,10 @@
             panel46.BorderStyle = BorderStyle.FixedSingle;
             panel46.Controls.Add(label46);
             panel46.Dock = DockStyle.Fill;
-            panel46.Location = new Point(303, 1);
+            panel46.Location = new Point(427, 1);
             panel46.Margin = new Padding(1);
             panel46.Name = "panel46";
-            panel46.Size = new Size(99, 36);
+            panel46.Size = new Size(140, 36);
             panel46.TabIndex = 5;
             // 
             // label46
@@ -1375,7 +1378,7 @@
             label46.Location = new Point(0, 0);
             label46.Name = "label46";
             label46.Padding = new Padding(5);
-            label46.Size = new Size(97, 34);
+            label46.Size = new Size(138, 34);
             label46.TabIndex = 0;
             label46.Text = "수";
             label46.TextAlign = ContentAlignment.MiddleCenter;
@@ -1386,10 +1389,10 @@
             panel45.BorderStyle = BorderStyle.FixedSingle;
             panel45.Controls.Add(label45);
             panel45.Dock = DockStyle.Fill;
-            panel45.Location = new Point(202, 1);
+            panel45.Location = new Point(285, 1);
             panel45.Margin = new Padding(1);
             panel45.Name = "panel45";
-            panel45.Size = new Size(99, 36);
+            panel45.Size = new Size(140, 36);
             panel45.TabIndex = 4;
             // 
             // label45
@@ -1398,7 +1401,7 @@
             label45.Location = new Point(0, 0);
             label45.Name = "label45";
             label45.Padding = new Padding(5);
-            label45.Size = new Size(97, 34);
+            label45.Size = new Size(138, 34);
             label45.TabIndex = 0;
             label45.Text = "화";
             label45.TextAlign = ContentAlignment.MiddleCenter;
@@ -1409,10 +1412,10 @@
             panel44.BorderStyle = BorderStyle.FixedSingle;
             panel44.Controls.Add(label44);
             panel44.Dock = DockStyle.Fill;
-            panel44.Location = new Point(101, 1);
+            panel44.Location = new Point(143, 1);
             panel44.Margin = new Padding(1);
             panel44.Name = "panel44";
-            panel44.Size = new Size(99, 36);
+            panel44.Size = new Size(140, 36);
             panel44.TabIndex = 3;
             // 
             // label44
@@ -1421,7 +1424,7 @@
             label44.Location = new Point(0, 0);
             label44.Name = "label44";
             label44.Padding = new Padding(5);
-            label44.Size = new Size(97, 34);
+            label44.Size = new Size(138, 34);
             label44.TabIndex = 0;
             label44.Text = "월";
             label44.TextAlign = ContentAlignment.MiddleCenter;
@@ -1435,7 +1438,7 @@
             panel43.Location = new Point(1, 1);
             panel43.Margin = new Padding(1);
             panel43.Name = "panel43";
-            panel43.Size = new Size(98, 36);
+            panel43.Size = new Size(140, 36);
             panel43.TabIndex = 2;
             // 
             // label43
@@ -1445,7 +1448,7 @@
             label43.Location = new Point(0, 0);
             label43.Name = "label43";
             label43.Padding = new Padding(5);
-            label43.Size = new Size(96, 34);
+            label43.Size = new Size(138, 34);
             label43.TabIndex = 0;
             label43.Text = "일";
             label43.TextAlign = ContentAlignment.MiddleCenter;
@@ -1462,7 +1465,7 @@
             // 
             // btnNext
             // 
-            btnNext.Location = new Point(984, 316);
+            btnNext.Location = new Point(1268, 442);
             btnNext.Name = "btnNext";
             btnNext.Size = new Size(75, 23);
             btnNext.TabIndex = 3;
@@ -1472,7 +1475,7 @@
             // 
             // btnPrev
             // 
-            btnPrev.Location = new Point(124, 316);
+            btnPrev.Location = new Point(124, 442);
             btnPrev.Name = "btnPrev";
             btnPrev.Size = new Size(75, 23);
             btnPrev.TabIndex = 3;
@@ -1512,7 +1515,7 @@
             CalendarWeekTable.RowCount = 1;
             CalendarWeekTable.RowStyles.Add(new RowStyle(SizeType.Percent, 100.000008F));
             CalendarWeekTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            CalendarWeekTable.Size = new Size(707, 476);
+            CalendarWeekTable.Size = new Size(995, 679);
             CalendarWeekTable.TabIndex = 4;
             CalendarWeekTable.Visible = false;
             // 
@@ -1522,10 +1525,10 @@
             panel63.BorderStyle = BorderStyle.FixedSingle;
             panel63.Controls.Add(label63);
             panel63.Dock = DockStyle.Fill;
-            panel63.Location = new Point(606, 1);
+            panel63.Location = new Point(853, 1);
             panel63.Margin = new Padding(1);
             panel63.Name = "panel63";
-            panel63.Size = new Size(100, 474);
+            panel63.Size = new Size(141, 677);
             panel63.TabIndex = 15;
             // 
             // label63
@@ -1534,7 +1537,7 @@
             label63.Location = new Point(0, 0);
             label63.Name = "label63";
             label63.Padding = new Padding(5);
-            label63.Size = new Size(98, 40);
+            label63.Size = new Size(139, 40);
             label63.TabIndex = 0;
             label63.Text = "label63";
             label63.TextAlign = ContentAlignment.TopRight;
@@ -1545,10 +1548,10 @@
             panel62.BorderStyle = BorderStyle.FixedSingle;
             panel62.Controls.Add(label62);
             panel62.Dock = DockStyle.Fill;
-            panel62.Location = new Point(505, 1);
+            panel62.Location = new Point(711, 1);
             panel62.Margin = new Padding(1);
             panel62.Name = "panel62";
-            panel62.Size = new Size(99, 474);
+            panel62.Size = new Size(140, 677);
             panel62.TabIndex = 14;
             // 
             // label62
@@ -1557,7 +1560,7 @@
             label62.Location = new Point(0, 0);
             label62.Name = "label62";
             label62.Padding = new Padding(5);
-            label62.Size = new Size(97, 40);
+            label62.Size = new Size(138, 40);
             label62.TabIndex = 0;
             label62.Text = "label62";
             label62.TextAlign = ContentAlignment.TopRight;
@@ -1568,10 +1571,10 @@
             panel61.BorderStyle = BorderStyle.FixedSingle;
             panel61.Controls.Add(label61);
             panel61.Dock = DockStyle.Fill;
-            panel61.Location = new Point(404, 1);
+            panel61.Location = new Point(569, 1);
             panel61.Margin = new Padding(1);
             panel61.Name = "panel61";
-            panel61.Size = new Size(99, 474);
+            panel61.Size = new Size(140, 677);
             panel61.TabIndex = 13;
             // 
             // label61
@@ -1580,7 +1583,7 @@
             label61.Location = new Point(0, 0);
             label61.Name = "label61";
             label61.Padding = new Padding(5);
-            label61.Size = new Size(97, 40);
+            label61.Size = new Size(138, 40);
             label61.TabIndex = 0;
             label61.Text = "label61";
             label61.TextAlign = ContentAlignment.TopRight;
@@ -1591,10 +1594,10 @@
             panel60.BorderStyle = BorderStyle.FixedSingle;
             panel60.Controls.Add(label60);
             panel60.Dock = DockStyle.Fill;
-            panel60.Location = new Point(303, 1);
+            panel60.Location = new Point(427, 1);
             panel60.Margin = new Padding(1);
             panel60.Name = "panel60";
-            panel60.Size = new Size(99, 474);
+            panel60.Size = new Size(140, 677);
             panel60.TabIndex = 12;
             // 
             // label60
@@ -1603,7 +1606,7 @@
             label60.Location = new Point(0, 0);
             label60.Name = "label60";
             label60.Padding = new Padding(5);
-            label60.Size = new Size(97, 40);
+            label60.Size = new Size(138, 40);
             label60.TabIndex = 0;
             label60.Text = "label60";
             label60.TextAlign = ContentAlignment.TopRight;
@@ -1614,10 +1617,10 @@
             panel59.BorderStyle = BorderStyle.FixedSingle;
             panel59.Controls.Add(label59);
             panel59.Dock = DockStyle.Fill;
-            panel59.Location = new Point(202, 1);
+            panel59.Location = new Point(285, 1);
             panel59.Margin = new Padding(1);
             panel59.Name = "panel59";
-            panel59.Size = new Size(99, 474);
+            panel59.Size = new Size(140, 677);
             panel59.TabIndex = 11;
             // 
             // label59
@@ -1626,7 +1629,7 @@
             label59.Location = new Point(0, 0);
             label59.Name = "label59";
             label59.Padding = new Padding(5);
-            label59.Size = new Size(97, 40);
+            label59.Size = new Size(138, 40);
             label59.TabIndex = 0;
             label59.Text = "label59";
             label59.TextAlign = ContentAlignment.TopRight;
@@ -1637,10 +1640,10 @@
             panel58.BorderStyle = BorderStyle.FixedSingle;
             panel58.Controls.Add(label58);
             panel58.Dock = DockStyle.Fill;
-            panel58.Location = new Point(101, 1);
+            panel58.Location = new Point(143, 1);
             panel58.Margin = new Padding(1);
             panel58.Name = "panel58";
-            panel58.Size = new Size(99, 474);
+            panel58.Size = new Size(140, 677);
             panel58.TabIndex = 10;
             // 
             // label58
@@ -1649,7 +1652,7 @@
             label58.Location = new Point(0, 0);
             label58.Name = "label58";
             label58.Padding = new Padding(5);
-            label58.Size = new Size(97, 40);
+            label58.Size = new Size(138, 40);
             label58.TabIndex = 0;
             label58.Text = "label58";
             label58.TextAlign = ContentAlignment.TopRight;
@@ -1663,7 +1666,7 @@
             panel57.Location = new Point(1, 1);
             panel57.Margin = new Padding(1);
             panel57.Name = "panel57";
-            panel57.Size = new Size(98, 474);
+            panel57.Size = new Size(140, 677);
             panel57.TabIndex = 9;
             // 
             // label57
@@ -1672,7 +1675,7 @@
             label57.Location = new Point(0, 0);
             label57.Name = "label57";
             label57.Padding = new Padding(5);
-            label57.Size = new Size(96, 40);
+            label57.Size = new Size(138, 40);
             label57.TabIndex = 0;
             label57.Text = "label57";
             label57.TextAlign = ContentAlignment.TopRight;
@@ -1680,13 +1683,13 @@
             // tableLayoutPanel3
             // 
             tableLayoutPanel3.ColumnCount = 7;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.1442719F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857141F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857141F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857141F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857141F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857141F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.4271574F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2713566F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2713566F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2713566F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2713566F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2713566F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2713566F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.37186F));
             tableLayoutPanel3.Controls.Add(panel56, 6, 0);
             tableLayoutPanel3.Controls.Add(panel55, 5, 0);
             tableLayoutPanel3.Controls.Add(panel54, 4, 0);
@@ -1698,7 +1701,7 @@
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 1;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.Size = new Size(707, 97);
+            tableLayoutPanel3.Size = new Size(995, 97);
             tableLayoutPanel3.TabIndex = 5;
             tableLayoutPanel3.Visible = false;
             // 
@@ -1708,10 +1711,10 @@
             panel56.BorderStyle = BorderStyle.FixedSingle;
             panel56.Controls.Add(label56);
             panel56.Dock = DockStyle.Fill;
-            panel56.Location = new Point(606, 1);
+            panel56.Location = new Point(853, 1);
             panel56.Margin = new Padding(1);
             panel56.Name = "panel56";
-            panel56.Size = new Size(100, 95);
+            panel56.Size = new Size(141, 95);
             panel56.TabIndex = 9;
             // 
             // label56
@@ -1721,7 +1724,7 @@
             label56.Location = new Point(0, 0);
             label56.Name = "label56";
             label56.Padding = new Padding(5);
-            label56.Size = new Size(98, 93);
+            label56.Size = new Size(139, 93);
             label56.TabIndex = 0;
             label56.Text = "토";
             label56.TextAlign = ContentAlignment.MiddleCenter;
@@ -1732,10 +1735,10 @@
             panel55.BorderStyle = BorderStyle.FixedSingle;
             panel55.Controls.Add(label55);
             panel55.Dock = DockStyle.Fill;
-            panel55.Location = new Point(505, 1);
+            panel55.Location = new Point(711, 1);
             panel55.Margin = new Padding(1);
             panel55.Name = "panel55";
-            panel55.Size = new Size(99, 95);
+            panel55.Size = new Size(140, 95);
             panel55.TabIndex = 8;
             // 
             // label55
@@ -1744,7 +1747,7 @@
             label55.Location = new Point(0, 0);
             label55.Name = "label55";
             label55.Padding = new Padding(5);
-            label55.Size = new Size(97, 93);
+            label55.Size = new Size(138, 93);
             label55.TabIndex = 0;
             label55.Text = "금";
             label55.TextAlign = ContentAlignment.MiddleCenter;
@@ -1755,10 +1758,10 @@
             panel54.BorderStyle = BorderStyle.FixedSingle;
             panel54.Controls.Add(label54);
             panel54.Dock = DockStyle.Fill;
-            panel54.Location = new Point(404, 1);
+            panel54.Location = new Point(569, 1);
             panel54.Margin = new Padding(1);
             panel54.Name = "panel54";
-            panel54.Size = new Size(99, 95);
+            panel54.Size = new Size(140, 95);
             panel54.TabIndex = 7;
             // 
             // label54
@@ -1767,7 +1770,7 @@
             label54.Location = new Point(0, 0);
             label54.Name = "label54";
             label54.Padding = new Padding(5);
-            label54.Size = new Size(97, 93);
+            label54.Size = new Size(138, 93);
             label54.TabIndex = 0;
             label54.Text = "목";
             label54.TextAlign = ContentAlignment.MiddleCenter;
@@ -1778,10 +1781,10 @@
             panel53.BorderStyle = BorderStyle.FixedSingle;
             panel53.Controls.Add(label53);
             panel53.Dock = DockStyle.Fill;
-            panel53.Location = new Point(303, 1);
+            panel53.Location = new Point(427, 1);
             panel53.Margin = new Padding(1);
             panel53.Name = "panel53";
-            panel53.Size = new Size(99, 95);
+            panel53.Size = new Size(140, 95);
             panel53.TabIndex = 6;
             // 
             // label53
@@ -1790,7 +1793,7 @@
             label53.Location = new Point(0, 0);
             label53.Name = "label53";
             label53.Padding = new Padding(5);
-            label53.Size = new Size(97, 93);
+            label53.Size = new Size(138, 93);
             label53.TabIndex = 0;
             label53.Text = "수";
             label53.TextAlign = ContentAlignment.MiddleCenter;
@@ -1801,10 +1804,10 @@
             panel52.BorderStyle = BorderStyle.FixedSingle;
             panel52.Controls.Add(label52);
             panel52.Dock = DockStyle.Fill;
-            panel52.Location = new Point(202, 1);
+            panel52.Location = new Point(285, 1);
             panel52.Margin = new Padding(1);
             panel52.Name = "panel52";
-            panel52.Size = new Size(99, 95);
+            panel52.Size = new Size(140, 95);
             panel52.TabIndex = 5;
             // 
             // label52
@@ -1813,7 +1816,7 @@
             label52.Location = new Point(0, 0);
             label52.Name = "label52";
             label52.Padding = new Padding(5);
-            label52.Size = new Size(97, 93);
+            label52.Size = new Size(138, 93);
             label52.TabIndex = 0;
             label52.Text = "화";
             label52.TextAlign = ContentAlignment.MiddleCenter;
@@ -1824,10 +1827,10 @@
             panel51.BorderStyle = BorderStyle.FixedSingle;
             panel51.Controls.Add(label51);
             panel51.Dock = DockStyle.Fill;
-            panel51.Location = new Point(101, 1);
+            panel51.Location = new Point(143, 1);
             panel51.Margin = new Padding(1);
             panel51.Name = "panel51";
-            panel51.Size = new Size(99, 95);
+            panel51.Size = new Size(140, 95);
             panel51.TabIndex = 4;
             // 
             // label51
@@ -1836,7 +1839,7 @@
             label51.Location = new Point(0, 0);
             label51.Name = "label51";
             label51.Padding = new Padding(5);
-            label51.Size = new Size(97, 93);
+            label51.Size = new Size(138, 93);
             label51.TabIndex = 0;
             label51.Text = "월";
             label51.TextAlign = ContentAlignment.MiddleCenter;
@@ -1850,7 +1853,7 @@
             panel50.Location = new Point(1, 1);
             panel50.Margin = new Padding(1);
             panel50.Name = "panel50";
-            panel50.Size = new Size(98, 95);
+            panel50.Size = new Size(140, 95);
             panel50.TabIndex = 3;
             // 
             // label50
@@ -1860,7 +1863,7 @@
             label50.Location = new Point(0, 0);
             label50.Name = "label50";
             label50.Padding = new Padding(5);
-            label50.Size = new Size(96, 93);
+            label50.Size = new Size(138, 93);
             label50.TabIndex = 0;
             label50.Text = "일";
             label50.TextAlign = ContentAlignment.MiddleCenter;
@@ -1885,26 +1888,41 @@
             btnMonth.UseVisualStyleBackColor = true;
             btnMonth.Click += btnMonth_Click;
             // 
+            // label64
+            // 
+            label64.AutoSize = true;
+            label64.Location = new Point(1297, 48);
+            label64.Name = "label64";
+            label64.Size = new Size(46, 15);
+            label64.TabIndex = 6;
+            label64.Text = "label64";
+            // 
+            // timer1
+            // 
+            timer1.Tick += timer1_Tick;
+            // 
             // Calendar
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1194, 709);
+            ClientSize = new Size(1681, 880);
+            Controls.Add(label64);
             Controls.Add(btnPrev);
             Controls.Add(btnMonth);
             Controls.Add(btnWeek);
             Controls.Add(btnToday);
             Controls.Add(btnNext);
             Controls.Add(lbYearMonth);
-            Controls.Add(tableLayoutPanel1);
-            Controls.Add(CalendarTable);
             Controls.Add(CalendarWeekTable);
             Controls.Add(tableLayoutPanel3);
+            Controls.Add(CalendarTable);
+            Controls.Add(tableLayoutPanel1);
             Name = "Calendar";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
             Load += Form1_Load;
+            KeyDown += Calendar_KeyDown;
             CalendarTable.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
@@ -2114,5 +2132,7 @@
         private Label label50;
         private Button btnWeek;
         private Button btnMonth;
+        private Label label64;
+        private System.Windows.Forms.Timer timer1;
     }
 }

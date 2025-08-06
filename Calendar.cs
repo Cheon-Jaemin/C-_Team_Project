@@ -121,7 +121,53 @@ namespace C_TeamProject
         private void draw_blue(int currentDay, int currentMonth)
         {
             Fill(currentYear, currentMonth); // 월간 보기 초기화
-            ShowWeek(cursorDatetime);
+
+            currentDay = cursorDatetime.Day;
+            currentMonth = cursorDatetime.Month;
+
+            TableLayoutPanel targetTable = isWeekView ? CalendarWeekTable : CalendarTable;
+
+            foreach (Control ctrl in targetTable.Controls)
+            {
+                if (ctrl is Panel panel && panel.Controls.Count > 0)
+                {
+                    Label lbl = panel.Controls[0] as Label;
+                    if (lbl == null || string.IsNullOrWhiteSpace(lbl.Text))
+                        continue;
+
+                    // 라벨 텍스트에서 날짜 숫자만 추출합니다.
+                    string datePart = lbl.Text.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
+
+                    if (datePart != null && int.TryParse(datePart, out int dayOnly) && dayOnly == currentDay)
+                    {
+                        panel.BackColor = Color.LightBlue;
+                        return;
+                    }
+
+                    // 이 부분은 주간 보기용 코드입니다.
+                    if (lbl.Text.Contains("-"))
+                    {
+                        string[] parts = lbl.Text.Split('-');
+                        if (parts.Length == 2 &&
+                            int.TryParse(parts[0], out int parsedMonth) &&
+                            int.TryParse(parts[1], out int parsedDay))
+                        {
+                            if (parsedMonth == currentMonth && parsedDay == currentDay)
+                            {
+                                panel.BackColor = Color.LightBlue;
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        
+        private void Wdraw_blue(int currentDay, int currentMonth)
+        {
+            ShowWeek(cursorDatetime); // 주간 보기 초기화
+
             currentDay = cursorDatetime.Day;
             currentMonth = cursorDatetime.Month;
 
@@ -415,7 +461,7 @@ namespace C_TeamProject
             {
                 MessageBox.Show("");
             }
-            draw_blue(currentDay,currentMonth);
+            Wdraw_blue(currentDay,currentMonth);
 
         }
 
@@ -502,6 +548,19 @@ namespace C_TeamProject
             int index = (int)firstDay.DayOfWeek;
 
             int day = 1;
+            // 1. 기존에 표시된 일정(이벤트) 라벨들을 모두 삭제합니다.
+            foreach (Control ctrl in CalendarTable.Controls)
+            {
+                if (ctrl is Panel panel)
+                {
+                    // Panel의 모든 컨트롤을 역순으로 순회하며 삭제
+                    // 첫 번째 컨트롤(날짜 라벨)은 제외
+                    for (int i = panel.Controls.Count - 1; i > 0; i--)
+                    {
+                        panel.Controls.RemoveAt(i);
+                    }
+                }
+            }
 
             for (int i = 0; i < CalendarTable.Controls.Count; i++)
             {
@@ -549,7 +608,11 @@ namespace C_TeamProject
                         panel.BackColor = Color.Gainsboro;
                     }
                 }
+
             }
+            // 2. 새로운 달의 일정을 다시 로드합니다.
+            //cursorDatetime = new DateTime(year, month, 1);
+            ShowEventList();
         }
 
         private void btnPrev_Click(object sender, EventArgs e)
@@ -575,18 +638,23 @@ namespace C_TeamProject
         {
             if (isWeekView)
             {
+               
                 currentWeekStart = currentWeekStart.AddDays(7);
                 ShowWeek(currentWeekStart);
             }
             else
             {
                 currentMonth++;
-                if (currentMonth == 13)
+               
+                if (currentMonth >= 13)
                 {
                     currentMonth = 1;
                     currentYear++;
+                    
                 }
+                cursorDatetime = new DateTime(currentYear, currentMonth, 1);
                 Fill(currentYear, currentMonth);
+
             }
         }
 
@@ -751,10 +819,13 @@ namespace C_TeamProject
         //소현섭 코드
         private void ShowEventList()
         {
-            List<CalendarEvent> events = selectDb(cursorDatetime);
+            currentYear = cursorDatetime.Year;
+            currentMonth = cursorDatetime.Month;
+            currentDay = 1;
+            List<CalendarEvent> events = selectDb(new DateTime(currentYear,currentMonth,currentDay));
             Dictionary<string, int> eventRowMap = new Dictionary<string, int>(); // 이벤트별 고정 행
             Dictionary<Panel, HashSet<int>> usedRows = new Dictionary<Panel, HashSet<int>>(); // 날짜별 사용한 행
-
+          
             foreach (CalendarEvent e in events)
             {
                 DateTime start = e.EventStart;
@@ -769,7 +840,7 @@ namespace C_TeamProject
                         bool canAssign = true;
                         for (DateTime d = start; d <= end; d = d.AddDays(1))
                         {
-                            if (d.Month != cursorDatetime.Month || d.Year != cursorDatetime.Year)
+                            if (d.Month != currentMonth || d.Year != currentYear)
                                 continue;
 
                             Panel targetPanel = GetPanelByDate(d.Day);
@@ -800,7 +871,7 @@ namespace C_TeamProject
 
                 for (DateTime d = start; d <= end; d = d.AddDays(1))
                 {
-                    if (d.Month != cursorDatetime.Month || d.Year != cursorDatetime.Year)
+                    if (d.Month != currentMonth|| d.Year != currentYear)
                         continue;
 
                     Panel panel = GetPanelByDate(d.Day);

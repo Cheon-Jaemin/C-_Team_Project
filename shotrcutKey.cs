@@ -18,11 +18,34 @@ namespace C_TeamProject
         }
         private int X = 80;
         private int Y = 30;
-        static int i = 0;
+        int i = 0;
         private void shotrcutKey_Load(object sender, EventArgs e)
         {
-            AddKey("단축키", "단축키 기능");
-            AddKey("단축키2", "단축키 기능");
+
+            Clear();
+            AddKey("일반", "");
+            AddKey("", "");
+            AddKey("?", "이 창 열기");
+            AddKey("Tab", "포커스 이동");
+            AddKey("Shift + Tab", "포커스 뒤로이동");
+            AddKey("ESC", "닫기");
+            AddKey("Ctnl + Shift + L", "테마변경");
+
+            AddKey("워크플로", "");
+            AddKey("", "");
+            AddKey("C", "일정추가/편집");
+            AddKey("Delete", "일정삭제");
+            AddKey("Shift + Delete", "빠른삭제");
+
+            AddKey("캘린더보기", "");
+            AddKey("", "");
+            AddKey(".", "날짜검색 이동");
+            AddKey("T", "오늘 날짜로 이동");
+            AddKey("M", "월 달력보기");
+            AddKey("W", "주 달력보기");
+            AddKey("->", "다음 날짜로 이동");
+            AddKey("<-", "이전 날짜로 이동");
+
         }
         private void AddKey(string ShortKey, string Name)
         {
@@ -44,7 +67,25 @@ namespace C_TeamProject
             this.Controls.Add(myLabel1);
             i++;
         }
+        private void Clear()
+        {
+            foreach (Control ctrl in this.Controls.OfType<Label>().ToList())
+            {
+                this.Controls.Remove(ctrl);
+                ctrl.Dispose();
+            }
+        }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+
+            if (keyData == Keys.Escape)                         //ESC
+            {
+                this.Close();                                      //최근에 연 탭 닫기
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
 
     }
 }
-

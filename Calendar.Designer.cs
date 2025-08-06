@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             CalendarTable = new TableLayoutPanel();
             panel1 = new Panel();
             label1 = new Label();
@@ -165,13 +164,12 @@
             label50 = new Label();
             btnWeek = new Button();
             btnMonth = new Button();
-            label64 = new Label();
-            timer1 = new System.Windows.Forms.Timer(components);
             button1 = new Button();
             pictureBox1 = new PictureBox();
             label65 = new Label();
             pictureBox2 = new PictureBox();
             pictureBox3 = new PictureBox();
+            loginudc1 = new loginudc();
             CalendarTable.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -1914,19 +1912,6 @@
             btnMonth.UseVisualStyleBackColor = true;
             btnMonth.Click += btnMonth_Click;
             // 
-            // label64
-            // 
-            label64.AutoSize = true;
-            label64.Location = new Point(1388, 63);
-            label64.Name = "label64";
-            label64.Size = new Size(46, 15);
-            label64.TabIndex = 6;
-            label64.Text = "label64";
-            // 
-            // timer1
-            // 
-            timer1.Tick += timer1_Tick;
-            // 
             // button1
             // 
             button1.FlatAppearance.BorderColor = Color.FromArgb(224, 224, 224);
@@ -1985,6 +1970,14 @@
             pictureBox3.TabIndex = 11;
             pictureBox3.TabStop = false;
             // 
+            // loginudc1
+            // 
+            loginudc1.BackColor = Color.Transparent;
+            loginudc1.Location = new Point(57, 423);
+            loginudc1.Name = "loginudc1";
+            loginudc1.Size = new Size(215, 137);
+            loginudc1.TabIndex = 12;
+            // 
             // Calendar
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1992,11 +1985,11 @@
             BackColor = Color.White;
             ClientSize = new Size(1681, 880);
             Controls.Add(pictureBox3);
+            Controls.Add(button1);
+            Controls.Add(loginudc1);
             Controls.Add(pictureBox2);
             Controls.Add(label65);
             Controls.Add(pictureBox1);
-            Controls.Add(button1);
-            Controls.Add(label64);
             Controls.Add(btnPrev);
             Controls.Add(btnMonth);
             Controls.Add(btnWeek);
@@ -2224,12 +2217,11 @@
         private Label label50;
         private Button btnWeek;
         private Button btnMonth;
-        private Label label64;
-        private System.Windows.Forms.Timer timer1;
         private Button button1;
         private PictureBox pictureBox1;
         private Label label65;
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
+        private loginudc loginudc1;
     }
 }

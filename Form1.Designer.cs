@@ -37,12 +37,10 @@
             cb_TimeSet2 = new ComboBox();
             cb_TimeSet1 = new ComboBox();
             pb_RightArrow = new PictureBox();
-            lb_Time = new Label();
             cb_repeat = new ComboBox();
             btn_AllTime = new Button();
             btn_TimeSlot = new Button();
             btn_Repeat = new Button();
-            lb_Time2 = new Label();
             lb_Repeat = new Label();
             pictureBox1 = new PictureBox();
             pictureBox3 = new PictureBox();
@@ -87,6 +85,8 @@
             btn_Event_Color_Gray = new Button();
             btn_Event_Color_Green = new Button();
             btn_Event_Color_Red = new Button();
+            lb_Time = new TextBox();
+            lb_Time2 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pb_clock).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pb_RightArrow).BeginInit();
@@ -162,7 +162,7 @@
             cb_TimeSet2.FlatStyle = FlatStyle.Flat;
             cb_TimeSet2.Font = new Font("돋움체", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             cb_TimeSet2.FormattingEnabled = true;
-            cb_TimeSet2.Items.AddRange(new object[] { "12:00 AM", "12:15 AM", "12:30 AM", "12:45 AM", "1:00 AM", "1:15 AM", "1:30 AM", "1:45 AM", "2:00 AM", "2:15 AM", "2:30 AM", "2:45 AM", "3:00 AM", "3:15 AM", "3:30 AM", "3:45 AM", "4:00 AM", "4:15 AM", "4:30 AM", "4:45 AM", "5:00 AM", "5:15 AM", "5:30 AM", "5:45 AM", "6:00 AM", "6:15 AM", "6:30 AM", "6:45 AM", "7:00 AM", "7:15 AM", "7:30 AM", "7:45 AM", "8:00 AM", "8:15 AM", "8:30 AM", "8:45 AM", "9:00 AM", "9:15 AM", "9:30 AM", "9:45 AM", "10:00 AM", "10:15 AM", "10:30 AM", "10:45 AM", "11:00 AM", "11:15 AM", "11:30 AM", "11:45 AM", "12:00 PM", "12:15 PM", "12:30 PM", "12:45 PM", "13:00 PM", "13:15 PM", "13:30 PM", "13:45 PM", "14:00 PM", "14:15 PM", "14:30 PM", "14:45 PM", "15:00 PM", "15:15 PM", "15:30 PM", "15:45 PM", "16:00 PM", "16:15 PM", "16:30 PM", "16:45 PM", "17:00 PM", "17:15 PM", "17:30 PM", "17:45 PM", "18:00 PM", "18:15 PM", "18:30 PM", "18:45 PM", "19:00 PM", "19:15 PM", "19:30 PM", "19:45 PM", "20:00 PM", "20:15 PM", "20:30 PM", "20:45 PM", "21:00 PM", "21:15 PM", "21:30 PM", "21:45 PM", "22:00 PM", "22:15 PM", "22:30 PM", "22:45 PM", "23:00 PM", "23:15 PM", "23:30 PM", "23:45 PM" });
+            cb_TimeSet2.Items.AddRange(new object[] { "12:00 AM", "12:15 AM", "12:30 AM", "12:45 AM", "01:00 AM", "01:15 AM", "01:30 AM", "01:45 AM", "02:00 AM", "02:15 AM", "02:30 AM", "02:45 AM", "03:00 AM", "03:15 AM", "03:30 AM", "03:45 AM", "04:00 AM", "04:15 AM", "04:30 AM", "04:45 AM", "05:00 AM", "05:15 AM", "05:30 AM", "05:45 AM", "06:00 AM", "06:15 AM", "06:30 AM", "06:45 AM", "07:00 AM", "07:15 AM", "07:30 AM", "07:45 AM", "08:00 AM", "08:15 AM", "08:30 AM", "08:45 AM", "09:00 AM", "09:15 AM", "09:30 AM", "09:45 AM", "10:00 AM", "10:15 AM", "10:30 AM", "10:45 AM", "11:00 AM", "11:15 AM", "11:30 AM", "11:45 AM", "12:00 PM", "12:15 PM", "12:30 PM", "12:45 PM", "01:00 PM", "01:15 PM", "01:30 PM", "01:45 PM", "02:00 PM", "02:15 PM", "02:30 PM", "02:45 PM", "03:00 PM", "03:15 PM", "03:30 PM", "03:45 PM", "04:00 PM", "04:15 PM", "04:30 PM", "04:45 PM", "05:00 PM", "05:15 PM", "05:30 PM", "05:45 PM", "06:00 PM", "06:15 PM", "06:30 PM", "06:45 PM", "07:00 PM", "07:15 PM", "07:30 PM", "07:45 PM", "08:00 PM", "08:15 PM", "08:30 PM", "08:45 PM", "09:00 PM", "09:15 PM", "09:30 PM", "09:45 PM", "10:00 PM", "10:15 PM", "10:30 PM", "10:45 PM", "11:00 PM", "11:15 PM", "11:30 PM", "11:45 PM" });
             cb_TimeSet2.Location = new Point(186, 91);
             cb_TimeSet2.Margin = new Padding(3, 4, 3, 4);
             cb_TimeSet2.Name = "cb_TimeSet2";
@@ -174,7 +174,7 @@
             cb_TimeSet1.FlatStyle = FlatStyle.Flat;
             cb_TimeSet1.Font = new Font("돋움체", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             cb_TimeSet1.FormattingEnabled = true;
-            cb_TimeSet1.Items.AddRange(new object[] { "12:00 AM", "12:15 AM", "12:30 AM", "12:45 AM", "1:00 AM", "1:15 AM", "1:30 AM", "1:45 AM", "2:00 AM", "2:15 AM", "2:30 AM", "2:45 AM", "3:00 AM", "3:15 AM", "3:30 AM", "3:45 AM", "4:00 AM", "4:15 AM", "4:30 AM", "4:45 AM", "5:00 AM", "5:15 AM", "5:30 AM", "5:45 AM", "6:00 AM", "6:15 AM", "6:30 AM", "6:45 AM", "7:00 AM", "7:15 AM", "7:30 AM", "7:45 AM", "8:00 AM", "8:15 AM", "8:30 AM", "8:45 AM", "9:00 AM", "9:15 AM", "9:30 AM", "9:45 AM", "10:00 AM", "10:15 AM", "10:30 AM", "10:45 AM", "11:00 AM", "11:15 AM", "11:30 AM", "11:45 AM", "12:00 PM", "12:15 PM", "12:30 PM", "12:45 PM", "13:00 PM", "13:15 PM", "13:30 PM", "13:45 PM", "14:00 PM", "14:15 PM", "14:30 PM", "14:45 PM", "15:00 PM", "15:15 PM", "15:30 PM", "15:45 PM", "16:00 PM", "16:15 PM", "16:30 PM", "16:45 PM", "17:00 PM", "17:15 PM", "17:30 PM", "17:45 PM", "18:00 PM", "18:15 PM", "18:30 PM", "18:45 PM", "19:00 PM", "19:15 PM", "19:30 PM", "19:45 PM", "20:00 PM", "20:15 PM", "20:30 PM", "20:45 PM", "21:00 PM", "21:15 PM", "21:30 PM", "21:45 PM", "22:00 PM", "22:15 PM", "22:30 PM", "22:45 PM", "23:00 PM", "23:15 PM", "23:30 PM", "23:45 PM" });
+            cb_TimeSet1.Items.AddRange(new object[] { "12:00 AM", "12:15 AM", "12:30 AM", "12:45 AM", "01:00 AM", "01:15 AM", "01:30 AM", "01:45 AM", "02:00 AM", "02:15 AM", "02:30 AM", "02:45 AM", "03:00 AM", "03:15 AM", "03:30 AM", "03:45 AM", "04:00 AM", "04:15 AM", "04:30 AM", "04:45 AM", "05:00 AM", "05:15 AM", "05:30 AM", "05:45 AM", "06:00 AM", "06:15 AM", "06:30 AM", "06:45 AM", "07:00 AM", "07:15 AM", "07:30 AM", "07:45 AM", "08:00 AM", "08:15 AM", "08:30 AM", "08:45 AM", "09:00 AM", "09:15 AM", "09:30 AM", "09:45 AM", "10:00 AM", "10:15 AM", "10:30 AM", "10:45 AM", "11:00 AM", "11:15 AM", "11:30 AM", "11:45 AM", "12:00 PM", "12:15 PM", "12:30 PM", "12:45 PM", "01:00 PM", "01:15 PM", "01:30 PM", "01:45 PM", "02:00 PM", "02:15 PM", "02:30 PM", "02:45 PM", "03:00 PM", "03:15 PM", "03:30 PM", "03:45 PM", "04:00 PM", "04:15 PM", "04:30 PM", "04:45 PM", "05:00 PM", "05:15 PM", "05:30 PM", "05:45 PM", "06:00 PM", "06:15 PM", "06:30 PM", "06:45 PM", "07:00 PM", "07:15 PM", "07:30 PM", "07:45 PM", "08:00 PM", "08:15 PM", "08:30 PM", "08:45 PM", "09:00 PM", "09:15 PM", "09:30 PM", "09:45 PM", "10:00 PM", "10:15 PM", "10:30 PM", "10:45 PM", "11:00 PM", "11:15 PM", "11:30 PM", "11:45 PM" });
             cb_TimeSet1.Location = new Point(45, 91);
             cb_TimeSet1.Margin = new Padding(3, 4, 3, 4);
             cb_TimeSet1.Name = "cb_TimeSet1";
@@ -191,17 +191,6 @@
             pb_RightArrow.SizeMode = PictureBoxSizeMode.StretchImage;
             pb_RightArrow.TabIndex = 6;
             pb_RightArrow.TabStop = false;
-            // 
-            // lb_Time
-            // 
-            lb_Time.AutoSize = true;
-            lb_Time.Font = new Font("돋움체", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            lb_Time.Location = new Point(46, 136);
-            lb_Time.Name = "lb_Time";
-            lb_Time.Size = new Size(79, 15);
-            lb_Time.TabIndex = 7;
-            lb_Time.Text = "선택 날짜";
-            lb_Time.Click += lb_TimeNow_Click;
             // 
             // cb_repeat
             // 
@@ -260,17 +249,6 @@
             btn_Repeat.Text = "기간";
             btn_Repeat.UseVisualStyleBackColor = true;
             btn_Repeat.Click += btn_Repeat_Click;
-            // 
-            // lb_Time2
-            // 
-            lb_Time2.AutoSize = true;
-            lb_Time2.Font = new Font("돋움체", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            lb_Time2.Location = new Point(188, 139);
-            lb_Time2.Name = "lb_Time2";
-            lb_Time2.Size = new Size(79, 15);
-            lb_Time2.TabIndex = 10;
-            lb_Time2.Text = "선택 날짜";
-            lb_Time2.Visible = false;
             // 
             // lb_Repeat
             // 
@@ -401,6 +379,7 @@
             btn_setting.TabIndex = 23;
             btn_setting.Text = "추가";
             btn_setting.UseVisualStyleBackColor = true;
+            btn_setting.Click += btn_setting_Click_1;
             // 
             // lb_Participant
             // 
@@ -809,11 +788,28 @@
             btn_Event_Color_Red.Text = "빨간색";
             btn_Event_Color_Red.UseVisualStyleBackColor = false;
             // 
+            // lb_Time
+            // 
+            lb_Time.Location = new Point(40, 132);
+            lb_Time.Name = "lb_Time";
+            lb_Time.Size = new Size(95, 23);
+            lb_Time.TabIndex = 45;
+            lb_Time.TextChanged += lb_Text_TextChanged;
+            // 
+            // lb_Time2
+            // 
+            lb_Time2.Location = new Point(186, 132);
+            lb_Time2.Name = "lb_Time2";
+            lb_Time2.Size = new Size(86, 23);
+            lb_Time2.TabIndex = 45;
+            // 
             // EventMaker
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(284, 880);
+            Controls.Add(lb_Time2);
+            Controls.Add(lb_Time);
             Controls.Add(pn_Status_Setting);
             Controls.Add(pn_Information_Setting);
             Controls.Add(pn_Event_Color);
@@ -845,12 +841,10 @@
             Controls.Add(pictureBox3);
             Controls.Add(pictureBox1);
             Controls.Add(lb_Repeat);
-            Controls.Add(lb_Time2);
             Controls.Add(btn_Repeat);
             Controls.Add(btn_TimeSlot);
             Controls.Add(btn_AllTime);
             Controls.Add(cb_repeat);
-            Controls.Add(lb_Time);
             Controls.Add(cb_TimeSet1);
             Controls.Add(cb_TimeSet2);
             Controls.Add(lb_Title);
@@ -894,12 +888,10 @@
         private System.Windows.Forms.ComboBox cb_TimeSet2;
         private System.Windows.Forms.ComboBox cb_TimeSet1;
         private System.Windows.Forms.PictureBox pb_RightArrow;
-        private System.Windows.Forms.Label lb_Time;
         private System.Windows.Forms.ComboBox cb_repeat;
         private System.Windows.Forms.Button btn_AllTime;
         private System.Windows.Forms.Button btn_TimeSlot;
         private System.Windows.Forms.Button btn_Repeat;
-        private System.Windows.Forms.Label lb_Time2;
         private System.Windows.Forms.Label lb_Repeat;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox3;
@@ -944,6 +936,8 @@
         private System.Windows.Forms.Button btn_Event_Color_Gray;
         private System.Windows.Forms.Button btn_Event_Color_Green;
         private System.Windows.Forms.Button btn_Event_Color_Red;
+        private TextBox lb_Time;
+        private TextBox lb_Time2;
     }
 }
 

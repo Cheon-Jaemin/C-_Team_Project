@@ -1970,14 +1970,6 @@
             pictureBox3.TabIndex = 11;
             pictureBox3.TabStop = false;
             // 
-            // loginudc1
-            // 
-            loginudc1.BackColor = Color.Transparent;
-            loginudc1.Location = new Point(57, 527);
-            loginudc1.Name = "loginudc1";
-            loginudc1.Size = new Size(215, 137);
-            loginudc1.TabIndex = 12;
-            // 
             // Calendar
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);

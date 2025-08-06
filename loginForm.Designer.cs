@@ -44,6 +44,7 @@
             label1.Size = new Size(71, 15);
             label1.TabIndex = 0;
             label1.Text = "로그인 화면";
+            
             // 
             // lblLoing
             // 
@@ -53,6 +54,7 @@
             lblLoing.Size = new Size(50, 15);
             lblLoing.TabIndex = 1;
             lblLoing.Text = "로그인 :";
+            
             // 
             // lblPassword
             // 
@@ -62,6 +64,7 @@
             lblPassword.Size = new Size(62, 15);
             lblPassword.TabIndex = 3;
             lblPassword.Text = "비밀번호 :";
+            
             // 
             // btnLoing
             // 
@@ -79,6 +82,7 @@
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(100, 23);
             txtPassword.TabIndex = 5;
+            
             // 
             // txtUsername
             // 
@@ -86,6 +90,7 @@
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(100, 23);
             txtUsername.TabIndex = 5;
+            
             // 
             // loginForm
             // 

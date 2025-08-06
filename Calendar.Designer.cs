@@ -168,6 +168,10 @@
             label64 = new Label();
             timer1 = new System.Windows.Forms.Timer(components);
             button1 = new Button();
+            pictureBox1 = new PictureBox();
+            label65 = new Label();
+            pictureBox2 = new PictureBox();
+            pictureBox3 = new PictureBox();
             CalendarTable.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -235,6 +239,9 @@
             panel52.SuspendLayout();
             panel51.SuspendLayout();
             panel50.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             SuspendLayout();
             // 
             // CalendarTable
@@ -289,7 +296,7 @@
             CalendarTable.Controls.Add(panel40, 4, 5);
             CalendarTable.Controls.Add(panel41, 5, 5);
             CalendarTable.Controls.Add(panel42, 6, 5);
-            CalendarTable.Location = new Point(238, 85);
+            CalendarTable.Location = new Point(329, 100);
             CalendarTable.Name = "CalendarTable";
             CalendarTable.RowCount = 6;
             CalendarTable.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
@@ -1275,8 +1282,8 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2427282F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2427282F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2427282F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.1424274F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.44333F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2427282F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.5436306F));
             tableLayoutPanel1.Controls.Add(panel49, 6, 0);
             tableLayoutPanel1.Controls.Add(panel48, 5, 0);
             tableLayoutPanel1.Controls.Add(panel47, 4, 0);
@@ -1284,7 +1291,7 @@
             tableLayoutPanel1.Controls.Add(panel45, 2, 0);
             tableLayoutPanel1.Controls.Add(panel44, 1, 0);
             tableLayoutPanel1.Controls.Add(panel43, 0, 0);
-            tableLayoutPanel1.Location = new Point(238, 48);
+            tableLayoutPanel1.Location = new Point(329, 63);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
@@ -1297,10 +1304,10 @@
             panel49.BorderStyle = BorderStyle.FixedSingle;
             panel49.Controls.Add(label49);
             panel49.Dock = DockStyle.Fill;
-            panel49.Location = new Point(852, 1);
+            panel49.Location = new Point(853, 1);
             panel49.Margin = new Padding(1);
             panel49.Name = "panel49";
-            panel49.Size = new Size(144, 36);
+            panel49.Size = new Size(143, 36);
             panel49.TabIndex = 8;
             // 
             // label49
@@ -1310,7 +1317,7 @@
             label49.Location = new Point(0, 0);
             label49.Name = "label49";
             label49.Padding = new Padding(5);
-            label49.Size = new Size(142, 34);
+            label49.Size = new Size(141, 34);
             label49.TabIndex = 0;
             label49.Text = "토";
             label49.TextAlign = ContentAlignment.MiddleCenter;
@@ -1324,7 +1331,7 @@
             panel48.Location = new Point(711, 1);
             panel48.Margin = new Padding(1);
             panel48.Name = "panel48";
-            panel48.Size = new Size(139, 36);
+            panel48.Size = new Size(140, 36);
             panel48.TabIndex = 7;
             // 
             // label48
@@ -1333,7 +1340,7 @@
             label48.Location = new Point(0, 0);
             label48.Name = "label48";
             label48.Padding = new Padding(5);
-            label48.Size = new Size(137, 34);
+            label48.Size = new Size(138, 34);
             label48.TabIndex = 0;
             label48.Text = "금";
             label48.TextAlign = ContentAlignment.MiddleCenter;
@@ -1457,38 +1464,50 @@
             // lbYearMonth
             // 
             lbYearMonth.AutoSize = true;
+            lbYearMonth.BackColor = Color.WhiteSmoke;
+            lbYearMonth.BorderStyle = BorderStyle.Fixed3D;
             lbYearMonth.Font = new Font("맑은 고딕", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            lbYearMonth.Location = new Point(238, 20);
+            lbYearMonth.ForeColor = Color.Black;
+            lbYearMonth.Location = new Point(329, 33);
             lbYearMonth.Name = "lbYearMonth";
-            lbYearMonth.Size = new Size(73, 25);
+            lbYearMonth.Size = new Size(75, 27);
             lbYearMonth.TabIndex = 2;
             lbYearMonth.Text = "label50";
             // 
             // btnNext
             // 
-            btnNext.Location = new Point(1268, 442);
+            btnNext.FlatAppearance.BorderColor = Color.FromArgb(224, 224, 224);
+            btnNext.FlatAppearance.MouseOverBackColor = Color.FromArgb(224, 224, 224);
+            btnNext.FlatStyle = FlatStyle.Flat;
+            btnNext.Location = new Point(1296, 30);
             btnNext.Name = "btnNext";
-            btnNext.Size = new Size(75, 23);
+            btnNext.Size = new Size(30, 30);
             btnNext.TabIndex = 3;
-            btnNext.Text = "Next";
+            btnNext.Text = ">";
             btnNext.UseVisualStyleBackColor = true;
             btnNext.Click += btnNext_Click;
             // 
             // btnPrev
             // 
-            btnPrev.Location = new Point(124, 442);
+            btnPrev.FlatAppearance.BorderColor = Color.FromArgb(224, 224, 224);
+            btnPrev.FlatAppearance.MouseOverBackColor = Color.FromArgb(224, 224, 224);
+            btnPrev.FlatStyle = FlatStyle.Flat;
+            btnPrev.Location = new Point(1260, 30);
             btnPrev.Name = "btnPrev";
-            btnPrev.Size = new Size(75, 23);
+            btnPrev.Size = new Size(30, 30);
             btnPrev.TabIndex = 3;
-            btnPrev.Text = "Prev";
+            btnPrev.Text = "<";
             btnPrev.UseVisualStyleBackColor = true;
             btnPrev.Click += btnPrev_Click;
             // 
             // btnToday
             // 
-            btnToday.Location = new Point(711, 19);
+            btnToday.FlatAppearance.BorderColor = Color.FromArgb(224, 224, 224);
+            btnToday.FlatAppearance.MouseOverBackColor = Color.FromArgb(224, 224, 224);
+            btnToday.FlatStyle = FlatStyle.Flat;
+            btnToday.Location = new Point(952, 30);
             btnToday.Name = "btnToday";
-            btnToday.Size = new Size(75, 23);
+            btnToday.Size = new Size(75, 30);
             btnToday.TabIndex = 3;
             btnToday.Text = "Today";
             btnToday.UseVisualStyleBackColor = true;
@@ -1511,7 +1530,7 @@
             CalendarWeekTable.Controls.Add(panel59, 2, 0);
             CalendarWeekTable.Controls.Add(panel58, 1, 0);
             CalendarWeekTable.Controls.Add(panel57, 0, 0);
-            CalendarWeekTable.Location = new Point(240, 144);
+            CalendarWeekTable.Location = new Point(331, 159);
             CalendarWeekTable.Name = "CalendarWeekTable";
             CalendarWeekTable.RowCount = 1;
             CalendarWeekTable.RowStyles.Add(new RowStyle(SizeType.Percent, 100.000008F));
@@ -1698,7 +1717,7 @@
             tableLayoutPanel3.Controls.Add(panel52, 2, 0);
             tableLayoutPanel3.Controls.Add(panel51, 1, 0);
             tableLayoutPanel3.Controls.Add(panel50, 0, 0);
-            tableLayoutPanel3.Location = new Point(240, 48);
+            tableLayoutPanel3.Location = new Point(331, 63);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 1;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
@@ -1871,9 +1890,12 @@
             // 
             // btnWeek
             // 
-            btnWeek.Location = new Point(792, 19);
+            btnWeek.FlatAppearance.BorderColor = Color.FromArgb(224, 224, 224);
+            btnWeek.FlatAppearance.MouseOverBackColor = Color.FromArgb(224, 224, 224);
+            btnWeek.FlatStyle = FlatStyle.Flat;
+            btnWeek.Location = new Point(1033, 30);
             btnWeek.Name = "btnWeek";
-            btnWeek.Size = new Size(75, 23);
+            btnWeek.Size = new Size(75, 30);
             btnWeek.TabIndex = 3;
             btnWeek.Text = "주";
             btnWeek.UseVisualStyleBackColor = true;
@@ -1881,9 +1903,12 @@
             // 
             // btnMonth
             // 
-            btnMonth.Location = new Point(873, 20);
+            btnMonth.FlatAppearance.BorderColor = Color.FromArgb(224, 224, 224);
+            btnMonth.FlatAppearance.MouseOverBackColor = Color.FromArgb(224, 224, 224);
+            btnMonth.FlatStyle = FlatStyle.Flat;
+            btnMonth.Location = new Point(1114, 30);
             btnMonth.Name = "btnMonth";
-            btnMonth.Size = new Size(75, 23);
+            btnMonth.Size = new Size(75, 30);
             btnMonth.TabIndex = 3;
             btnMonth.Text = "월";
             btnMonth.UseVisualStyleBackColor = true;
@@ -1892,7 +1917,7 @@
             // label64
             // 
             label64.AutoSize = true;
-            label64.Location = new Point(1297, 48);
+            label64.Location = new Point(1388, 63);
             label64.Name = "label64";
             label64.Size = new Size(46, 15);
             label64.TabIndex = 6;
@@ -1904,13 +1929,61 @@
             // 
             // button1
             // 
-            button1.Location = new Point(1268, 239);
+            button1.FlatAppearance.BorderColor = Color.FromArgb(224, 224, 224);
+            button1.FlatAppearance.MouseOverBackColor = Color.FromArgb(224, 224, 224);
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Location = new Point(116, 484);
             button1.Name = "button1";
-            button1.Size = new Size(75, 23);
+            button1.Size = new Size(89, 39);
             button1.TabIndex = 7;
-            button1.Text = "button1";
+            button1.Text = "+ 만들기";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor = Color.Transparent;
+            pictureBox1.Image = Properties.Resources.모블캘린더2_Photoroom;
+            pictureBox1.Location = new Point(112, 130);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(100, 100);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 8;
+            pictureBox1.TabStop = false;
+            // 
+            // label65
+            // 
+            label65.AutoSize = true;
+            label65.BackColor = Color.WhiteSmoke;
+            label65.BorderStyle = BorderStyle.Fixed3D;
+            label65.Font = new Font("Segoe Print", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label65.ForeColor = Color.Black;
+            label65.Location = new Point(45, 233);
+            label65.Name = "label65";
+            label65.Size = new Size(235, 49);
+            label65.TabIndex = 9;
+            label65.Text = "Moble Calendar";
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.BackColor = Color.Transparent;
+            pictureBox2.Image = Properties.Resources.스크린샷_2025_08_06_1407021_Photoroom;
+            pictureBox2.Location = new Point(75, 846);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(156, 22);
+            pictureBox2.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBox2.TabIndex = 10;
+            pictureBox2.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.Image = Properties.Resources.스크린샷_2025_08_06_141112;
+            pictureBox3.Location = new Point(56, 287);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(215, 191);
+            pictureBox3.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBox3.TabIndex = 11;
+            pictureBox3.TabStop = false;
             // 
             // Calendar
             // 
@@ -1918,6 +1991,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1681, 880);
+            Controls.Add(pictureBox3);
+            Controls.Add(pictureBox2);
+            Controls.Add(label65);
+            Controls.Add(pictureBox1);
             Controls.Add(button1);
             Controls.Add(label64);
             Controls.Add(btnPrev);
@@ -1926,10 +2003,10 @@
             Controls.Add(btnToday);
             Controls.Add(btnNext);
             Controls.Add(lbYearMonth);
-            Controls.Add(CalendarWeekTable);
-            Controls.Add(tableLayoutPanel3);
             Controls.Add(CalendarTable);
             Controls.Add(tableLayoutPanel1);
+            Controls.Add(CalendarWeekTable);
+            Controls.Add(tableLayoutPanel3);
             Name = "Calendar";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
@@ -2002,6 +2079,9 @@
             panel52.ResumeLayout(false);
             panel51.ResumeLayout(false);
             panel50.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -2147,5 +2227,9 @@
         private Label label64;
         private System.Windows.Forms.Timer timer1;
         private Button button1;
+        private PictureBox pictureBox1;
+        private Label label65;
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox3;
     }
 }

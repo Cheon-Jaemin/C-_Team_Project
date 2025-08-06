@@ -73,6 +73,20 @@ namespace C_TeamProject
             InitializeComponent();
         }
 
+        private void SetSeasonBackground(int month)
+        {
+            if (month >= 3 && month <= 5)
+                this.BackgroundImage = Properties.Resources.spring;
+            else if (month >= 6 && month <= 8)
+                this.BackgroundImage = Properties.Resources.summer;
+            else if (month >= 9 && month <= 11)
+                this.BackgroundImage = Properties.Resources.autumn;
+            else
+                this.BackgroundImage = Properties.Resources.winter;
+
+            this.BackgroundImageLayout = ImageLayout.Stretch;
+        }
+
         private void Calendar_Load(object sender, EventArgs e)
         {
             timer1.Start();
@@ -81,6 +95,7 @@ namespace C_TeamProject
             currentMonth = DateTime.Now.Month;
             Fill(currentYear, currentMonth);
 
+            SetSeasonBackground(currentMonth);
 
             foreach (Control ctrl in CalendarTable.Controls)
             {
@@ -120,8 +135,13 @@ namespace C_TeamProject
         }
         private void draw_blue(int currentDay, int currentMonth)
         {
-            Fill(currentYear, currentMonth); // 월간 보기 초기화
-            ShowWeek(cursorDatetime);
+            
+            if(CalendarWeekTable.Visible)
+                ShowWeek(cursorDatetime);
+            if(CalendarTable.Visible)
+                Fill(currentYear, currentMonth);
+            // 월간 보기 초기화
+
             currentDay = cursorDatetime.Day;
             currentMonth = cursorDatetime.Month;
 
@@ -163,7 +183,7 @@ namespace C_TeamProject
             }
 
         }
-        
+
         public void Day_Click(object sender, EventArgs e)
         {
             // eventMaker 폼이 이미 생성되었는지 확인합니다.
@@ -173,9 +193,9 @@ namespace C_TeamProject
                 eventMaker = new EventMaker();
             }
 
-    
-                
-            
+
+
+
 
             //Panel clickPanel = null;
 
@@ -257,7 +277,7 @@ namespace C_TeamProject
                 if (int.TryParse(text, out int day))
                 {
                     cursorDatetime = new DateTime(currentYear, currentMonth, day);
-                    
+
                 }
                 else if (text.Contains("-"))
                 {
@@ -267,7 +287,7 @@ namespace C_TeamProject
                         int.TryParse(parts[1], out int day2))
                     {
                         cursorDatetime = new DateTime(currentYear, month, day2);
-                        
+
                     }
                 }
                 else
@@ -275,14 +295,10 @@ namespace C_TeamProject
                     string datePart = selectedLabel.Text.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
                     if (datePart != null && int.TryParse(datePart, out int day2))
                     {
-                       
-                       
                         cursorDatetime = new DateTime(currentYear, currentMonth, day2);
                         //tbEventStart.Text = cursorDatetime.ToString();                        //tbEventStart는 임의로 표시간 이벤트 시작일 표시 텍스트박스
                         //tbEventEnd.Text = cursorDatetime.ToString();                          // 오나지
                         currentDay = day2;
-                        
-
                     }
                 }
                 if (cursorDatetime != null)
@@ -294,11 +310,11 @@ namespace C_TeamProject
                     MessageBox.Show("");
                 }
 
-                    // 폼을 보이게 합니다.
-                    
+                // 폼을 보이게 합니다.
+
             }
             draw_blue(currentDay, currentMonth);
-            
+
         }
 
         public void WeekDay_Click(object sender, EventArgs e)
@@ -398,7 +414,7 @@ namespace C_TeamProject
                 {
                     cursorDatetime = currentWeekStart.AddDays(dayIndex);
                     currentMonth = cursorDatetime.Month;
-                    currentDay= cursorDatetime.Day;
+                    currentDay = cursorDatetime.Day;
                 }
             }
             // eventMaker 폼이 이미 생성되었는지 확인합니다.
@@ -415,85 +431,15 @@ namespace C_TeamProject
             {
                 MessageBox.Show("");
             }
-            draw_blue(currentDay,currentMonth);
+            draw_blue(currentDay, currentMonth);
 
         }
 
         public void Fill(int year, int month)
         {
-            //// 1. 기존에 표시된 일정(이벤트) 라벨들을 모두 삭제합니다.
-            //foreach (Control ctrl in CalendarTable.Controls)
-            //{
-            //    if (ctrl is Panel panel)
-            //    {
-            //        // Panel의 모든 컨트롤을 역순으로 순회하며 삭제
-            //        // 첫 번째 컨트롤(날짜 라벨)은 제외
-            //        for (int i = panel.Controls.Count - 1; i > 0; i--)
-            //        {
-            //            panel.Controls.RemoveAt(i);
-            //        }
-            //    }
-            //}
-
-            //AddHolidays(year);
-            //lbYearMonth.Text = $"{year}년 {month}월";
-
-            //DateTime firstDay = new DateTime(year, month, 1);
-            //int DaysInMonth = DateTime.DaysInMonth(year, month);
-            //int index = (int)firstDay.DayOfWeek;
-
-            //int day = 1;
-
-            //for (int i = 0; i < CalendarTable.Controls.Count; i++)
-            //{
-            //    Panel panel = CalendarTable.Controls[i] as Panel;
-
-            //    if (panel != null && panel.Controls.Count > 0)
-            //    {
-            //        Label label = panel.Controls[0] as Label;
-
-            //        if (i >= index && day <= DaysInMonth)
-            //        {
-            //            DateTime thisDate = new DateTime(year, month, day).Date;
-            //            label.Text = day.ToString();
-
-            //            if (holidays.ContainsKey(thisDate))
-            //            {
-            //                label.ForeColor = Color.Red;
-            //                label.Text += "\n" + holidays[thisDate];
-            //            }
-            //            else
-            //            {
-            //                int dayOfWeek = (i % 7);
-            //                if (dayOfWeek == 0)
-            //                {
-            //                    label.ForeColor = Color.Red;
-            //                }
-            //                else if (dayOfWeek == 6)
-            //                {
-            //                    label.ForeColor = Color.Blue;
-            //                }
-            //                else
-            //                {
-            //                    label.ForeColor = Color.Black;
-            //                }
-            //            }
-            //            panel.Visible = true;
-            //            panel.BackColor = Color.White;
-            //            day++;
-            //        }
-            //        else
-            //        {
-            //            label.Text = "";
-            //            panel.BackColor = Color.Gainsboro;
-            //        }
-            //    }
-            //}
-
-            //// 2. 새로운 달의 일정을 다시 로드합니다.
-            //cursorDatetime = new DateTime(year, month, 1);
-            //ShowEventList();
             AddHolidays(year); // 공휴일 추가 메소드
+
+            SetSeasonBackground(month); // 배경추가 메소드
 
             lbYearMonth.Text = $"{year}년 {month}월";
 
@@ -550,48 +496,6 @@ namespace C_TeamProject
                     }
                 }
             }
-        }
-        public void ShowWeek(DateTime selectDay)
-        {
-            DateTime startWeek = selectDay.AddDays(-(int)selectDay.DayOfWeek);
-            currentWeekStart = startWeek;
-            isWeekView = true;
-
-            // 해당 연도의 공휴일 정보를 미리 로드
-            AddHolidays(startWeek.Year);
-
-            // 주간 달력의 상단 헤더 텍스트를 "YYYY년 MM월" 형식으로 표시
-            lbYearMonth.Text = $"{startWeek.Year}년 {startWeek.Month}월";
-
-            for (int i = 0; i < 7; i++)
-            {
-                DateTime day = startWeek.AddDays(i);
-                // Controls[i] 대신 Controls[6 - i]를 사용하여 올바른 요일 패널에 매핑
-                Panel panel = CalendarWeekTable.Controls[6 - i] as Panel;
-
-                if (panel != null && panel.Controls.Count > 0 && panel.Controls[0] is Label label)
-                {
-                    // 날짜만 표시 (MM/dd 형식)
-                    label.Text = $"{day:MM/dd}";
-
-                    // 공휴일인 경우, 날짜 뒤에 줄 바꿈 후 공휴일 이름을 추가
-                    if (holidays.ContainsKey(day.Date))
-                    {
-                        label.Text += "\n" + holidays[day.Date];
-                        label.ForeColor = Color.Red;
-                    }
-                    else // 공휴일이 아닌 경우, 요일에 따라 색상 지정
-                    {
-                        label.ForeColor = (i == 0) ? Color.Red : (i == 6) ? Color.Blue : Color.Black;
-                    }
-                }
-            }
-
-            CalendarTable.Visible = false;
-            tableLayoutPanel1.Visible = false;
-
-            tableLayoutPanel3.Visible = true;
-            CalendarWeekTable.Visible = true;
         }
 
         private void btnPrev_Click(object sender, EventArgs e)
@@ -676,6 +580,8 @@ namespace C_TeamProject
         }
         public void ShowWeek(DateTime selectDay)
         {
+            SetSeasonBackground(selectDay.Month);
+
             DateTime startWeek = selectDay.AddDays(-(int)selectDay.DayOfWeek);
             currentWeekStart = startWeek;
             isWeekView = true;
@@ -789,7 +695,6 @@ namespace C_TeamProject
             CalendarWeekTable.Visible = false;
             tableLayoutPanel3.Visible = false;
         }
-        //
 
         //소현섭 코드
         private void ShowEventList()
@@ -1217,5 +1122,5 @@ namespace C_TeamProject
         }
     }
 
-}   
+}
 

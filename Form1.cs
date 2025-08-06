@@ -59,12 +59,23 @@ namespace C_TeamProject
             // 현재 날짜 표시("종일"을 눌렀을 경우)
             lb_Time2.Text = cursorDateTime.ToString("M월 d일");
 
+            if (Calendar.clickedLabel != null)
+            {
+
+                tb_Content.Text = Calendar.clickedLabel.Text;
+            }
+            else
+            {
+                tb_Content.Text = "";
+            }
+
         }
 
         // 이벤트 제목을 TextBox에 입력하면 "제목" 라벨이 사라지도록 설정 
         private void tb_Title_TextChanged(object sender, EventArgs e)
         {
-            lb_Title.Visible = string.IsNullOrWhiteSpace(tb_Title.Text);
+           
+             lb_Title.Visible = string.IsNullOrWhiteSpace(tb_Title.Text);
         }
 
         // 참가자 입력 시 "참가자" 라벨이 사라지도록 설정

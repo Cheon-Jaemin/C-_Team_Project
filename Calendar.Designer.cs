@@ -1935,6 +1935,7 @@
             Text = "Form1";
             Load += Calendar_Load;
             KeyDown += Calendar_KeyDown;
+            MouseDown += Calendar_MouseDown;
             CalendarTable.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);

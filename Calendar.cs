@@ -551,6 +551,48 @@ namespace C_TeamProject
                 }
             }
         }
+        public void ShowWeek(DateTime selectDay)
+        {
+            DateTime startWeek = selectDay.AddDays(-(int)selectDay.DayOfWeek);
+            currentWeekStart = startWeek;
+            isWeekView = true;
+
+            // 해당 연도의 공휴일 정보를 미리 로드
+            AddHolidays(startWeek.Year);
+
+            // 주간 달력의 상단 헤더 텍스트를 "YYYY년 MM월" 형식으로 표시
+            lbYearMonth.Text = $"{startWeek.Year}년 {startWeek.Month}월";
+
+            for (int i = 0; i < 7; i++)
+            {
+                DateTime day = startWeek.AddDays(i);
+                // Controls[i] 대신 Controls[6 - i]를 사용하여 올바른 요일 패널에 매핑
+                Panel panel = CalendarWeekTable.Controls[6 - i] as Panel;
+
+                if (panel != null && panel.Controls.Count > 0 && panel.Controls[0] is Label label)
+                {
+                    // 날짜만 표시 (MM/dd 형식)
+                    label.Text = $"{day:MM/dd}";
+
+                    // 공휴일인 경우, 날짜 뒤에 줄 바꿈 후 공휴일 이름을 추가
+                    if (holidays.ContainsKey(day.Date))
+                    {
+                        label.Text += "\n" + holidays[day.Date];
+                        label.ForeColor = Color.Red;
+                    }
+                    else // 공휴일이 아닌 경우, 요일에 따라 색상 지정
+                    {
+                        label.ForeColor = (i == 0) ? Color.Red : (i == 6) ? Color.Blue : Color.Black;
+                    }
+                }
+            }
+
+            CalendarTable.Visible = false;
+            tableLayoutPanel1.Visible = false;
+
+            tableLayoutPanel3.Visible = true;
+            CalendarWeekTable.Visible = true;
+        }
 
         private void btnPrev_Click(object sender, EventArgs e)
         {
@@ -747,6 +789,7 @@ namespace C_TeamProject
             CalendarWeekTable.Visible = false;
             tableLayoutPanel3.Visible = false;
         }
+        //
 
         //소현섭 코드
         private void ShowEventList()

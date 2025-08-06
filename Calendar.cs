@@ -620,6 +620,7 @@ namespace C_TeamProject
             if (isWeekView)//
             {
                 currentWeekStart = currentWeekStart.AddDays(-7);
+                cursorDatetime = currentWeekStart;
                 ShowWeek(currentWeekStart);
             }
             else
@@ -630,6 +631,7 @@ namespace C_TeamProject
                     currentMonth = 12;
                     currentYear--;
                 }
+                cursorDatetime = new DateTime(currentYear, currentMonth, 1);
                 Fill(currentYear, currentMonth);
             }
         }
@@ -640,6 +642,7 @@ namespace C_TeamProject
             {
                
                 currentWeekStart = currentWeekStart.AddDays(7);
+                cursorDatetime = currentWeekStart;
                 ShowWeek(currentWeekStart);
             }
             else
